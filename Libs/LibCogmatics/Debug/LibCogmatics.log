@@ -1,0 +1,27 @@
+﻿Build started 05/11/2011 18:02:28.
+     1>Project "D:\Cogmotion\Libs\LibCogmatics\LibCogmatics.vcxproj" on node 2 (build target(s)).
+     1>PrepareForBuild:
+         Creating directory "D:\Cogmotion\Build\Debug\".
+       InitializeBuildStatus:
+         Creating "Debug\LibCogmatics.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+         All outputs are up-to-date.
+       Lib:
+         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\Lib.exe /OUT:"D:\Cogmotion\Build\Debug\LibCogmatics.lib" osgd.lib OpenThreads.lib /LIBPATH:..\..\3rdParty\OpenSceneGraph\win32\lib /NOLOGO Debug\Axis.obj
+         Debug\Factory.obj
+         Debug\Machine.obj
+         Debug\Node.obj
+         Debug\stdafx.obj
+     1>OpenThreads.lib(ot12-OpenThreads.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in osgd.lib(osg80-osgd.dll); second definition ignored
+     1>OpenThreads.lib(ot12-OpenThreads.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         LibCogmatics.vcxproj -> D:\Cogmotion\Build\Debug\LibCogmatics.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\LibCogmatics.unsuccessfulbuild".
+         Touching "Debug\LibCogmatics.lastbuildstate".
+     1>Done Building Project "D:\Cogmotion\Libs\LibCogmatics\LibCogmatics.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.36
