@@ -17,7 +17,8 @@ namespace LibCogmatics
 
 	void Part::loadGraphics (CoString fileName)
 	{
-		osg::Node* node = osgDB::readNodeFile(fileName);
+		_fileName = fileName;
+		osg::Node* node = osgDB::readNodeFile(_fileName);
 		addChild(node);
 	}
 }

@@ -1,14 +1,9 @@
 #pragma once
 
 #include <osg/MatrixTransform>
-
 #include <fstream>
-#include <boost/archive/xml_wiarchive.hpp>
-#include <boost/archive/xml_woarchive.hpp>
-#include <boost/serialization/string.hpp> 
-#include <boost/serialization/version.hpp>
 
-using boost::serialization::make_nvp;
+#include "LibCogmatics.h"
 
 namespace LibCogmatics
 {
@@ -33,7 +28,7 @@ namespace LibCogmatics
 		template<class Archive>
 		void serialize(Archive& ar, const unsigned int version)
 		{
-			//ar & BOOST_SERIALIZATION_NVP(_ID);
+			ar & BOOST_SERIALIZATION_NVP(_ID);
 		}
 	};
 
@@ -59,8 +54,8 @@ namespace LibCogmatics
 		template<class Archive>
 		void serialize(Archive& ar, const unsigned int version)
 		{
-			//ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
-			//ar & BOOST_SERIALIZATION_NVP(_name);
+			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
+			ar & BOOST_SERIALIZATION_NVP(_machineNodeName);
 		}
 	};
 }

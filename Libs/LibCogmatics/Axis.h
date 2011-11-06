@@ -53,6 +53,20 @@ namespace LibCogmatics
 		const Vec& origin() { return _origin; }
 		const Vec& vector() { return _axisVector; }
 		const float& value() { return _value; }
+	private:
+		friend class boost::serialization::access;
+
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
+			ar & BOOST_SERIALIZATION_NVP(_origin);
+			ar & BOOST_SERIALIZATION_NVP(_axisVector);
+			ar & BOOST_SERIALIZATION_NVP(_value);
+			ar & BOOST_SERIALIZATION_NVP(_valueInitial);
+			ar & BOOST_SERIALIZATION_NVP(_min);
+			ar & BOOST_SERIALIZATION_NVP(_max);
+		}
 	};
 
 	class RotaryAxis : public Axis
@@ -67,6 +81,14 @@ namespace LibCogmatics
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~RotaryAxis() {}
+	private:
+		friend class boost::serialization::access;
+
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Axis);
+		}
 	};
 
 	class LinearAxis : public Axis
@@ -81,5 +103,13 @@ namespace LibCogmatics
 		LinearAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~LinearAxis() {}
+	private:
+		friend class boost::serialization::access;
+
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version)
+		{
+			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Axis);
+		}
 	};
 }
