@@ -9,6 +9,7 @@
 #include <osg/Vec3f>
 #include <osg/Vec3d>
 #include <osg/Matrixf>
+#include <Boost/foreach.hpp>
 
 namespace LibCogmatics
 {
@@ -17,8 +18,12 @@ namespace LibCogmatics
 	typedef osg::Matrixf Matrix;
 
 	// Unicode string type
-	typedef std::wstring String;
+	typedef std::string String;
+	typedef const String& CoString;
 
 	// Node ID
 	typedef uint64_t NodeID;
+	
+#define foreach BOOST_FOREACH
+	//#define allof (container) container.begin(), container.end()
 }

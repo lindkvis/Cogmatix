@@ -23,8 +23,13 @@ namespace LibCogmatics
 		return RotaryAxis::Ptr (new RotaryAxis (_nextID++, axisVector, origin, valueInitial, min, max));
 	}
 
-	Machine::Ptr Factory::CreateMachine(const String& name)
+	Machine::Ptr Factory::CreateMachine(CoString name)
 	{
 		return Machine::Ptr (new Machine (_nextID++, name));
+	}
+
+	Part::Ptr Factory::CreatePart(CoString name, CoString fileName)
+	{
+		return Part::Ptr (new Part (_nextID++, name, fileName));
 	}
 }

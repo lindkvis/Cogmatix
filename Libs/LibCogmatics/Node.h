@@ -1,25 +1,40 @@
 #pragma once
 
 #include <osg/MatrixTransform>
+
+#include <fstream>
+#include <boost/archive/xml_wiarchive.hpp>
+#include <boost/archive/xml_woarchive.hpp>
+#include <boost/serialization/string.hpp> 
+#include <boost/serialization/version.hpp>
+
+using boost::serialization::make_nvp;
+
 namespace LibCogmatics
 {
 	/**
 	 * Abstract Node class. Any Cogmatic machine component will inherit from this
 	 */
-	class MachineNode : public osg::MatrixTransform
+	class MachineNode
 	{
-	protected:
-		NodeID _ID; ///<Machine specific ID. Unique within the machine. 4 billion parts per machine ought to be enough for everyone.>
 	public:
-		typedef osg::ref_ptr<MachineNode> Ptr;
-		typedef osg::ref_ptr<const MachineNode> CPtr;
 		NodeID ID() { return _ID; }
 	protected:
+		NodeID _ID; ///<Machine specific ID. Unique within the machine.
+
 		/**
 		* Made protected because the constructors should never be called manually.
 		*/
 		MachineNode(NodeID ID) : _ID (ID) {}
 		virtual ~MachineNode() {};
+	private:
+		friend class boost::serialization::access;
+
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version)
+		{
+			//ar & BOOST_SERIALIZATION_NVP(_ID);
+		}
 	};
 
 	/**
@@ -28,15 +43,27 @@ namespace LibCogmatics
 	class NamedMachineNode : public MachineNode
 	{
 	public:
-		typedef osg::ref_ptr<NamedMachineNode> Ptr;
-		typedef osg::ref_ptr<const NamedMachineNode> CPtr;
-		const String& Name() const { return _name; }
+		CoString Name() const { return _machineNodeName; }
+		void SetName (CoString name) { _machineNodeName = name; }
 	protected:
-		String _name;
+		String _machineNodeName;
 		/**
 		* Made protected because the constructors should never be called manually.
 		*/
-		NamedMachineNode(NodeID ID, const String& name) : _name(name), MachineNode (ID) {}
+		NamedMachineNode(NodeID ID, CoString name) : _machineNodeName(name), MachineNode (ID) {}
 		virtual ~NamedMachineNode() {};
+
+	private:
+		friend class boost::serialization::access;
+
+		template<class Archive>
+		void serialize(Archive& ar, const unsigned int version)
+		{
+			//ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
+			//ar & BOOST_SERIALIZATION_NVP(_name);
+		}
 	};
 }
+
+BOOST_CLASS_VERSION(LibCogmatics::MachineNode, 0)
+BOOST_CLASS_VERSION(LibCogmatics::NamedMachineNode, 0)

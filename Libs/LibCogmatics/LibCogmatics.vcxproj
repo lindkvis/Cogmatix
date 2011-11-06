@@ -52,7 +52,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>..\..\3rdParty\OpenSceneGraph\win32\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>osgd.lib;OpenThreads.lib</AdditionalDependencies>
+      <AdditionalDependencies>osgd.lib;osgDBd.lib;OpenThreads.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -72,7 +72,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>osg.lib;OpenThreads.lib</AdditionalDependencies>
+      <AdditionalDependencies>osg.lib;osgDB.lib;OpenThreads.lib</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>..\..\3rdParty\OpenSceneGraph\win32\lib</AdditionalLibraryDirectories>
@@ -87,6 +87,7 @@
     <ClInclude Include="LibCogmatics.h" />
     <ClInclude Include="Machine.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Part.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -95,6 +96,7 @@
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Machine.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Part.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

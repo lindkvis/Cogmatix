@@ -4,6 +4,7 @@
 
 #include "Machine.h"
 #include "Axis.h"
+#include "Part.h"
 
 
 namespace LibCogmatics
@@ -46,7 +47,9 @@ namespace LibCogmatics
 		/**
 		 * Constructs a new Machine
 		 */
-		Machine::Ptr CreateMachine(const String& name);	
+		Machine::Ptr CreateMachine(CoString name);	
+
+		Part::Ptr CreatePart(CoString name, CoString fileName);
 	private:
 		NodeID _nextID;
 

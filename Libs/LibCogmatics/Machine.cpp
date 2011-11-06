@@ -3,7 +3,7 @@
 
 namespace LibCogmatics
 {
-	Machine::Machine(NodeID ID, const String& name) : NamedMachineNode(ID, name)
+	Machine::Machine(NodeID ID, CoString name) : NamedMachineNode(ID, name)
 	{
 	}
 

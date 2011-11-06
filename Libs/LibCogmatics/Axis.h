@@ -11,7 +11,7 @@ namespace LibCogmatics
 	* Inherits osg::MatrixTransform, so that all children will receive any movement applied to this axis.
 	* @author Gaute Lindkvist <lindkvis@gmail.com>
 	*/
-	class Axis : public MachineNode
+	class Axis : public MachineNode, public osg::MatrixTransform
 	{
 	public:
 		enum DiagnosticEnum
