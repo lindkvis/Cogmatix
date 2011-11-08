@@ -13,7 +13,7 @@ namespace LibCogmatics
 	{
 		if (newValue >= _min && newValue <= _max)
 		{
-			_matrix.postMult(Matrix::rotate(newValue-_value, _axisVector));
+			postMult(Matrix::rotate(newValue-_value, _axisVector));
 			_value = newValue;	
 			return true;
 		}
@@ -28,7 +28,7 @@ namespace LibCogmatics
 	{
 		if (newValue >= _min && newValue <= _max)
 		{
-			_matrix.postMult(Matrix::translate(_axisVector * (newValue - _value)));
+			postMult(Matrix::translate(_axisVector * (newValue - _value)));
 			_value = newValue;
 			return true;
 		}
