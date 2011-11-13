@@ -28,8 +28,20 @@ namespace LibCogmatics
 		return Machine::Ptr (new Machine (_nextID++, name));
 	}
 
-	Part::Ptr Factory::CreatePart(CoString name, CoString fileName)
+	CompositePart::Ptr Factory::CreateCompositePart(CoString name, CoString fileName)
 	{
-		return Part::Ptr (new Part (_nextID++, name, fileName));
+		return CompositePart::Ptr (new CompositePart (_nextID++, name, fileName));
 	}
+
+	Part::Ptr Factory::CreatePart(CoString name)
+	{
+		return Part::Ptr (new Part (_nextID++, name));
+	}
+
+	ParametricSpurGear::Ptr Factory::CreateParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module)
+	{
+		return ParametricSpurGear::Ptr (new ParametricSpurGear (numberOfTeeth, depth, rootDiameter, axisDiameter, module));
+	}
+
+
 }

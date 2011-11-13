@@ -75,9 +75,7 @@ namespace LibCogmatics
 		typedef osg::ref_ptr<RotaryAxis> Ptr;
 		typedef osg::ref_ptr<const RotaryAxis> CPtr;
 		virtual bool moveTo(float newValue);
-	protected:
-		friend class Factory;
-
+	factory_protected:
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~RotaryAxis() {}
@@ -97,9 +95,7 @@ namespace LibCogmatics
 		typedef osg::ref_ptr<LinearAxis> Ptr;
 		typedef osg::ref_ptr<const LinearAxis> CPtr;
 		virtual bool moveTo(float newValue);
-	protected:
-		friend class Factory;
-
+	factory_protected:
 		LinearAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~LinearAxis() {}

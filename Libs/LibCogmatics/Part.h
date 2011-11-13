@@ -2,31 +2,20 @@
 
 #include <osg/Geode>
 
-#include "node.h"
+#include "Node.h"
 
 namespace LibCogmatics
 {
-	class Part : public NamedMachineNode, public osg::MatrixTransform
+	class Part : public NamedMachineNode, public osg::Geode
 	{
 	public:
-		typedef	osg::ref_ptr<Part> Ptr;
+		typedef osg::ref_ptr<Part> Ptr;
 		typedef osg::ref_ptr<const Part> CPtr;
-		// TODO: make this unicode
-		void loadGraphics (CoString fileName);
-	protected:
-		friend class Factory;
-		String _fileName;
 
-		Part(NodeID ID, CoString name, CoString fileName);
-		~Part();
+	factory_protected:
+		Part(NodeID ID, CoString name);
+		~Part(void);
 	private:
 		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(NamedMachineNode);
-			ar & BOOST_SERIALIZATION_NVP(_fileName);
-		}
 	};
 }

@@ -23,6 +23,7 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/TrackballManipulator>
+#include <osg/PolygonMode>
 #include <iostream>
 
 #include <boost/archive/xml_iarchive.hpp>
@@ -35,12 +36,12 @@ using namespace LibCogmatics;
 bool loadShaderSource(osg::Shader* obj, const std::string& fileName )
 {
 	std::string fqFileName = osgDB::findDataFile(fileName);
-	if( fqFileName.length() == 0 )
+	if( fileName.length() == 0 )
 	{
 		std::cout << "File \"" << fileName << "\" not found." << std::endl;
 		return false;
 	}
-	bool success = obj->loadShaderSourceFromFile( fqFileName.c_str());
+	bool success = obj->loadShaderSourceFromFile( fileName.c_str());
 	if ( !success  )
 	{
 		std::cout << "Couldn't load file: " << fileName << std::endl;
@@ -60,19 +61,31 @@ int main( int argc, char **argv )
 	Machine::Ptr machine = Factory::Get()->CreateMachine("TestMachine");
 	LinearAxis::Ptr axisLinear = Factory::Get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
 	RotaryAxis::Ptr axisRotary = Factory::Get()->CreateRotaryAxis(Vec(0., 1., 0.), Vec(0., 0., 0.), 0., -100., 1000.);
-	Part::Ptr part = Factory::Get()->CreatePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	Part::Ptr part2 = Factory::Get()->CreatePart("Test part 2)", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\cessna.osg");
+	//CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	Part::Ptr part2 = Factory::Get()->CreatePart("Test cog");
+	ParametricSpurGear::Ptr gear = Factory::Get()->CreateParametricSpurGear(8, Length(50.*meters), Length(50.*meters), Length(20.*meters), Length(10.*meters)); 
+	part2->addDrawable(gear);
 	machine->addChild(axisRotary);
 	axisRotary->addChild(axisLinear);
 	
 	axisLinear->addChild(part2);
-	axisRotary->addChild(part);
+	//axisRotary->addChild(part);
 	axisLinear->moveTo(99.);
 	axisRotary->moveTo(3.);
 
-	 osg::StateSet* brickState = part->getOrCreateStateSet();
+	osg::StateSet* state = part2->getOrCreateStateSet();
+	osg::PolygonMode *polyModeObj;
 
-	 osg::Program* brickProgramObject = new osg::Program;
+	polyModeObj = dynamic_cast<osg::PolygonMode*>
+		(state->getAttribute(osg::StateAttribute::POLYGONMODE));
+	if ( !polyModeObj ) 
+	{
+		polyModeObj = new osg::PolygonMode;
+		state->setAttribute(polyModeObj); 
+	}
+	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
+
+	 /* osg::Program* brickProgramObject = new osg::Program;
 	 osg::Shader* brickVertexObject = 
 		 new osg::Shader( osg::Shader::VERTEX );
 	 osg::Shader* brickFragmentObject = 
@@ -83,13 +96,13 @@ int main( int argc, char **argv )
 	 loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
 
 	 brickState->setAttributeAndModes(brickProgramObject, osg::StateAttribute::ON);
-
+	 */
 	{
 		boost::archive::xml_oarchive oa(std::cout);
 		oa << make_nvp("my_machine", *machine);
 		oa << make_nvp("Linear_axis", *axisLinear);
 		oa << make_nvp("Rotary_axis", *axisRotary);
-		oa << make_nvp("part", *part);
+		oa << make_nvp("part", *part2);
 	}
 	viewer.setSceneData(machine.get());
     viewer.run();

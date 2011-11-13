@@ -16,7 +16,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	Machine::Ptr machine = Factory::Get()->CreateMachine("TestMachine");
 	LinearAxis::Ptr axis = Factory::Get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	Part::Ptr part = Factory::Get()->CreatePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	CompositePart::Ptr part = Factory::Get()->CreatePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
 	bool worked = machine->addChild(axis);
 	axis->addChild(part);
 	std::cout << machine->Name() << std::endl;

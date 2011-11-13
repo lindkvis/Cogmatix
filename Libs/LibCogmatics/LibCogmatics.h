@@ -32,6 +32,8 @@ namespace LibCogmatics
 	// Node ID
 	typedef uint64_t NodeID;
 #define foreach BOOST_FOREACH
+#define factory_protected friend class Factory;protected
+						
 }
 
 namespace boost {
@@ -46,3 +48,4 @@ namespace boost {
 		}
 	}
 }
+

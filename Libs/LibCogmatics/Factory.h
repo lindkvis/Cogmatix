@@ -4,8 +4,9 @@
 
 #include "Machine.h"
 #include "Axis.h"
+#include "CompositePart.h"
 #include "Part.h"
-
+#include "ParametricSpurGear.h"
 
 namespace LibCogmatics
 {
@@ -49,7 +50,10 @@ namespace LibCogmatics
 		 */
 		Machine::Ptr CreateMachine(CoString name);	
 
-		Part::Ptr CreatePart(CoString name, CoString fileName);
+		CompositePart::Ptr CreateCompositePart(CoString name, CoString fileName);
+		Part::Ptr CreatePart(CoString name);
+
+		ParametricSpurGear::Ptr CreateParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module);
 	private:
 		NodeID _nextID;
 
