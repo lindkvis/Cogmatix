@@ -40,52 +40,53 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 		// Edges (Quadstrips)
 		for (short i=0; i < numberOfEdges+1; ++i)
 		{
+			Vec p[12]; // 12 points in total.
 			double x0 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
 			double y0 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
 			double x1 = _rootDiameter.value() * cos (2.*pi * double ((i+1) % numberOfEdges)/numberOfEdges);
 			double y1 = _rootDiameter.value() * sin (2.*pi * double ((i+1) % numberOfEdges)/numberOfEdges);
 
-			Vec p0 (x0, y0, 0.);
-			Vec p1 (x0, y0, z);
-			vertices->push_back(p0);
-			vertices->push_back(p1);			
+			p[0] = Vec (x0, y0, 0.);
+			p[1] = Vec (x0, y0, z);
+//			vertices->push_back(p0);
+	//		vertices->push_back(p1);			
 			// the space in between.
-			Vec p0n (x1, y1, 0.);
-			Vec p1n (x1, y1, z);
-			Vec n = (p1-p0) ^ (p0n-p0);
+			p[10] = Vec (x1, y1, 0.);
+			p[11] = Vec (x1, y1, z);
+			Vec n = (p[1]-p[0]) ^ (p[10]-p[0]);
 			n.normalize();
 			//normals->push_back (n);
 
 			if (i % 2 == 0)
 			{
 				// The tooth. Denendum part.
-				Vec p2 = p0 + n * _module.value();
-				Vec p3 = p1 + n * _module.value();
-				Vec p8 = p0n + n * _module.value();
-				Vec p9 = p1n + n * _module.value();
+				p[2] = p[0] + n * _module.value();
+				p[3] = p[1] + n * _module.value();
+				p[8] = p[10] + n * _module.value();
+				p[9] = p[11] + n * _module.value();
 
 				// The tooth. Addendum part.
-				Vec p4 = p2 + n * _module.value(); 
-				Vec p5 = p3 + n * _module.value(); 
-				Vec p6 = p8 + n * _module.value();
-				Vec p7 = p9 + n * _module.value();
+				p[4] = p[2] + n * _module.value(); 
+				p[5] = p[3] + n * _module.value(); 
+				p[6] = p[8] + n * _module.value();
+				p[7] = p[9] + n * _module.value();
 
-				Vec t = p6 - p4;
-				p4 += t*0.25;
-				p6 -= t*0.25;
-				p5 += t*0.25;
-				p7 -= t*0.25;
-				vertices->push_back(p2);
-				vertices->push_back(p3);
-				vertices->push_back(p4);
-				vertices->push_back(p5);
-				vertices->push_back(p6);
-				vertices->push_back(p7);
-				vertices->push_back(p8);
-				vertices->push_back(p9);
+				Vec t = p[6] - p[4];
+				p[4] += t*0.25;
+				p[6] -= t*0.25;
+				p[5] += t*0.25;
+				p[7] -= t*0.25;
+
+				// Do all apart from the last two (they belong to the next iteration)
+				for (int i=0; i < 10; ++i)
+				{
+					vertices->push_back(p[i]);
+				}
 			}
 			else
 			{ 
+				vertices->push_back(p[0]);
+				vertices->push_back(p[1]);
 			}
 		}	
 		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart, vertices->size()-nStart));
