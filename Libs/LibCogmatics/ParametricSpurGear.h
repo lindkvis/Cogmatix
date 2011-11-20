@@ -13,7 +13,7 @@ namespace LibCogmatics
 		typedef osg::ref_ptr<ParametricSpurGear> Ptr;
 		typedef osg::ref_ptr<ParametricSpurGear> CPtr;
 
-		ParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module);
+		ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
 		~ParametricSpurGear(void);
 
 	protected:

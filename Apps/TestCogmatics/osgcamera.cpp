@@ -63,7 +63,7 @@ int main( int argc, char **argv )
 	RotaryAxis::Ptr axisRotary = Factory::Get()->CreateRotaryAxis(Vec(0., 1., 0.), Vec(0., 0., 0.), 0., -100., 1000.);
 	//CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
 	Part::Ptr part2 = Factory::Get()->CreatePart("Test cog");
-	ParametricSpurGear::Ptr gear = Factory::Get()->CreateParametricSpurGear(8, Length(50.*meters), Length(50.*meters), Length(20.*meters), Length(10.*meters)); 
+	ParametricSpurGear::Ptr gear = Factory::Get()->CreateParametricSpurGear(30, Length(50.*meters), Length(20.*meters), Length(10.*meters)); 
 	part2->addDrawable(gear);
 	machine->addChild(axisRotary);
 	axisRotary->addChild(axisLinear);
@@ -83,7 +83,7 @@ int main( int argc, char **argv )
 		polyModeObj = new osg::PolygonMode;
 		state->setAttribute(polyModeObj); 
 	}
-	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
+	//polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
 
 	 /* osg::Program* brickProgramObject = new osg::Program;
 	 osg::Shader* brickVertexObject = 

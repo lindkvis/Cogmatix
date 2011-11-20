@@ -53,7 +53,7 @@ namespace LibCogmatics
 		CompositePart::Ptr CreateCompositePart(CoString name, CoString fileName);
 		Part::Ptr CreatePart(CoString name);
 
-		ParametricSpurGear::Ptr CreateParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module);
+		ParametricSpurGear::Ptr CreateParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
 	private:
 		NodeID _nextID;
 

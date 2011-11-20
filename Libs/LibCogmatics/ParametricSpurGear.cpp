@@ -5,14 +5,13 @@
 
 namespace LibCogmatics
 {
-	ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module)
-		: _numberOfTeeth(numberOfTeeth), _depth(depth), _rootDiameter(rootDiameter), _axisDiameter(axisDiameter), _module(module)
+	ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module)
+		: _numberOfTeeth(numberOfTeeth), _depth(depth), _axisDiameter(axisDiameter), _module(module)
 	{
 		EXCEPT_IF (numberOfTeeth <= 0, CogException::BadParameter, "Wrong Number of Teeth");
 		EXCEPT_IF (depth < fabs(epsilon), CogException::BadParameter, "Bad depth");
-		EXCEPT_IF (rootDiameter < fabs(epsilon), CogException::BadParameter, "Bad root diameter");
-		EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
-		EXCEPT_IF (axisDiameter >= rootDiameter, CogException::BadParameter, "Axis diameter too small");
+EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
+		
 
 		// Derived parameters
 		_rootDiameter = double(_numberOfTeeth - 2) * module;
@@ -20,6 +19,9 @@ namespace LibCogmatics
 		_pitchDiameter = double(_numberOfTeeth) * module; 
 		_toothThicknessBottom = 0.5 * pi * module;
 		_toothThicknessTop = 0.5 * _toothThicknessBottom; // guess
+
+		EXCEPT_IF (_rootDiameter < fabs(epsilon), CogException::BadParameter, "Bad root diameter");
+		EXCEPT_IF (axisDiameter >= _rootDiameter, CogException::BadParameter, "Axis diameter too small");
 
 		osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array;
 		//osg::ref_ptr<osg::Vec3Array> normals = new osg::Vec3Array;
@@ -140,6 +142,47 @@ namespace LibCogmatics
 		} 
 		int nBottomSurface = nTopSurface;
 		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nOuterEdgeVertices+nInnerEdgeVertices+nTopSurface, nBottomSurface));
+		
+		int nStart=vertices->size();
+	
+		// End caps for the teeth
+		for (short j=0; j < 2; ++j)
+		{
+			for (short i=0; i < numberOfEdges+1; i+=2)
+			{
+				double x0 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+				double y0 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+				double x1 = _rootDiameter.value() * cos (2.*pi * double ((i+1) % numberOfEdges)/numberOfEdges);
+				double y1 = _rootDiameter.value() * sin (2.*pi * double ((i+1) % numberOfEdges)/numberOfEdges);
+
+				Vec p0 (x0, y0, z*j);
+				Vec p5 (x1, y1, z*j);
+
+				Vec n = (Vec(x1, y1, 0) - Vec(x0, y0, 0)) ^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
+				n.normalize();
+
+				// The tooth. Denendum part.
+				Vec p1 = p0 + n * _module.value();
+				Vec p4 = p5 + n * _module.value();
+
+				// The tooth. Addendum part.
+				Vec p2 = p1 + n * _module.value();
+				Vec p3 = p4 + n * _module.value();
+
+				Vec t = p3 - p2;
+				p2 += t * 0.25;
+				p3 -= t * 0.25;
+				vertices->push_back(p0);
+				vertices->push_back(p1);
+				vertices->push_back(p2);
+				vertices->push_back(p3);
+				vertices->push_back(p4);
+				vertices->push_back(p5);
+				addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, nStart, vertices->size()-nStart));
+				nStart = vertices->size();
+				//normals->push_back(j == 0 ? NO : NOz);
+			}
+		}
 	}
 
 

@@ -38,9 +38,9 @@ namespace LibCogmatics
 		return Part::Ptr (new Part (_nextID++, name));
 	}
 
-	ParametricSpurGear::Ptr Factory::CreateParametricSpurGear(short numberOfTeeth, Length depth, Length rootDiameter, Length axisDiameter, Length module)
+	ParametricSpurGear::Ptr Factory::CreateParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module)
 	{
-		return ParametricSpurGear::Ptr (new ParametricSpurGear (numberOfTeeth, depth, rootDiameter, axisDiameter, module));
+		return ParametricSpurGear::Ptr (new ParametricSpurGear (numberOfTeeth, depth, axisDiameter, module));
 	}
 
 
