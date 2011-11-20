@@ -31,7 +31,7 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 
 		// Create twice as many flat edges as we need teeth (i.e. both the tooth and the space between)
 		int numberOfEdges = 2*_numberOfTeeth;
-
+		int nStart=0;
 		double z = -_depth.value();
 		Vec O (0., 0., 0.);
 		Vec Oz (0., 0., z);
@@ -88,9 +88,9 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 			{ 
 			}
 		}	
-		int nOuterEdgeVertices = vertices->size();
-		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, 0, nOuterEdgeVertices));
+		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart, vertices->size()-nStart));
 		// Internal edges (quadstrips)
+		nStart = vertices->size();
 		for (short i=0; i < numberOfEdges+1; ++i)
 		{
 			double x0 = _axisDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
@@ -108,48 +108,32 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 			vertices->push_back(p1);			
 //			normals->push_back (n);
 		}	
-		int nInnerEdgeVertices = 2*(numberOfEdges+1); 
-		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nOuterEdgeVertices, nInnerEdgeVertices));
+		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart, vertices->size()-nStart));
 		// End surfaces
-		for (short i=0; i < numberOfEdges+1; ++i)
+		for (short j=0; j < 2; ++j)
 		{
-			double x0 = _axisDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double y0 = _axisDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double x1 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double y1 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+			nStart = vertices->size();
+			for (short i=0; i < numberOfEdges+1; ++i)
+			{
+				double x0 = _axisDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+				double y0 = _axisDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+				double x1 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
+				double y1 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
 
-			Vec p0 (x0, y0, 0.);
-			Vec p1 (x1, y1, 0.);
-			vertices->push_back(p0);
-			vertices->push_back(p1);
-	//		normals->push_back(NO);
+				Vec p0 (x0, y0, z*j);
+				Vec p1 (x1, y1, z*j);
+				vertices->push_back(p0);
+				vertices->push_back(p1);
+				//normals->push_back(j == 0 ? NO : NOz);
+			}
+			addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart, vertices->size()-nStart));			
 		}
-		int nTopSurface = 2*(numberOfEdges+1); 
-		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nOuterEdgeVertices+nInnerEdgeVertices, nTopSurface));
-		// End surfaces
-		for (short i=0; i < numberOfEdges+1; ++i)
-		{
-			double x0 = _axisDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double y0 = _axisDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double x1 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-			double y1 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
-
-			Vec p0 (x0, y0, z);
-			Vec p1 (x1, y1, z);
-			vertices->push_back(p0);
-			vertices->push_back(p1);
-//			normals->push_back(NOz);
-		} 
-		int nBottomSurface = nTopSurface;
-		addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nOuterEdgeVertices+nInnerEdgeVertices+nTopSurface, nBottomSurface));
-		
-		int nStart=vertices->size();
-	
 		// End caps for the teeth
 		for (short j=0; j < 2; ++j)
 		{
 			for (short i=0; i < numberOfEdges+1; i+=2)
 			{
+				nStart = vertices->size();
 				double x0 = _rootDiameter.value() * cos (2.*pi * double (i % numberOfEdges)/numberOfEdges);
 				double y0 = _rootDiameter.value() * sin (2.*pi * double (i % numberOfEdges)/numberOfEdges);
 				double x1 = _rootDiameter.value() * cos (2.*pi * double ((i+1) % numberOfEdges)/numberOfEdges);
@@ -179,7 +163,6 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 				vertices->push_back(p4);
 				vertices->push_back(p5);
 				addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::POLYGON, nStart, vertices->size()-nStart));
-				nStart = vertices->size();
 				//normals->push_back(j == 0 ? NO : NOz);
 			}
 		}
