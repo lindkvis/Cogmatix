@@ -66,13 +66,13 @@ int main( int argc, char **argv )
 	LinearAxis::Ptr axisLinear = Factory::Get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
 	RotaryAxis::Ptr axisRotary = Factory::Get()->CreateRotaryAxis(Vec(0., 1., 0.), Vec(0., 0., 0.), 0., -100., 1000.);
 	CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	ParametricSpurGearPart::Ptr gear = Factory::Get()->CreateParametricSpurGearPart("TestGear", 10, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
+	ParametricSpurGearPart::Ptr gear = Factory::Get()->CreateParametricSpurGearPart("TestGear", 15, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
 	machine->addChild(axisRotary);
 	axisRotary->addChild(axisLinear);
 	
 	axisLinear->addChild(gear);
 	axisRotary->addChild(part);
-	axisLinear->moveTo(20.);
+	axisLinear->moveTo(30.);
 	//axisRotary->moveTo(3.);
 
 	/* osg::StateSet* state = machine->getOrCreateStateSet();
@@ -95,8 +95,8 @@ int main( int argc, char **argv )
 	
 	osg::StateSet* gearState = gear->getOrCreateStateSet();
 
-	  // add a reflection map to the teapot.     
-    osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/reflect.rgb");
+	// add a reflection map to the teapot.     
+    osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/skymap.jpg");
     if (image)
     {
         osg::Texture2D* texture = new osg::Texture2D;
@@ -110,6 +110,8 @@ int main( int argc, char **argv )
         
         //geode->setStateSet(stateset);
     }
+
+
 
 /*	osg::Program* brickProgramObject = new osg::Program;
 	osg::Shader* brickVertexObject = 
