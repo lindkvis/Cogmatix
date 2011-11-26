@@ -25,6 +25,9 @@
 #include <osgGA/TrackballManipulator>
 #include <osg/PolygonMode>
 #include <iostream>
+#include <osg/TexGen>
+#include <osg/Texture2D>
+
 
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
@@ -57,23 +60,22 @@ int main( int argc, char **argv )
 {
 	
 	osgViewer::Viewer viewer;
+	viewer.getCamera()->setClearColor(osg::Vec4(0.7,0.7,0.8,0.5));
 
 	Machine::Ptr machine = Factory::Get()->CreateMachine("TestMachine");
 	LinearAxis::Ptr axisLinear = Factory::Get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
 	RotaryAxis::Ptr axisRotary = Factory::Get()->CreateRotaryAxis(Vec(0., 1., 0.), Vec(0., 0., 0.), 0., -100., 1000.);
-	//CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	Part::Ptr part2 = Factory::Get()->CreatePart("Test cog");
-	ParametricSpurGear::Ptr gear = Factory::Get()->CreateParametricSpurGear(30, Length(50.*meters), Length(20.*meters), Length(10.*meters)); 
-	part2->addDrawable(gear);
+	CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	ParametricSpurGearPart::Ptr gear = Factory::Get()->CreateParametricSpurGearPart("TestGear", 10, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
 	machine->addChild(axisRotary);
 	axisRotary->addChild(axisLinear);
 	
-	axisLinear->addChild(part2);
-	//axisRotary->addChild(part);
-	axisLinear->moveTo(99.);
-	axisRotary->moveTo(3.);
+	axisLinear->addChild(gear);
+	axisRotary->addChild(part);
+	axisLinear->moveTo(20.);
+	//axisRotary->moveTo(3.);
 
-	osg::StateSet* state = part2->getOrCreateStateSet();
+	/* osg::StateSet* state = machine->getOrCreateStateSet();
 	osg::PolygonMode *polyModeObj;
 
 	polyModeObj = dynamic_cast<osg::PolygonMode*>
@@ -83,26 +85,50 @@ int main( int argc, char **argv )
 		polyModeObj = new osg::PolygonMode;
 		state->setAttribute(polyModeObj); 
 	}
-	//polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
+	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
+	*/
 
-	 /* osg::Program* brickProgramObject = new osg::Program;
-	 osg::Shader* brickVertexObject = 
-		 new osg::Shader( osg::Shader::VERTEX );
-	 osg::Shader* brickFragmentObject = 
-		 new osg::Shader( osg::Shader::FRAGMENT );
-	 brickProgramObject->addShader( brickFragmentObject );
-	 brickProgramObject->addShader( brickVertexObject );
-	 loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
-	 loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
+	Light::Ptr lightBlue = Factory::Get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
+	machine->addChild(lightBlue);
+	Light::Ptr lightRed = Factory::Get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
+	machine->addChild(lightRed);
+	
+	osg::StateSet* gearState = gear->getOrCreateStateSet();
 
-	 brickState->setAttributeAndModes(brickProgramObject, osg::StateAttribute::ON);
-	 */
+	  // add a reflection map to the teapot.     
+    osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/reflect.rgb");
+    if (image)
+    {
+        osg::Texture2D* texture = new osg::Texture2D;
+        texture->setImage(image);
+
+        osg::TexGen* texgen = new osg::TexGen;
+        texgen->setMode(osg::TexGen::SPHERE_MAP);
+        
+        gearState->setTextureAttributeAndModes(0,texture,osg::StateAttribute::ON);
+        gearState->setTextureAttributeAndModes(0,texgen,osg::StateAttribute::ON);
+        
+        //geode->setStateSet(stateset);
+    }
+
+/*	osg::Program* brickProgramObject = new osg::Program;
+	osg::Shader* brickVertexObject = 
+		new osg::Shader( osg::Shader::VERTEX );
+	osg::Shader* brickFragmentObject = 
+		new osg::Shader( osg::Shader::FRAGMENT );
+	brickProgramObject->addShader( brickFragmentObject );
+	brickProgramObject->addShader( brickVertexObject );
+	loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
+	loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
+	
+	gearState->setAttributeAndModes(brickProgramObject, osg::StateAttribute::ON);
+	*/ 
 	{
 		boost::archive::xml_oarchive oa(std::cout);
 		oa << make_nvp("my_machine", *machine);
 		oa << make_nvp("Linear_axis", *axisLinear);
 		oa << make_nvp("Rotary_axis", *axisRotary);
-		oa << make_nvp("part", *part2);
+		oa << make_nvp("part", *gear);
 	}
 	viewer.setSceneData(machine.get());
     viewer.run();

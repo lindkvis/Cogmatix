@@ -38,10 +38,14 @@ namespace LibCogmatics
 		return Part::Ptr (new Part (_nextID++, name));
 	}
 
-	ParametricSpurGear::Ptr Factory::CreateParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module)
+	ParametricSpurGearPart::Ptr Factory::CreateParametricSpurGearPart(CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module)
 	{
-		return ParametricSpurGear::Ptr (new ParametricSpurGear (numberOfTeeth, depth, axisDiameter, module));
+		return ParametricSpurGearPart::Ptr (new ParametricSpurGearPart (_nextID++, name, numberOfTeeth, depth, axisDiameter, module));
 	}
 
+	Light::Ptr Factory::CreateLight(Machine* machine, const Vec& position, const Vec4& colour)
+	{
+		return Light::Ptr (new Light(_nextID++, machine, position, colour));
+	}
 
 }

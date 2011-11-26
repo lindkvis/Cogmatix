@@ -2,9 +2,10 @@
 
 #include "LibCogmatics.h"
 
-#include "Machine.h"
 #include "Axis.h"
 #include "CompositePart.h"
+#include "Light.h"
+#include "Machine.h"
 #include "Part.h"
 #include "ParametricSpurGear.h"
 
@@ -53,7 +54,9 @@ namespace LibCogmatics
 		CompositePart::Ptr CreateCompositePart(CoString name, CoString fileName);
 		Part::Ptr CreatePart(CoString name);
 
-		ParametricSpurGear::Ptr CreateParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+
+		Light::Ptr CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 	private:
 		NodeID _nextID;
 

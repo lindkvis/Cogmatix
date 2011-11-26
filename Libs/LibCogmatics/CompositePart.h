@@ -13,13 +13,11 @@ namespace LibCogmatics
 		typedef osg::ref_ptr<const CompositePart> CPtr;
 		// TODO: make this unicode
 		void loadGraphics (CoString fileName);
-	protected:
-		friend class Factory;
-		String _fileName;
-
+	factory_protected:
 		CompositePart(NodeID ID, CoString name, CoString fileName);
 		~CompositePart();
 	private:
+		String _fileName;
 		friend class boost::serialization::access;
 
 		template<class Archive>

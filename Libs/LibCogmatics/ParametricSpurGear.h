@@ -12,10 +12,6 @@ namespace LibCogmatics
 	public:
 		typedef osg::ref_ptr<ParametricSpurGear> Ptr;
 		typedef osg::ref_ptr<ParametricSpurGear> CPtr;
-
-		ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
-		~ParametricSpurGear(void);
-
 	protected:
 		// Input parameters
 		short  _numberOfTeeth;
@@ -28,5 +24,10 @@ namespace LibCogmatics
 		Length _pitchDiameter;
 		Length _toothThicknessBottom;
 		Length _toothThicknessTop;
+	protected:
+		friend class ParametricSpurGearPart; // The only class allowed to create Parametric Spur Gears.
+		ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+		~ParametricSpurGear(void);
+
 	};
 }

@@ -23,6 +23,7 @@ namespace LibCogmatics
 {
 	// Standard typedefs
 	typedef osg::Vec3f Vec;
+	typedef osg::Vec4f Vec4;
 	typedef osg::Matrixf Matrix;
 
 	// Unicode string type
