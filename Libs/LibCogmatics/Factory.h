@@ -55,7 +55,7 @@ namespace LibCogmatics
 		CompositePart::Ptr CreateCompositePart(CoString name, CoString fileName);
 		Part::Ptr CreatePart(CoString name);
 
-		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module, Angle helixAngle);
 
 		Light::Ptr CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 

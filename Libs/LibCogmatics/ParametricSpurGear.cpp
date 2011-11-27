@@ -5,8 +5,8 @@
 
 namespace LibCogmatics
 {
-	ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module)
-		: _numberOfTeeth(numberOfTeeth), _depth(depth), _axisDiameter(axisDiameter), _module(module)
+	ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module, Angle helixAngle)
+		: _numberOfTeeth(numberOfTeeth), _depth(depth), _axisDiameter(axisDiameter), _module(module), _helixAngle(helixAngle)
 	{
 		EXCEPT_IF (numberOfTeeth <= 0, CogException::BadParameter, "Wrong Number of Teeth");
 		EXCEPT_IF (depth < fabs(epsilon), CogException::BadParameter, "Bad depth");
@@ -49,31 +49,41 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 			double xp1 = _rootDiameter.value() * cos (2.*pi * double (i+1)/numberOfEdges);
 			double yp1 = _rootDiameter.value() * sin (2.*pi * double (i+1)/numberOfEdges);
 
+			double x0z = _rootDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+			double y0z = _rootDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+			double xp1z = _rootDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
+			double yp1z = _rootDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
+
 			p[0] = Vec (x0, y0, 0.);
-			p[1] = Vec (x0, y0, z);
+			Vec p0z = Vec(x0z, y0z, 0.);
+			Vec p1nz = Vec (x0, y0, z);
+			p[1] = Vec (x0z, y0z, z);
 			// the space in between.
 			p[10] = Vec (xp1, yp1, 0.);
-			p[11] = Vec (xp1, yp1, z);
-			Vec n = (p[1]-p[0]) ^ (p[10]-p[0]);
-			n.normalize();
+			p[11] = Vec (xp1z, yp1z, z);
+			Vec nu = (p1nz-p[0]) ^ (p[10]-p[0]);
+			nu.normalize();
+			Vec nl = (p[1]-p0z) ^ (p[11]-p[1]);
+			nl.normalize();
 
 			// The tooth. Denendum part.
-			p[2] = p[0] + n * _module.value();
-			p[3] = p[1] + n * _module.value();
-			p[8] = p[10] + n * _module.value();
-			p[9] = p[11] + n * _module.value();
+			p[2] = p[0] + nu * _module.value();
+			p[3] = p[1] + nl * _module.value();
+			p[8] = p[10] + nu * _module.value();
+			p[9] = p[11] + nl * _module.value();
 
 			// The tooth. Addendum part.
-			p[4] = p[2] + n * _module.value(); 
-			p[5] = p[3] + n * _module.value(); 
-			p[6] = p[8] + n * _module.value();
-			p[7] = p[9] + n * _module.value();
+			p[4] = p[2] + nu * _module.value(); 
+			p[5] = p[3] + nl * _module.value(); 
+			p[6] = p[8] + nu * _module.value();
+			p[7] = p[9] + nl * _module.value();
 
-			Vec t = p[6] - p[4];
-			p[4] += t*1./3.;
-			p[6] -= t*1./3.;
-			p[5] += t*1./3.;
-			p[7] -= t*1./3.;
+			Vec tu = p[6] - p[4];
+			Vec tl = p[7] - p[5];
+			p[4] += tu*1./3.;
+			p[6] -= tu*1./3.;
+			p[5] += tl*1./3.;
+			p[7] -= tl*1./3.;
 
 			if (i % 2 == 0)
 			{
@@ -112,16 +122,22 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 				Vec np1 = (p[1]-p[0])^(pp-p[10]);
 				nm1.normalize();
 				np1.normalize();
-				Vec n1 = n + nm1;
-				n1.normalize();
-				Vec n2 = n + np1;
-				n2.normalize();
+				Vec nu1 = nu + nm1;
+				nu1.normalize();
+				Vec nu2 = nu + np1;
+				nu2.normalize();
+				Vec nl1 = nl + nm1;
+				nl1.normalize();
+				Vec nl2 = nl + np1;
+				nl2.normalize();
+
+
 
 				// Use interpolated normals
-				normals->push_back(n1);
-				normals->push_back(n1);
-				normals->push_back(n2);
-				normals->push_back(n2);
+				normals->push_back(nu1);
+				normals->push_back(nl1);
+				normals->push_back(nl2);
+				normals->push_back(nu2);
 			}
 		}	
 		// Internal edge
@@ -171,9 +187,23 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 				double y0 = _axisDiameter.value() * sin (2.*pi * double (i)/numberOfEdges);
 				double x1 = _rootDiameter.value() * cos (2.*pi * double (i+1)/numberOfEdges);
 				double y1 = _rootDiameter.value() * sin (2.*pi * double (i+1)/numberOfEdges);
+				
+				double x0z = _axisDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+				double y0z = _axisDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+				double x1z = _rootDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
+				double y1z = _rootDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
 
-				Vec p0 (x0, y0, z*j);
-				Vec p1 (x1, y1, z*j);
+				Vec p0, p1;
+				if (j == 0)
+				{
+					p0 = Vec(x0, y0, 0);
+					p1 = Vec(x1, y1, 0);
+				}
+				else
+				{
+					p0 = Vec(x0z, y0z, z);
+					p1 = Vec(x1z, y1z, z);					
+				}
 				vertices->push_back(p0);
 				vertices->push_back(p1);
 				normals->push_back(j == 0 ? NO : NOz);
@@ -194,10 +224,24 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 				double x1 = _rootDiameter.value() * cos (2.*pi * double (i+1)/numberOfEdges);
 				double y1 = _rootDiameter.value() * sin (2.*pi * double (i+1)/numberOfEdges);
 
-				Vec p0 (x0, y0, z*j);
-				Vec p5 (x1, y1, z*j);
+				double x0z = _rootDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+				double y0z = _rootDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i)/numberOfEdges);
+				double x1z = _rootDiameter.value() * cos (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
+				double y1z = _rootDiameter.value() * sin (helixAngle.value() + 2.*pi * double (i+1)/numberOfEdges);
 
-				Vec n = (Vec(x1, y1, 0) - Vec(x0, y0, 0)) ^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
+				Vec p0, p5, n;
+				if (j == 0)
+				{
+					p0 = Vec (x0, y0, 0);
+					p5 = Vec (x1, y1, 0);
+					n = (Vec(x1, y1, 0) - Vec(x0, y0, 0)) ^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
+				}
+				else
+				{
+					p0 = Vec (x0z, y0z, z);
+					p5 = Vec (x1z, y1z, z);					
+					n = (Vec(x1z, y1z, 0) - Vec(x0z, y0z, 0)) ^ (Vec(x0z, y0z, 0) - Vec(x0z, y0z, z));					
+				}
 				n.normalize();
 
 				// The tooth. Denendum part.
@@ -226,6 +270,7 @@ EXCEPT_IF (module < fabs(epsilon), CogException::BadParameter, "Bad module");
 				normals->push_back(j == 0 ? NO : NOz);
 				normals->push_back(j == 0 ? NO : NOz);
 			}
+			
 		}
 		
 	}

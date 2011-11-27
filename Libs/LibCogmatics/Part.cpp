@@ -12,11 +12,11 @@ namespace LibCogmatics
 	{
 	}
 
-	ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module)
+	ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module, Angle helixAngle)
 		: Part (ID, name)
 	{
 		// Create the child
-		ParametricSpurGear::Ptr pChild = ParametricSpurGear::Ptr(new ParametricSpurGear(numberOfTeeth, depth, axisDiameter, module));
+		ParametricSpurGear::Ptr pChild = ParametricSpurGear::Ptr(new ParametricSpurGear(numberOfTeeth, depth, axisDiameter, module, helixAngle));
 		addDrawable(pChild);
 	}
 

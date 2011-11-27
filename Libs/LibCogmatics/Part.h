@@ -27,7 +27,7 @@ namespace LibCogmatics
 		typedef osg::ref_ptr<const ParametricSpurGearPart> CPtr;
 
 	factory_protected:
-		ParametricSpurGearPart(NodeID ID, CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+		ParametricSpurGearPart(NodeID ID, CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module, Angle helixAngle);
 		~ParametricSpurGearPart();
 	private:
 		friend class boost::serialization::access;

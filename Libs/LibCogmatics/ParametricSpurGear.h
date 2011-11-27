@@ -24,9 +24,10 @@ namespace LibCogmatics
 		Length _pitchDiameter;
 		Length _toothThicknessBottom;
 		Length _toothThicknessTop;
+		Angle _helixAngle; /// <Helix offset angle. 0 means normal spur gear>
 	protected:
 		friend class ParametricSpurGearPart; // The only class allowed to create Parametric Spur Gears.
-		ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module);
+		ParametricSpurGear(short numberOfTeeth, Length depth, Length axisDiameter, Length module, Angle helixAngle);
 		~ParametricSpurGear(void);
 
 	};

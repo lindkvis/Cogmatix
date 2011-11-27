@@ -65,11 +65,11 @@ int main( int argc, char **argv )
 
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
 	LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -100., 1000.);
-	RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -100., 1000.);
+	RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
+	RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", 15, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
-	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", 5, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
+	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", 100, Length(1.5*meters), Length(0.5*meters), Length(0.075*meters), Angle(0.1*si::radians)); 
+	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", 5, Length(2.*meters), Length(0.5*meters), Length(1*meters), Angle(0.*si::radians)); 
 	Motor::Ptr motor = Factory::get()->CreateMotor(20);
 	Motor::Ptr motor2 = Factory::get()->CreateMotor(-50);
 	machine->addChild(motor);
@@ -80,8 +80,8 @@ int main( int argc, char **argv )
 	axisRotary2->addChild(gear2);
 	axisLinear->moveTo(50.);
 	machine->addChild(axisLinear);
-	Clock::get()->add(motor);
-	Clock::get()->add(motor2);
+	//Clock::get()->add(motor);
+	//Clock::get()->add(motor2);
 	//axisRotary->moveTo(3.);
 
 	/* osg::StateSet* state = machine->getOrCreateStateSet();
