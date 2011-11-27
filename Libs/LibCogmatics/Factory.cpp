@@ -6,7 +6,7 @@ namespace LibCogmatics
 	// Initialise the static pointer.
 	Factory* Factory::m_pInstance = nullptr;
 
-	Factory* Factory::Get()
+	Factory* Factory::get()
 	{
 		if (nullptr==m_pInstance)
 			m_pInstance = new Factory();
@@ -48,4 +48,8 @@ namespace LibCogmatics
 		return Light::Ptr (new Light(_nextID++, machine, position, colour));
 	}
 
+	Motor::Ptr Factory::CreateMotor(double RPM)
+	{
+		return Motor::Ptr (new Motor(_nextID++, RPM));
+	}
 }

@@ -83,10 +83,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Axis.h" />
+    <ClInclude Include="Clock.h" />
     <ClInclude Include="CogException.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="LibCogmatics.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Machine.h" />
+    <ClInclude Include="Motor.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="ParametricSpurGear.h" />
     <ClInclude Include="CompositePart.h" />
@@ -97,8 +100,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Axis.cpp" />
+    <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Machine.cpp" />
+    <ClCompile Include="Motor.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="ParametricSpurGear.cpp" />
     <ClCompile Include="CompositePart.cpp" />

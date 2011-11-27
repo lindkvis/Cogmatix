@@ -6,6 +6,7 @@
 #include "CompositePart.h"
 #include "Light.h"
 #include "Machine.h"
+#include "Motor.h"
 #include "Part.h"
 #include "ParametricSpurGear.h"
 
@@ -20,7 +21,7 @@ namespace LibCogmatics
 		/** 
 		 * Static singleton method. Will create factory if necessary
 		 */
-		static Factory* Get ();
+		static Factory* get();
 
 		/**
 		 * Constructs a new linear axis
@@ -57,10 +58,12 @@ namespace LibCogmatics
 		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, short numberOfTeeth, Length depth, Length axisDiameter, Length module);
 
 		Light::Ptr CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
+
+		Motor::Ptr CreateMotor(double RPM);
 	private:
 		NodeID _nextID;
 
-		// Private constructor. Called by Get() method.
+		// Private constructor. Called by get() method.
 		Factory() : _nextID(0) {}
 		~Factory(void);
 

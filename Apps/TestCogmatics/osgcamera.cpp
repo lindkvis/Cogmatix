@@ -33,6 +33,7 @@
 #include <boost/archive/xml_oarchive.hpp>
 
 #include "LibCogmatics/Factory.h"
+#include "LibCogmatics/Clock.h"
 
 using namespace LibCogmatics;
 
@@ -62,17 +63,25 @@ int main( int argc, char **argv )
 	osgViewer::Viewer viewer;
 	viewer.getCamera()->setClearColor(osg::Vec4(0.7,0.7,0.8,0.5));
 
-	Machine::Ptr machine = Factory::Get()->CreateMachine("TestMachine");
-	LinearAxis::Ptr axisLinear = Factory::Get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	RotaryAxis::Ptr axisRotary = Factory::Get()->CreateRotaryAxis(Vec(0., 1., 0.), Vec(0., 0., 0.), 0., -100., 1000.);
-	CompositePart::Ptr part = Factory::Get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	ParametricSpurGearPart::Ptr gear = Factory::Get()->CreateParametricSpurGearPart("TestGear", 15, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
-	machine->addChild(axisRotary);
-	axisRotary->addChild(axisLinear);
-	
-	axisLinear->addChild(gear);
-	axisRotary->addChild(part);
-	axisLinear->moveTo(30.);
+	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
+	LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -100., 1000.);
+	RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -100., 1000.);
+	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", 15, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
+	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", 5, Length(2.*meters), Length(2.*meters), Length(1*meters)); 
+	Motor::Ptr motor = Factory::get()->CreateMotor(20);
+	Motor::Ptr motor2 = Factory::get()->CreateMotor(-50);
+	machine->addChild(motor);
+	motor->addChild(axisRotary);
+	motor2->addChild(axisRotary2);
+	axisLinear->addChild(motor2);
+	axisRotary->addChild(gear);
+	axisRotary2->addChild(gear2);
+	axisLinear->moveTo(50.);
+	machine->addChild(axisLinear);
+	Clock::get()->add(motor);
+	Clock::get()->add(motor2);
 	//axisRotary->moveTo(3.);
 
 	/* osg::StateSet* state = machine->getOrCreateStateSet();
@@ -88,12 +97,12 @@ int main( int argc, char **argv )
 	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
 	*/
 
-	Light::Ptr lightBlue = Factory::Get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
+	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
 	machine->addChild(lightBlue);
-	Light::Ptr lightRed = Factory::Get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
+	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
 	machine->addChild(lightRed);
 	
-	osg::StateSet* gearState = gear->getOrCreateStateSet();
+	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
     osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/skymap.jpg");
@@ -133,6 +142,16 @@ int main( int argc, char **argv )
 		oa << make_nvp("part", *gear);
 	}
 	viewer.setSceneData(machine.get());
-    viewer.run();
+	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
+    viewer.realize();
+	Clock::get()->start();
+	
+	while (!viewer.done())
+    {
+		Clock::get()->tick();
+		viewer.frame(Clock::get()->elapsed());
+	}
+
+
     return 0;
 }
