@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cogmatix", "..\Apps\Cogmatix\Cogmatix.vcxproj", "{95D6A0E0-253E-4508-8F2C-E622CC048892}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CEE0C929-845E-489C-BA91-4B41E7769D5A} = {CEE0C929-845E-489C-BA91-4B41E7769D5A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LibCogmatix", "..\Libs\LibCogmatix\LibCogmatix.vcxproj", "{CEE0C929-845E-489C-BA91-4B41E7769D5A}"
 EndProject
