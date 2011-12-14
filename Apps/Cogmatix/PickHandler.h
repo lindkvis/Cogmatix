@@ -2,10 +2,13 @@
 * GUI picking handler *
 */
 
+#include <osgDB/ReadFile>
 #include <osg/Camera>
 #include <osgViewer/Viewer>
 #include <osgGA/TrackballManipulator>
 #include <osgGA/StateSetManipulator>
+#include <osgWidget/WindowManager>
+#include <osgWidget/Frame>
 
 #include "LibCogmatix/Machine.h"
 
@@ -16,9 +19,16 @@ namespace Cogmatix
 	class PickHandler : public osgGA::GUIEventHandler 
 	{
 	protected:
+		osgWidget::WindowManager* _wm;
 		Machine::Ptr _machine;
+		std::vector<osg::Node*> _selection;
+		std::vector<osgWidget::Frame*> _frames;
+
+		void toggleSelection(osgViewer::View* view, osg::Node* node);
+		void addToSelection(osgViewer::View* view, osg::Node* node);
+		void clearSelection(osgViewer::View* view);
 	public: 
-		PickHandler(Machine::Ptr machine) : _machine(machine) {}
+		PickHandler(osgWidget::WindowManager* wm, Machine::Ptr machine) : _wm(wm), _machine(machine) {}
 		~PickHandler() {}
 
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);

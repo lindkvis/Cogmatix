@@ -34,6 +34,7 @@ namespace LibCogmatix
 		const ParametricSpurGear* gear() const;
 		virtual bool move(float delta);
 		virtual bool moveSecondary (float delta, const ParametricSpurGearPart* master);
+		osg::BoundingBox getBoundingBox() const;
 	factory_protected:
 		ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine, const Vec& axis, short numberOfTeeth, double depth, double axisDiameter, double module, double helix);
 		~ParametricSpurGearPart();

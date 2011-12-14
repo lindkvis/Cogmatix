@@ -11,7 +11,8 @@ namespace LibCogmatix
 		enum Type
 		{
 			Custom=0,		
-			BadParameter
+			BadParameter,
+			InvalidGraph
 		};
 
 		CogException (Type type, CoString text) : _type(type), _text(text) {}

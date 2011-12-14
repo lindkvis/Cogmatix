@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+#include "CogException.h"
 #include "Machine.h"
 #include "Part.h"
 
@@ -92,6 +93,18 @@ namespace LibCogmatix
 		}
 		// move self
 		return RotaryAxis::move(delta);
+	}
+
+	osg::BoundingBox ParametricSpurGearPart::getBoundingBox() const
+	{
+		assert(getNumChildren() == 1);
+		const osg::Geode* geode = dynamic_cast<const osg::Geode*>(getChild(0));
+		assert(geode);
+		if (geode)
+			return geode->getBoundingBox();	
+		else
+			throw CogException(CogException::InvalidGraph, "Invalid Spur Gear");
+		return osg::BoundingBox(0., 0., 0., 0., 0., 0.);
 	}
 
 }

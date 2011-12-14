@@ -14,9 +14,7 @@ namespace LibCogmatix
 	class Machine : public NamedMachineNode, public osg::MatrixTransform	
 	{
 	protected:
-		osg::Program* _selectionShader;
 		GearSet _gears;
-		std::vector<osg::Node*> _selection;
 	factory_protected:
 		Machine(NodeID ID, CoString name);
 		~Machine(void);
@@ -28,10 +26,6 @@ namespace LibCogmatix
 		const GearSet& gears() const { return _gears; }
 		void removeGear(ParametricSpurGearPart* gear) { _gears.erase(gear); }
 		void clearGears() { _gears.clear(); }
-		void toggleSelection(osg::Node* node);
-		void addToSelection(osg::Node* node);
-		void clearSelection();
-		void setSelectionShader(osg::Program* shader) { _selectionShader = shader; }
 	private:
 		friend class boost::serialization::access;
 

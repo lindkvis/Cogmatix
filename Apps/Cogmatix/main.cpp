@@ -27,7 +27,9 @@
 #include <iostream>
 #include <osg/TexGen>
 #include <osg/Texture2D>
-
+#include <osgWidget/Util>
+#include <osgWidget/ViewerEventHandlers>
+#include <osgWidget/WindowManager>
 
 #include <boost/archive/xml_iarchive.hpp>
 #include <boost/archive/xml_oarchive.hpp>
@@ -60,10 +62,21 @@ bool loadShaderSource(osg::Shader* obj, const std::string& fileName )
 	}
 }
 
+const unsigned int MASK_2D = 0xF0000000;
+
 int main( int argc, char **argv )
 {
-	
+
 	osgViewer::Viewer viewer;
+
+	osgWidget::WindowManager* wm = new osgWidget::WindowManager(
+		&viewer,
+		1280.0f,
+		1024.0f,
+		MASK_2D,
+		0 //osgWidget::WindowManager::WM_PICK_DEBUG
+		);
+	osg::Camera* camera = wm->createParentOrthoCamera();	
 	viewer.getCamera()->setClearColor(osg::Vec4(0.7,0.7,0.8,0.5));
 
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
@@ -90,11 +103,11 @@ int main( int argc, char **argv )
 	osg::PolygonMode *polyModeObj;
 
 	polyModeObj = dynamic_cast<osg::PolygonMode*>
-		(state->getAttribute(osg::StateAttribute::POLYGONMODE));
+	(state->getAttribute(osg::StateAttribute::POLYGONMODE));
 	if ( !polyModeObj ) 
 	{
-		polyModeObj = new osg::PolygonMode;
-		state->setAttribute(polyModeObj); 
+	polyModeObj = new osg::PolygonMode;
+	state->setAttribute(polyModeObj); 
 	}
 	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
 	*/
@@ -103,24 +116,24 @@ int main( int argc, char **argv )
 	machine->addChild(lightBlue);
 	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
 	machine->addChild(lightRed);
-	
+
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
-    osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/skymap.jpg");
-    if (image)
-    {
-        osg::Texture2D* texture = new osg::Texture2D;
-        texture->setImage(image);
+	osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/skymap.jpg");
+	if (image)
+	{
+		osg::Texture2D* texture = new osg::Texture2D;
+		texture->setImage(image);
 
-        osg::TexGen* texgen = new osg::TexGen;
-        texgen->setMode(osg::TexGen::SPHERE_MAP);
-        
-        gearState->setTextureAttributeAndModes(0,texture,osg::StateAttribute::ON);
-        gearState->setTextureAttributeAndModes(0,texgen,osg::StateAttribute::ON);
-        
-        //geode->setStateSet(stateset);
-    }
+		osg::TexGen* texgen = new osg::TexGen;
+		texgen->setMode(osg::TexGen::SPHERE_MAP);
+
+		gearState->setTextureAttributeAndModes(0,texture,osg::StateAttribute::ON);
+		gearState->setTextureAttributeAndModes(0,texgen,osg::StateAttribute::ON);
+
+		//geode->setStateSet(stateset);
+	}
 
 
 
@@ -133,34 +146,53 @@ int main( int argc, char **argv )
 	brickProgramObject->addShader( brickVertexObject );
 	loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
 	loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
-	
-	machine->setSelectionShader(brickProgramObject);
 
-	
 	{
 		boost::archive::xml_oarchive oa(std::cout);
 		oa << make_nvp("my_machine", *machine);
 		oa << make_nvp("Linear_axis", *axisLinear);
-//		oa << make_nvp("Rotary_axis", *axisRotary);
+		//		oa << make_nvp("Rotary_axis", *axisRotary);
 		oa << make_nvp("part", *gear);
 	}
-	viewer.setSceneData(machine.get());
+
+	osg::Group* world = new osg::Group();
+	world->addChild(machine);
+	world->addChild(camera);
+	viewer.setSceneData(world);
+
 	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
-    viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
-    viewer.getCamera()->setClearStencil(0);
+	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
+	viewer.getCamera()->setClearStencil(0);
 	// add the handler for doing the picking
-    viewer.addEventHandler(new PickHandler(machine));
+	viewer.addEventHandler(new PickHandler(wm, machine));
 
-    viewer.realize();
+	viewer.addEventHandler(new osgWidget::MouseHandler(wm));
+	viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
+	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
+	viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
+	viewer.addEventHandler(new osgViewer::StatsHandler());
+	viewer.addEventHandler(new osgViewer::WindowSizeHandler());
+	viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
+
+
+    viewer.setUpViewInWindow(
+        50,
+        50,
+        static_cast<int>(wm->getWidth()),
+        static_cast<int>(wm->getHeight())
+    );
+	wm->resizeAllWindows();
+
+	viewer.realize();
 	Clock::get()->start();
-	
+
 	while (!viewer.done())
-    {
+	{
 		Clock::get()->tick();
 		viewer.frame(Clock::get()->elapsed());
 	}
 
 
-    return 0;
+	return 0;
 }
