@@ -33,7 +33,7 @@ namespace LibCogmatix
 		static Diagnostics s_diagnostics;   ///<Diagnostic values. Will only be set if an axis function returns false>
 
 		Axis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
-			: MachineNode(ID), _axisVector (axisVector), _origin(origin), _valueInitial (valueInitial), _min (min), _max (max)
+			: MachineNode(ID), _origin(origin), _axisVector (axisVector), _valueInitial (valueInitial), _min (min), _max (max)
 		{
 			reset();
 			// TODO: throw exception if we're already outside axis limits
@@ -55,19 +55,6 @@ namespace LibCogmatix
 		const Vec& vector() { return _axisVector; }
 		const float& value() { return _value; }
 	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
-			ar & BOOST_SERIALIZATION_NVP(_origin);
-			ar & BOOST_SERIALIZATION_NVP(_axisVector);
-			ar & BOOST_SERIALIZATION_NVP(_value);
-			ar & BOOST_SERIALIZATION_NVP(_valueInitial);
-			ar & BOOST_SERIALIZATION_NVP(_min);
-			ar & BOOST_SERIALIZATION_NVP(_max);
-		}
 	};
 
 	class RotaryAxis : public Axis
@@ -82,13 +69,6 @@ namespace LibCogmatix
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~RotaryAxis() {}
 	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Axis);
-		}
 	};
 
 	class LinearAxis : public Axis
@@ -103,12 +83,5 @@ namespace LibCogmatix
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~LinearAxis() {}
 	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(Axis);
-		}
 	};
 }

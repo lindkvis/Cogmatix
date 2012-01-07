@@ -2,6 +2,7 @@
 #include "PickHandler.h"
 
 #include <osg/io_utils>
+#include <osg/Transform>
 
 using namespace Cogmatix;
 
@@ -28,17 +29,22 @@ void PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
 
     if (view->computeIntersections(x,y,intersections))
     {
-		std::for_each(allof(intersections), [&](const osgUtil::LineSegmentIntersector::Intersection& intersection)
+		clearSelection(view);
+		if (!intersections.empty())
 		{
-			if (intersection.nodePath.size() > 2 && _machine)
-				toggleSelection(view, *(intersection.nodePath.end()-2));
-		});
+			const osgUtil::LineSegmentIntersector::Intersection& intersection = *(intersections.begin());
+			foreach (osg::Node* node, intersection.nodePath)
+			{
+				if (dynamic_cast<ParametricSpurGearPart*>(node))
+					toggleSelection(view, node);
+			}
+		}
     }
 }
 
 void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node)
 {
-	clearSelection(view);
+	
 	addToSelection(view, node);
 }
 
@@ -52,43 +58,35 @@ void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node)
 		Matrix matProj = camera->getProjectionMatrix();
 		Matrix matView = camera->getViewMatrix();
 		Matrix matWin = camera->getViewport()->computeWindowMatrix();
-		Matrix matScreenToWorld = matView * matProj * matWin;
-		Matrix matWorldToScreen = Matrix::inverse(matScreenToWorld);
+		Matrix matWorldToScreen = matView * matProj * matWin;
+
 		osg::BoundingBox boxWorld = gear->getBoundingBox();
+		osg::BoundingBox boxScreen = boxWorld;
+		//osg::BoundingBox boxScreen = osg::transform(matWorldToScreen, boxWorld);
 
-		Vec c1 = boxWorld._min();
-		Vec c2 = boxWorld._max();
+		double width  = boxScreen.xMax() - boxScreen.xMin();
+		double height = boxScreen.yMax() - boxScreen.yMin();
 
-		Vec center = boxWorld._min() * matScreenToWorld;
-		double radius = boxWorld.radius();
-
-		double width = 100.;
-		double height = 100.;
-		osgWidget::Frame* frame = osgWidget::Frame::createSimpleFrameFromTheme(
+		osg::ref_ptr<osgWidget::Frame> frame = osgWidget::Frame::createSimpleFrameFromTheme(
 			"frameTheme",
 			osgDB::readImageFile("theme-2.png"),
 			width,
 			height,
 			osgWidget::Frame::FRAME_ALL
 			);
-		frame->setPosition(center[0]-radius,center[1]-radius,0);
+		double wmwidth = _wm->getWidth();
+		double viewwidth = view->getCamera()->getViewport()->width();
+		frame->setPosition(boxScreen.xMin(),boxScreen.yMin(),0);
 		frame->getBackground()->setColor(1.0f, 1.0f, 1.0f, 0.0f);
-
 		_wm->addChild(frame);
-
 		_selection.push_back(node);
-		_frames.push_back(frame);
 	}
 	
 }
 
 void PickHandler::clearSelection(osgViewer::View* view)
 {
-	std::for_each(allof(_selection), [this](osg::Node* selected)
-	{
-		osg::StateSet* gearState = selected->getOrCreateStateSet();
-		//	gearState->removeAttribute(_selectionShader);
-	});
+	_wm->removeChildren(0, _wm->getNumChildren());
 	_selection.clear();
 
 

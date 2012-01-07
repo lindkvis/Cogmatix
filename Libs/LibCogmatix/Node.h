@@ -26,13 +26,6 @@ namespace LibCogmatix
 		MachineNode(NodeID ID) : _ID (ID) {}
 		virtual ~MachineNode() {};
 	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_NVP(_ID);
-		}
 	};
 
 	/**
@@ -48,20 +41,9 @@ namespace LibCogmatix
 		/**
 		* Made protected because the constructors should never be called manually.
 		*/
-		NamedMachineNode(NodeID ID, CoString name) : _machineNodeName(name), MachineNode (ID) {}
+		NamedMachineNode(NodeID ID, CoString name) : MachineNode (ID), _machineNodeName(name) {}
 		virtual ~NamedMachineNode() {};
 
 	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(MachineNode);
-			ar & BOOST_SERIALIZATION_NVP(_machineNodeName);
-		}
 	};
 }
-
-BOOST_CLASS_VERSION(LibCogmatix::MachineNode, 0)
-BOOST_CLASS_VERSION(LibCogmatix::NamedMachineNode, 0)

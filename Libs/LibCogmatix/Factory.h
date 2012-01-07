@@ -69,7 +69,7 @@ namespace LibCogmatix
 
 		// Private copy constructor and assigned operator. Never to be used.
 		Factory(Factory const&) {}	
-		Factory& operator=(Factory const&) {};
+		Factory& operator=(Factory const&) { return *m_pInstance; };
 
 		static Factory* m_pInstance;
 	};

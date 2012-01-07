@@ -31,9 +31,6 @@
 #include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
 
-#include <boost/archive/xml_iarchive.hpp>
-#include <boost/archive/xml_oarchive.hpp>
-
 #include "LibCogmatix/Factory.h"
 #include "LibCogmatix/Clock.h"
 
@@ -146,14 +143,6 @@ int main( int argc, char **argv )
 	brickProgramObject->addShader( brickVertexObject );
 	loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
 	loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
-
-	{
-		boost::archive::xml_oarchive oa(std::cout);
-		oa << make_nvp("my_machine", *machine);
-		oa << make_nvp("Linear_axis", *axisLinear);
-		//		oa << make_nvp("Rotary_axis", *axisRotary);
-		oa << make_nvp("part", *gear);
-	}
 
 	osg::Group* world = new osg::Group();
 	world->addChild(machine);

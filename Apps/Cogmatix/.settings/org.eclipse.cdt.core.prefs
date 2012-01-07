@@ -1,0 +1,12 @@
+#Tue Jan 03 20:03:15 GMT 2012
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.1753693279/PLATFORM/delimiter=;
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.1753693279/PLATFORM/operation=append
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.1753693279/PLATFORM/value=mingw32
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.1753693279/append=true
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.debug.1753693279/appendContributed=true
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.release.1618007275/PLATFORM/delimiter=;
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.release.1618007275/PLATFORM/operation=append
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.release.1618007275/PLATFORM/value=mingw32
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.release.1618007275/append=true
+environment/project/cdt.managedbuild.config.gnu.mingw.exe.release.1618007275/appendContributed=true

@@ -7,6 +7,7 @@
 #include <osgViewer/Viewer>
 #include <osgGA/TrackballManipulator>
 #include <osgGA/StateSetManipulator>
+#include <osgGA/GUIEventHandler>
 #include <osgWidget/WindowManager>
 #include <osgWidget/Frame>
 
@@ -22,7 +23,7 @@ namespace Cogmatix
 		osgWidget::WindowManager* _wm;
 		Machine::Ptr _machine;
 		std::vector<osg::Node*> _selection;
-		std::vector<osgWidget::Frame*> _frames;
+		std::vector<osg::ref_ptr<osgWidget::Frame>> _frames;
 
 		void toggleSelection(osgViewer::View* view, osg::Node* node);
 		void addToSelection(osgViewer::View* view, osg::Node* node);

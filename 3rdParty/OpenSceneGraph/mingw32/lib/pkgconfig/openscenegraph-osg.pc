@@ -1,0 +1,14 @@
+# pkg-config source file
+
+prefix=d:/Cogmotion/3rdParty/openscenegraph/mingw32/
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: openscenegraph-osg
+Description: 3D scenegraph
+Version: 3.0.1
+Requires: openthreads
+Conflicts:
+Libs: -L${libdir} -losgd
+Cflags: -I${includedir}

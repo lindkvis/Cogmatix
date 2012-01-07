@@ -30,7 +30,7 @@ namespace LibCogmatix
 		~Clock();
 		// Private copy constructor and assigned operator. Never to be used.
 		Clock(Clock const&) {}	
-		Clock& operator=(Clock const&) {};
+		Clock& operator=(Clock const&) { return *m_pInstance; };
 
 		static Clock* m_pInstance;
 		// The list of motors to be operated by the clock.

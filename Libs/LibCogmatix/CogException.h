@@ -15,8 +15,8 @@ namespace LibCogmatix
 			InvalidGraph
 		};
 
-		CogException (Type type, CoString text) : _type(type), _text(text) {}
-		~CogException(void) {}
+		CogException (Type type, CoString text) :_text(text), _type(type) {}
+		~CogException(void) throw () {}
 
 	private:
 		std::string _text; /// <Custom text>
