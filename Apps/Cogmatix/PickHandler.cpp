@@ -36,19 +36,19 @@ void PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
 			foreach (osg::Node* node, intersection.nodePath)
 			{
 				if (dynamic_cast<ParametricSpurGearPart*>(node))
-					toggleSelection(view, node);
+					toggleSelection(view, node, intersection.nodePath.front());
 			}
 		}
     }
 }
 
-void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node)
+void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Node* root)
 {
 	
-	addToSelection(view, node);
+	addToSelection(view, node, root);
 }
 
-void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node)
+void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node, osg::Node* root)
 {
 	const ParametricSpurGearPart* gear = dynamic_cast<const ParametricSpurGearPart*>(node);
 	assert(view && view->getCamera());
@@ -60,12 +60,17 @@ void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node)
 		Matrix matWin = camera->getViewport()->computeWindowMatrix();
 		Matrix matWorldToScreen = matView * matProj * matWin;
 
-		osg::BoundingBox boxWorld = gear->getBoundingBox();
-		osg::BoundingBox boxScreen = boxWorld;
+		osg::BoundingSphere sphereWorld = node->getParent(0)->getBound();
+		osg::BoundingSphere sphereScreen = LibCogmatix::transform(matWorldToScreen, sphereWorld);
+
+		//osg::BoundingBox boxWorld = gear->getBoundingBox();
+//		osg::BoundingBox boxScreen = boxWorld;
 		//osg::BoundingBox boxScreen = osg::transform(matWorldToScreen, boxWorld);
 
-		double width  = boxScreen.xMax() - boxScreen.xMin();
-		double height = boxScreen.yMax() - boxScreen.yMin();
+		double width = sphereScreen.radius();
+		double height = width;
+		double xmin = sphereScreen.center()[0] - width;
+		double ymin = sphereScreen.center()[1] - height;
 
 		osg::ref_ptr<osgWidget::Frame> frame = osgWidget::Frame::createSimpleFrameFromTheme(
 			"frameTheme",
@@ -74,20 +79,19 @@ void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node)
 			height,
 			osgWidget::Frame::FRAME_ALL
 			);
-		double wmwidth = _wm->getWidth();
-		double viewwidth = view->getCamera()->getViewport()->width();
-		frame->setPosition(boxScreen.xMin(),boxScreen.yMin(),0);
+		frame->setPosition(xmin, ymin,0);
 		frame->getBackground()->setColor(1.0f, 1.0f, 1.0f, 0.0f);
 		_wm->addChild(frame);
-		_selection.push_back(node);
+		_selection[node] = frame;
 	}
 	
 }
 
 void PickHandler::clearSelection(osgViewer::View* view)
 {
-	_wm->removeChildren(0, _wm->getNumChildren());
+	foreach (SelectionMap::value_type item, _selection)
+	{
+		item.second->hide();
+	}
 	_selection.clear();
-
-
 }
