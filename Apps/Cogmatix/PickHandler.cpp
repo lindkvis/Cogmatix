@@ -15,7 +15,7 @@ bool PickHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapte
             osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
             if (view) pick(view,ea);
             return false;
-        }    
+        }
         default:
             return false;
     }
@@ -35,8 +35,8 @@ void PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
 			const osgUtil::LineSegmentIntersector::Intersection& intersection = *(intersections.begin());
 			foreach (osg::Node* node, intersection.nodePath)
 			{
-				if (dynamic_cast<ParametricSpurGearPart*>(node))
-					toggleSelection(view, node, intersection.nodePath.front());
+				//if (dynamic_cast<ParametricSpurGearPart*>(node))
+				//	toggleSelection(view, node, intersection.nodePath.front());
 			}
 		}
     }
@@ -44,7 +44,7 @@ void PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
 
 void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Node* root)
 {
-	
+
 	addToSelection(view, node, root);
 }
 
@@ -84,7 +84,7 @@ void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node, osg::No
 		_wm->addChild(frame);
 		_selection[node] = frame;
 	}
-	
+
 }
 
 void PickHandler::clearSelection(osgViewer::View* view)

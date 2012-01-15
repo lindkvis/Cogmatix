@@ -33,11 +33,6 @@ namespace LibCogmatix
 		return CompositePart::Ptr (new CompositePart (_nextID++, name, fileName));
 	}
 
-	Part::Ptr Factory::CreatePart(CoString name)
-	{
-		return Part::Ptr (new Part (_nextID++, name));
-	}
-
 	ParametricSpurGearPart::Ptr Factory::CreateParametricSpurGearPart(CoString name, Machine* machine, const Vec& axis, short numberOfTeeth, double depth, double axisDiameter, double module, double helix)
 	{
 		ParametricSpurGearPart::Ptr gear (new ParametricSpurGearPart (_nextID++, name, machine, axis, numberOfTeeth, depth, axisDiameter, module, helix));

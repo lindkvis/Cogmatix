@@ -134,7 +134,7 @@ int main( int argc, char **argv )
 
 
 
-	osg::Program* brickProgramObject = new osg::Program;
+/*	osg::Program* brickProgramObject = new osg::Program;
 	osg::Shader* brickVertexObject = 
 		new osg::Shader( osg::Shader::VERTEX );
 	osg::Shader* brickFragmentObject = 
@@ -143,11 +143,13 @@ int main( int argc, char **argv )
 	brickProgramObject->addShader( brickVertexObject );
 	loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
 	loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
-
+	*/
 	osg::Group* world = new osg::Group();
 	world->addChild(machine);
 	world->addChild(camera);
 	viewer.setSceneData(world);
+
+	Vec vecGear2 = gear2->getPosition();
 
 	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
 	unsigned int clearMask = viewer.getCamera()->getClearMask();

@@ -26,14 +26,5 @@ namespace LibCogmatix
 		const GearSet& gears() const { return _gears; }
 		void removeGear(ParametricSpurGearPart* gear) { _gears.erase(gear); }
 		void clearGears() { _gears.clear(); }
-	private:
-		friend class boost::serialization::access;
-
-		template<class Archive>
-		void serialize(Archive& ar, const unsigned int version)
-		{
-			ar & BOOST_SERIALIZATION_BASE_OBJECT_NVP(NamedMachineNode);
-		}
 	};
 }
-BOOST_CLASS_VERSION(LibCogmatix::Machine, 0)

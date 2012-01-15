@@ -5,15 +5,6 @@
 
 namespace LibCogmatix
 {
-	Part::Part(NodeID ID, CoString name) : NamedMachineNode(ID, name)
-	{
-	}
-
-
-	Part::~Part(void)
-	{
-	}
-
 	/****************************
 	* Parametric spur gear part *
 	*****************************/
@@ -93,5 +84,16 @@ namespace LibCogmatix
 		}
 		// move self
 		return RotaryAxis::move(delta);
+	}
+
+	Vec ParametricSpurGearPart::getPosition() const
+	{
+		Vec position;
+		osg::MatrixList matrices = getWorldMatrices(this);
+		foreach(const osg::Matrix& matrix, matrices)
+		{
+			position = position * matrix;
+		}
+		return position;
 	}
 }
