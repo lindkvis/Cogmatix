@@ -50,8 +50,8 @@
 									<listOptionValue builtIn="false" value="&quot;${COGMATIX_ROOT}/libs/LibCogmatix/Debug/&quot;"/>
 								</option>
 								<option id="gnu.cpp.link.option.libs.2077791514" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-									<listOptionValue builtIn="false" value="osgd"/>
 									<listOptionValue builtIn="false" value="LibCogmatix"/>
+									<listOptionValue builtIn="false" value="osgd"/>
 									<listOptionValue builtIn="false" value="osgViewerd"/>
 									<listOptionValue builtIn="false" value="osgManipulatord"/>
 									<listOptionValue builtIn="false" value="osgWidgetd"/>
