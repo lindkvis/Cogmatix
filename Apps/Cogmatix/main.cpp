@@ -78,11 +78,15 @@ int main( int argc, char **argv )
 
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
 	LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
 	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
 	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 40, 1.5, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 24, 1.0, 0.5, 0.3, 0.);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
 	Motor::Ptr motor = Factory::get()->CreateMotor(20);
 	//Motor::Ptr motor2 = Factory::get()->CreateMotor(-50);
@@ -91,6 +95,13 @@ int main( int argc, char **argv )
 	machine->addChild(axisLinear);
 	axisLinear->addChild(gear2);
 	axisLinear->moveTo(7.5);
+	axisLinear->addChild(axisLinear2);
+	axisLinear2->addChild(gear3);
+	axisLinear2->moveTo(3.);
+	axisLinear2->addChild(axisLinear3);
+	axisLinear3->addChild(gear4);
+	axisLinear3->moveTo(5.15);
+
 	machine->addChild(axisLinear);
 	Clock::get()->add(motor);
 	//Clock::get()->add(motor2);

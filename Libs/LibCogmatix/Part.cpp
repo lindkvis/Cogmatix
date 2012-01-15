@@ -54,7 +54,8 @@ ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const
 	// Intervals along the world axis
 	interval<double> planes1(n1val - gear()->depth(), n1val);
 	interval<double> planes2(n2val - part->gear()->depth(), n2val);
-
+	interval<double> overlap = intersect(planes1, planes2);
+	bool bCompatiblePlane = width(overlap) > epsilon;
 	// Positions in plane (2D)
 	Vec posOwn = worldPosition() - axisOwn * n1val;
 	Vec posOther = part->worldPosition() - axisOther * n2val;
@@ -64,9 +65,9 @@ ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const
 	double rPitch1=gear()->pitchRadius();
 	double rPitch2=part->gear()->pitchRadius();
 
-	if (distance - (rPitch1+rPitch2) < -pitch_tolerance) // too close
+	if (distance - (rPitch1+rPitch2) < -pitch_tolerance && bCompatiblePlane) // too close
 		return Conflict;
-	else if (distance - (rPitch1+rPitch2) > pitch_tolerance) // too far away
+	else if (distance - (rPitch1+rPitch2) > pitch_tolerance || !bCompatiblePlane) // too far away
 		return TooFarAway;
 	else // optimal distance
 	{
@@ -95,13 +96,12 @@ bool ParametricSpurGearPart::move(float delta)
 	if (_machine)
 	{
 		const GearSet& gears = _machine->gears();
-		std::for_each(allof(gears), [delta, this](ParametricSpurGearPart* gear)
+		std::for_each(allof(gears), [delta, this](ParametricSpurGearPart* slave)
 		{
 			// don't move self
-			if (gear != this && isCompatible(gear)==ParametricSpurGearPart::Compatible)
+			if (slave != this && isCompatible(slave)==ParametricSpurGearPart::Compatible)
 			{
-				// Wrong. Currently moving the same distance as the original gear.
-				gear->moveSecondary(-delta, this);
+				slave->moveSecondary(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), this);
 			}
 		});
 	}
@@ -116,13 +116,13 @@ bool ParametricSpurGearPart::moveSecondary(float delta,
 	if (_machine)
 	{
 		const GearSet& gears = _machine->gears();
-		std::for_each(allof(gears), [master, delta, this](ParametricSpurGearPart* gear)
+		std::for_each(allof(gears), [master, delta, this](ParametricSpurGearPart* slave)
 		{
 			// Don't move self or master
-			if (gear != this && gear != master && isCompatible(gear)==ParametricSpurGearPart::Compatible)
+			if (slave != this && slave != master && isCompatible(slave)==ParametricSpurGearPart::Compatible)
 			{
 				// Wrong. Currently moving the same distance as the original gear.
-				gear->moveSecondary(-delta, this);
+				slave->moveSecondary(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), this);
 			}
 		});
 	}
