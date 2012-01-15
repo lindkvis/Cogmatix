@@ -81,8 +81,8 @@ int main( int argc, char **argv )
 	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 40, 1.5, 0.5, 0.15, 0.); 
-	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.15, 0.); 
+	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 40, 1.5, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.3, 0.);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
 	Motor::Ptr motor = Factory::get()->CreateMotor(20);
 	//Motor::Ptr motor2 = Factory::get()->CreateMotor(-50);
@@ -90,7 +90,7 @@ int main( int argc, char **argv )
 	motor->addChild(gear);
 	machine->addChild(axisLinear);
 	axisLinear->addChild(gear2);
-	axisLinear->moveTo(8.);
+	axisLinear->moveTo(7.5);
 	machine->addChild(axisLinear);
 	Clock::get()->add(motor);
 	//Clock::get()->add(motor2);
@@ -149,8 +149,10 @@ int main( int argc, char **argv )
 	world->addChild(camera);
 	viewer.setSceneData(world);
 
-	Vec vecGear2 = gear2->getPosition();
+	Vec vecGear2 = gear2->worldPosition();
+	Vec vecGear1 = gear->worldPosition();
 
+	double distance = (vecGear1 - vecGear2).length();
 	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
 	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);

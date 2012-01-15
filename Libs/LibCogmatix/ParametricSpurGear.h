@@ -14,7 +14,8 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<ParametricSpurGear> CPtr;
 		double module() const { return _module; }
 		double angle_per_unit_depth() const { return (_helix / _depth);  }
-		double pitch() const { return _pitchDiameter; }
+		double pitchRadius() const { return _pitchDiameter/2.; }
+		double depth() const { return _depth; }
 	protected:
 		// Input parameters
 		short  _numberOfTeeth;

@@ -25,6 +25,7 @@ namespace LibCogmatix
 {
 	// The minimum float possible.
 	static const double epsilon = 1.0e-9;
+	static const double pitch_tolerance = 1.0e-3;
 
 	static const double pi = 3.14159265358979323846;
 }

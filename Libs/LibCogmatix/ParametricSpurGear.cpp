@@ -20,6 +20,9 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	_toothThicknessBottom = 0.5 * pi * module;
 	_toothThicknessTop = 0.5 * _toothThicknessBottom; // guess
 
+	double rootRadius = _rootDiameter/2.;
+	double axisRadius = _axisDiameter/2.;
+
 	EXCEPT_IF(_rootDiameter < fabs(epsilon), CogException::BadParameter,
 			"Bad root diameter");
 	EXCEPT_IF(axisDiameter >= _rootDiameter, CogException::BadParameter,
@@ -47,21 +50,15 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 		nStart = vertices->size();
 
 		Vec p[12]; // 12 points in total.
-		double x0 = _rootDiameter * cos(2. * pi * double(i) / numberOfEdges);
-		double y0 = _rootDiameter * sin(2. * pi * double(i) / numberOfEdges);
-		double xp1 = _rootDiameter
-				* cos(2. * pi * double(i + 1) / numberOfEdges);
-		double yp1 = _rootDiameter
-				* sin(2. * pi * double(i + 1) / numberOfEdges);
+		double x0 = rootRadius * cos(2*pi * double(i) / numberOfEdges);
+		double y0 = rootRadius * sin(2*pi * double(i) / numberOfEdges);
+		double xp1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
+		double yp1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
 
-		double x0z = _rootDiameter
-				* cos(_helix + 2. * pi * double(i) / numberOfEdges);
-		double y0z = _rootDiameter
-				* sin(_helix + 2. * pi * double(i) / numberOfEdges);
-		double xp1z = _rootDiameter
-				* cos(_helix + 2. * pi * double(i + 1) / numberOfEdges);
-		double yp1z = _rootDiameter
-				* sin(_helix + 2. * pi * double(i + 1) / numberOfEdges);
+		double x0z = rootRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
+		double y0z = rootRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
+		double xp1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
+		double yp1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
 
 		p[0] = Vec(x0, y0, 0.);
 		Vec p0z = Vec(x0z, y0z, 0.);
@@ -110,14 +107,10 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 				normals->push_back(n);
 			}
 		} else {
-			double xm1 = _rootDiameter
-					* cos(2. * pi * double(i - 1) / numberOfEdges);
-			double ym1 = _rootDiameter
-					* sin(2. * pi * double(i - 1) / numberOfEdges);
-			double xp2 = _rootDiameter
-					* cos(2. * pi * double(i + 2) / numberOfEdges);
-			double yp2 = _rootDiameter
-					* sin(2. * pi * double(i + 2) / numberOfEdges);
+			double xm1 = rootRadius * cos(2*pi * double(i - 1) / numberOfEdges);
+			double ym1 = rootRadius * sin(2*pi * double(i - 1) / numberOfEdges);
+			double xp2 = rootRadius * cos(2*pi * double(i + 2) / numberOfEdges);
+			double yp2 = rootRadius * sin(2*pi * double(i + 2) / numberOfEdges);
 
 			Vec pm = Vec(xm1, ym1, 0);
 			Vec pp = Vec(xp2, yp2, 0);
@@ -150,16 +143,12 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	// Internal edge
 	nStart = vertices->size();
 	for (short i = 0; i < numberOfEdges + 1; ++i) {
-		double xm1 = _axisDiameter
-				* cos(2. * pi * double(i - 1) / numberOfEdges);
-		double ym1 = _axisDiameter
-				* sin(2. * pi * double(i - 1) / numberOfEdges);
-		double x0 = _axisDiameter * cos(2. * pi * double(i) / numberOfEdges);
-		double y0 = _axisDiameter * sin(2. * pi * double(i) / numberOfEdges);
-		double xp1 = _axisDiameter
-				* cos(2. * pi * double(i + 1) / numberOfEdges);
-		double yp1 = _axisDiameter
-				* sin(2. * pi * double(i + 1) / numberOfEdges);
+		double xm1 = axisRadius * cos(2*pi * double(i - 1) / numberOfEdges);
+		double ym1 = axisDiameter * sin(2*pi * double(i - 1) / numberOfEdges);
+		double x0 = axisRadius * cos(2*pi * double(i) / numberOfEdges);
+		double y0 = axisRadius * sin(2*pi * double(i) / numberOfEdges);
+		double xp1 = axisRadius * cos(2*pi * double(i + 1) / numberOfEdges);
+		double yp1 = axisRadius * sin(2*pi * double(i + 1) / numberOfEdges);
 
 		// Actual two vertices
 		Vec p0(x0, y0, 0.);
@@ -193,23 +182,15 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	for (short j = 0; j < 2; ++j) {
 		nStart = vertices->size();
 		for (short i = 0; i < numberOfEdges + 1; ++i) {
-			double x0 = _axisDiameter
-					* cos(2. * pi * double(i) / numberOfEdges);
-			double y0 = _axisDiameter
-					* sin(2. * pi * double(i) / numberOfEdges);
-			double x1 = _rootDiameter
-					* cos(2. * pi * double(i + 1) / numberOfEdges);
-			double y1 = _rootDiameter
-					* sin(2. * pi * double(i + 1) / numberOfEdges);
+			double x0 = axisRadius * cos(2*pi * double(i) / numberOfEdges);
+			double y0 = axisRadius * sin(2*pi * double(i) / numberOfEdges);
+			double x1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
+			double y1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
 
-			double x0z = _axisDiameter
-					* cos(_helix + 2. * pi * double(i) / numberOfEdges);
-			double y0z = _axisDiameter
-					* sin(_helix + 2. * pi * double(i) / numberOfEdges);
-			double x1z = _rootDiameter
-					* cos(_helix + 2. * pi * double(i + 1) / numberOfEdges);
-			double y1z = _rootDiameter
-					* sin(_helix + 2. * pi * double(i + 1) / numberOfEdges);
+			double x0z = axisRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
+			double y0z = axisRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
+			double x1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
+			double y1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
 
 			Vec p0, p1;
 			if (j == 0) {
@@ -234,23 +215,15 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	for (short j = 0; j < 2; ++j) {
 		for (short i = 0; i < numberOfEdges; i += 2) {
 			nStart = vertices->size();
-			double x0 = _rootDiameter
-					* cos(2. * pi * double(i) / numberOfEdges);
-			double y0 = _rootDiameter
-					* sin(2. * pi * double(i) / numberOfEdges);
-			double x1 = _rootDiameter
-					* cos(2. * pi * double(i + 1) / numberOfEdges);
-			double y1 = _rootDiameter
-					* sin(2. * pi * double(i + 1) / numberOfEdges);
+			double x0 = rootRadius * cos(2. * pi * double(i) / numberOfEdges);
+			double y0 = rootRadius * sin(2. * pi * double(i) / numberOfEdges);
+			double x1 = rootRadius * cos(2. * pi * double(i + 1) / numberOfEdges);
+			double y1 = rootRadius * sin(2. * pi * double(i + 1) / numberOfEdges);
 
-			double x0z = _rootDiameter
-					* cos(_helix + 2. * pi * double(i) / numberOfEdges);
-			double y0z = _rootDiameter
-					* sin(_helix + 2. * pi * double(i) / numberOfEdges);
-			double x1z = _rootDiameter
-					* cos(_helix + 2. * pi * double(i + 1) / numberOfEdges);
-			double y1z = _rootDiameter
-					* sin(_helix + 2. * pi * double(i + 1) / numberOfEdges);
+			double x0z = rootRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
+			double y0z = rootRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
+			double x1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
+			double y1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
 
 			Vec p0, p5, n;
 			if (j == 0) {
