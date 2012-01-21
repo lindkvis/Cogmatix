@@ -22,7 +22,7 @@ namespace LibCogmatix
 			s_diagnostics[LimitsExceeded] = true;
 		return false;
 	}
-	bool RotaryAxis::move (float delta)
+	bool RotaryAxis::move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
 	{
 		return moveTo(_value + delta);
 	}
@@ -42,7 +42,7 @@ namespace LibCogmatix
 			s_diagnostics[LimitsExceeded] = true;
 		return false;
 	}
-	bool LinearAxis::move(float delta)
+	bool LinearAxis::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
 	{
 		return moveTo(_value + delta);
 	}

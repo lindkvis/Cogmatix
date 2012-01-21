@@ -38,41 +38,51 @@ ParametricSpurGearPart::~ParametricSpurGearPart()
 }
 
 
-ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const ParametricSpurGearPart* part)
+ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave)
 {
-	bool bCompatibleModule = fabs(gear()->module() - part->gear()->module())
-			< epsilon;
-	bool bCompatibleHelixAngle = fabs(
-			gear()->angle_per_unit_depth()
-					- part->gear()->angle_per_unit_depth()) < epsilon;
-	Vec axisOwn = worldAxis();
-	Vec axisOther = part->worldAxis();
-	bool bCompatibleAxis = (axisOwn - axisOther).length() < epsilon;
-	// Positions along the world axis
-	double n1val = worldPosition() * worldAxis();
-	double n2val = part->worldPosition() * part->worldAxis();
-	// Intervals along the world axis
-	interval<double> planes1(n1val - gear()->depth(), n1val);
-	interval<double> planes2(n2val - part->gear()->depth(), n2val);
-	interval<double> overlap = intersect(planes1, planes2);
-	bool bCompatiblePlane = width(overlap) > epsilon;
-	// Positions in plane (2D)
-	Vec posOwn = worldPosition() - axisOwn * n1val;
-	Vec posOther = part->worldPosition() - axisOther * n2val;
+	if (slave == this) // A gear can not move itself
+		return Self;
 
-	// total distance between them
-	double distance = (posOwn - posOther).length();
-	double rPitch1=gear()->pitchRadius();
-	double rPitch2=part->gear()->pitchRadius();
-
-	if (distance - (rPitch1+rPitch2) < -pitch_tolerance && bCompatiblePlane) // too close
-		return Conflict;
-	else if (distance - (rPitch1+rPitch2) > pitch_tolerance || !bCompatiblePlane) // too far away
-		return TooFarAway;
-	else // optimal distance
+	if (chain.find(slave) != chain.end())
+		return AlreadyMoving;
+	const ParametricSpurGearPart* part = dynamic_cast<const ParametricSpurGearPart*>(slave);
+	if (part)
 	{
-		return (bCompatibleModule && bCompatibleHelixAngle && bCompatibleAxis) ? Compatible : Conflict;
+		bool bCompatibleModule = fabs(gear()->module() - part->gear()->module())
+				< epsilon;
+		bool bCompatibleHelixAngle = fabs(
+				gear()->angle_per_unit_depth()
+						- part->gear()->angle_per_unit_depth()) < epsilon;
+		Vec axisOwn = worldAxis();
+		Vec axisOther = part->worldAxis();
+		bool bCompatibleAxis = (axisOwn - axisOther).length() < epsilon;
+		// Positions along the world axis
+		double n1val = worldPosition() * worldAxis();
+		double n2val = part->worldPosition() * part->worldAxis();
+		// Intervals along the world axis
+		interval<double> planes1(n1val - gear()->depth(), n1val);
+		interval<double> planes2(n2val - part->gear()->depth(), n2val);
+		interval<double> overlap = intersect(planes1, planes2);
+		bool bCompatiblePlane = width(overlap) > epsilon;
+		// Positions in plane (2D)
+		Vec posOwn = worldPosition() - axisOwn * n1val;
+		Vec posOther = part->worldPosition() - axisOther * n2val;
+
+		// total distance between them
+		double distance = (posOwn - posOther).length();
+		double rPitch1=gear()->pitchRadius();
+		double rPitch2=part->gear()->pitchRadius();
+
+		if (distance - (rPitch1+rPitch2) < -pitch_tolerance && bCompatiblePlane) // too close
+			return Conflict;
+		else if (distance - (rPitch1+rPitch2) > pitch_tolerance || !bCompatiblePlane) // too far away
+			return TooFarAway;
+		else // optimal distance
+		{
+			return (bCompatibleModule && bCompatibleHelixAngle && bCompatibleAxis) ? Compatible : Conflict;
+		}
 	}
+	return TooFarAway; // not correct, but we don't have any other types of gears yet.
 }
 
 ParametricSpurGear* ParametricSpurGearPart::gear()
@@ -90,44 +100,37 @@ const ParametricSpurGear* ParametricSpurGearPart::gear() const
 			nullptr;
 }
 
-bool ParametricSpurGearPart::move(float delta)
+bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
 {
+	bool bOK=true;
 	// Do some magic to move other gears
 	if (_machine)
 	{
-		const GearSet& gears = _machine->gears();
-		std::for_each(allof(gears), [delta, this](ParametricSpurGearPart* slave)
+		chain.insert(this);
+		foreach (ParametricSpurGearPart* slave, _machine->gears())
 		{
-			// don't move self
-			if (slave != this && isCompatible(slave)==ParametricSpurGearPart::Compatible)
+			if (bOK)
 			{
-				slave->moveSecondary(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), this);
+				Compatibility compat = isCompatible(chain, slave);
+				switch (compat)
+				{
+					case Compatible:
+						bOK = slave->move(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), chain, master);
+						break;
+					case Conflict:
+						bOK = false;
+						break;
+					default:
+						// do nothing
+						break;
+				}
 			}
-		});
+		}
 	}
-	// Call parent move method
-	return RotaryAxis::move(delta);
-}
-
-bool ParametricSpurGearPart::moveSecondary(float delta,
-		const ParametricSpurGearPart* master)
-{
-	// find other gears to move
-	if (_machine)
-	{
-		const GearSet& gears = _machine->gears();
-		std::for_each(allof(gears), [master, delta, this](ParametricSpurGearPart* slave)
-		{
-			// Don't move self or master
-			if (slave != this && slave != master && isCompatible(slave)==ParametricSpurGearPart::Compatible)
-			{
-				// Wrong. Currently moving the same distance as the original gear.
-				slave->moveSecondary(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), this);
-			}
-		});
-	}
-	// move self
-	return RotaryAxis::move(delta);
+	if (bOK) // Call parent moveTo method
+		return RotaryAxis::moveTo(_value + delta);
+	else
+		return false;
 }
 
 Vec ParametricSpurGearPart::worldAxis() const

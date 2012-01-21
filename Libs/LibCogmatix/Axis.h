@@ -48,7 +48,7 @@ namespace LibCogmatix
 
 		void reset () { _matrix = Matrix::translate(_origin); _value = _valueInitial; }
 		virtual bool moveTo (float newValue)=0;
-		virtual bool move (float delta)=0;
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)=0;
 
 		// Get methods
 		const Vec& origin() { return _origin; }
@@ -63,7 +63,7 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<RotaryAxis> Ptr;
 		typedef osg::ref_ptr<const RotaryAxis> CPtr;
 		virtual bool moveTo(float newValue);
-		virtual bool move (float delta);
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master);
 	factory_protected:
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
@@ -77,7 +77,7 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<LinearAxis> Ptr;
 		typedef osg::ref_ptr<const LinearAxis> CPtr;
 		virtual bool moveTo(float newValue);
-		virtual bool move (float delta);
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master);
 	factory_protected:
 		LinearAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}

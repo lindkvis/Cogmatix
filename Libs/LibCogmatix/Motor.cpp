@@ -14,7 +14,11 @@ namespace LibCogmatix
 
 	void Motor::tick(double secs)
 	{
-		if (getAxis())
-			getAxis()->move(secs * _RPS);
+		if (isRunning() && getAxis())
+		{
+			std::set<const MachineNode*> chain;
+			if (!getAxis()->move(secs * _RPS, chain, this))
+				stop();
+		}
 	}
 }
