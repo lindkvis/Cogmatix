@@ -1,7 +1,7 @@
 #pragma once
 
 #include <bitset>
-
+#include <osg/PositionAttitudeTransform>
 #include "Node.h"
 
 namespace LibCogmatix
@@ -11,7 +11,7 @@ namespace LibCogmatix
 	* Inherits osg::MatrixTransform, so that all children will receive any movement applied to this axis.
 	* @author Gaute Lindkvist <lindkvis@gmail.com>
 	*/
-	class Axis : public MachineNode, public osg::MatrixTransform
+	class Axis : public MachineNode, public osg::PositionAttitudeTransform
 	{
 	public:
 		enum DiagnosticEnum
@@ -46,7 +46,7 @@ namespace LibCogmatix
 	
 		virtual ~Axis() {};
 
-		void reset () { _matrix = Matrix::translate(_origin); _value = _valueInitial; }
+		void reset () { _attitude = osg::Quat(); _position = _origin; }
 		virtual bool moveTo (float newValue)=0;
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)=0;
 

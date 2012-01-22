@@ -35,7 +35,7 @@ public:
 	Vec worldPosition() const;
 factory_protected:
 	ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine,
-			const Vec& axis, short numberOfTeeth, double depth,
+			const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
 			double axisDiameter, double module, double helix);
 	~ParametricSpurGearPart();
 protected:

@@ -9,15 +9,21 @@
 using namespace boost::numeric;
 using namespace interval_lib;
 
+// Create an interval type that doesn't throw exceptions for empty intervals
+typedef boost::numeric::interval_lib::rounded_math< double > rounding_policy;
+typedef boost::numeric::interval_lib::checking_no_nan< double > checking_policy;
+typedef boost::numeric::interval_lib::policies< rounding_policy, checking_policy > interval_policies;
+typedef boost::numeric::interval< double, interval_policies > interval_double;
+
 namespace LibCogmatix
 {
 /****************************
  * Parametric spur gear part *
  *****************************/
 ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
-		Machine* machine, const Vec& axis, short numberOfTeeth, double depth,
+		Machine* machine, const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
 		double axisDiameter, double module, double helix) :
-		RotaryAxis(ID, axis, Vec(0., 0., 0.), 0., 0., 0.), _machine(machine)
+		RotaryAxis(ID, axis, origin, 0., 0., 0.), _machine(machine)
 {
 	// Create the child
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
@@ -26,7 +32,11 @@ ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
 			new ParametricSpurGear(numberOfTeeth, depth, axisDiameter, module,
 					helix));
 	geode->addDrawable(pChild);
-	postMult(Matrix::rotate(Vec(0., 0., 1.), axis));
+	// Make sure we transform the gear to be perfectly aligned with the axis.
+	osg::Quat quat; quat.makeRotate(Vec(0., 0., 1.), axis);
+	_attitude = _attitude * quat;
+	_position = _origin;
+	//postMult(Matrix::rotate(Vec(0., 0., 1.), axis));
 
 	// Assign to machine
 	if (_machine)
@@ -60,9 +70,9 @@ ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const
 		double n1val = worldPosition() * worldAxis();
 		double n2val = part->worldPosition() * part->worldAxis();
 		// Intervals along the world axis
-		interval<double> planes1(n1val - gear()->depth(), n1val);
-		interval<double> planes2(n2val - part->gear()->depth(), n2val);
-		interval<double> overlap = intersect(planes1, planes2);
+		interval_double planes1(n1val - gear()->depth(), n1val);
+		interval_double planes2(n2val - part->gear()->depth(), n2val);
+		interval_double overlap = intersect(planes1, planes2);
 		bool bCompatiblePlane = width(overlap) > epsilon;
 		// Positions in plane (2D)
 		Vec posOwn = worldPosition() - axisOwn * n1val;
@@ -127,10 +137,9 @@ bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& cha
 			}
 		}
 	}
-	if (bOK) // Call parent moveTo method
-		return RotaryAxis::moveTo(_value + delta);
-	else
-		return false;
+	// Call parent moveTo method
+	RotaryAxis::moveTo(_value + delta);
+	return bOK;
 }
 
 Vec ParametricSpurGearPart::worldAxis() const
@@ -148,7 +157,7 @@ Vec ParametricSpurGearPart::worldAxis() const
 }
 Vec ParametricSpurGearPart::worldPosition() const
 {
-	Vec position; // start at 0,0,0
+	Vec position = _origin;
 	osg::MatrixList matrices = getParent(0)->getWorldMatrices();
 	// a node may have multiple parents. Only deal with first one for now.
 	if (!matrices.empty())

@@ -83,42 +83,18 @@ int main( int argc, char **argv )
 	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
-	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 40, 1.5, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 10, 1.0, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), 24, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
 	Motor::Ptr motor = Factory::get()->CreateMotor(20);
-	//Motor::Ptr motor2 = Factory::get()->CreateMotor(-50);
 	machine->addChild(motor);
 	motor->addChild(gear);
-	machine->addChild(axisLinear);
-	axisLinear->addChild(gear2);
-	axisLinear->moveTo(7.5);
-	axisLinear->addChild(axisLinear2);
-	axisLinear2->addChild(gear3);
-	axisLinear2->moveTo(3.);
-	axisLinear2->addChild(axisLinear3);
-	axisLinear3->addChild(gear4);
-	axisLinear3->moveTo(5.15);
-
-	machine->addChild(axisLinear);
+	machine->addChild(gear2);
+	machine->addChild(gear3);
+	machine->addChild(gear4);
 	Clock::get()->add(motor);
-	//Clock::get()->add(motor2);
-	//axisRotary->moveTo(3.);
-
-	/* osg::StateSet* state = machine->getOrCreateStateSet();
-	osg::PolygonMode *polyModeObj;
-
-	polyModeObj = dynamic_cast<osg::PolygonMode*>
-	(state->getAttribute(osg::StateAttribute::POLYGONMODE));
-	if ( !polyModeObj ) 
-	{
-	polyModeObj = new osg::PolygonMode;
-	state->setAttribute(polyModeObj); 
-	}
-	polyModeObj->setMode(osg::PolygonMode::FRONT_AND_BACK, osg::PolygonMode::LINE);
-	*/
 
 	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
 	machine->addChild(lightBlue);

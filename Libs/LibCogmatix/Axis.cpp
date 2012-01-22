@@ -14,7 +14,9 @@ namespace LibCogmatix
 	{
 		if ((fabs(_min) < epsilon && fabs(_max) < epsilon) || (newValue >= _min && newValue <= _max))
 		{
-			postMult(Matrix::rotate(newValue-_value, _axisVector));
+			//osg::Quat quat; quat.makeRotate(newValue-_value, _axisVector);
+			_attitude = _attitude * osg::Quat(newValue-_value, _axisVector);
+			//postMult(Matrix::rotate(newValue-_value, _axisVector));
 			_value = newValue;	
 			return true;
 		}
@@ -34,7 +36,8 @@ namespace LibCogmatix
 	{
 		if (newValue >= _min && newValue <= _max)
 		{
-			postMult(Matrix::translate(_axisVector * (newValue - _value)));
+			_position += _axisVector * (newValue - _value);
+			//postMult(Matrix::translate(_axisVector * (newValue - _value)));
 			_value = newValue;
 			return true;
 		}
