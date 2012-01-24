@@ -3,29 +3,47 @@
 #include "ParametricSpurGear.h"
 #include "CogException.h"
 
-namespace LibCogmatix {
-ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
-		double axisDiameter, double module, double helix) :
-		_numberOfTeeth(numberOfTeeth), _depth(depth), _module(module), _axisDiameter(
-				axisDiameter), _helix(helix) {
-	EXCEPT_IF(numberOfTeeth <= 0, CogException::BadParameter,
+namespace LibCogmatix
+{
+
+ParametricSpurGear::GearMap ParametricSpurGear::s_Gears;
+
+ParametricSpurGear::Ptr ParametricSpurGear::Create (short numberOfTeeth, double depth,
+		double axisDiameter, double module, double helix)
+{
+	GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix);
+	GearMap::iterator i = s_Gears.find(params);
+	if (i == s_Gears.end())
+	{
+		Ptr gear = ParametricSpurGear::Ptr (new ParametricSpurGear(params));
+		s_Gears[params] = gear;
+		return gear;
+	}
+	else
+		return i->second;
+}
+
+ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
+ 	 : params (p)
+{
+	EXCEPT_IF(params._numberOfTeeth <= 0, CogException::BadParameter,
 			"Wrong Number of Teeth");
-	EXCEPT_IF(depth < fabs(epsilon), CogException::BadParameter, "Bad depth");
-	EXCEPT_IF(module < fabs(epsilon), CogException::BadParameter, "Bad module");
+	EXCEPT_IF(params._depth < fabs(epsilon), CogException::BadParameter, "Bad depth");
+	EXCEPT_IF(params._module < fabs(epsilon), CogException::BadParameter, "Bad module");
 
 	// Derived parameters
-	_rootDiameter = double(_numberOfTeeth - 2) * module;
-	_outsideDiameter = double(_numberOfTeeth + 2) * module;
-	_pitchDiameter = double(_numberOfTeeth) * module;
-	_toothThicknessBottom = 0.5 * pi * module;
+	_rootDiameter = double(params._numberOfTeeth - 2) * params._module;
+	_outsideDiameter = double(params._numberOfTeeth + 2) * params._module;
+	_pitchDiameter = double(params._numberOfTeeth) * params._module;
+	_toothThicknessBottom = 0.5 * pi * params._module;
 	_toothThicknessTop = 0.5 * _toothThicknessBottom; // guess
 
 	double rootRadius = _rootDiameter/2.;
-	double axisRadius = _axisDiameter/2.;
+	double axisRadius = params._axisDiameter/2.;
 
 	EXCEPT_IF(_rootDiameter < fabs(epsilon), CogException::BadParameter,
 			"Bad root diameter");
-	EXCEPT_IF(axisDiameter >= _rootDiameter, CogException::BadParameter,
+	EXCEPT_IF(params._axisDiameter >= _rootDiameter, CogException::BadParameter,
 			"Axis diameter too small");
 
 	osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array;
@@ -35,9 +53,9 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	setNormalBinding(BIND_PER_VERTEX);
 
 	// Create twice as many flat edges as we need teeth (i.e. both the tooth and the space between)
-	int numberOfEdges = 2 * _numberOfTeeth;
+	int numberOfEdges = 2 * params._numberOfTeeth;
 	int nStart = 0;
-	double z = -_depth;
+	double z = -params._depth;
 	Vec O(0., 0., 0.);
 	Vec Oz(0., 0., z);
 	Vec NO(0., 0., 1.);
@@ -55,10 +73,10 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 		double xp1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
 		double yp1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
 
-		double x0z = rootRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
-		double y0z = rootRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
-		double xp1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
-		double yp1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
+		double x0z = rootRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
+		double y0z = rootRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
+		double xp1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+		double yp1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
 
 		p[0] = Vec(x0, y0, 0.);
 		Vec p0z = Vec(x0z, y0z, 0.);
@@ -73,16 +91,16 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 		nl.normalize();
 
 		// The tooth. Denendum part.
-		p[2] = p[0] + nu * _module;
-		p[3] = p[1] + nl * _module;
-		p[8] = p[10] + nu * _module;
-		p[9] = p[11] + nl * _module;
+		p[2] = p[0] + nu * params._module;
+		p[3] = p[1] + nl * params._module;
+		p[8] = p[10] + nu * params._module;
+		p[9] = p[11] + nl * params._module;
 
 		// The tooth. Addendum part.
-		p[4] = p[2] + nu * _module;
-		p[5] = p[3] + nl * _module;
-		p[6] = p[8] + nu * _module;
-		p[7] = p[9] + nl * _module;
+		p[4] = p[2] + nu * params._module;
+		p[5] = p[3] + nl * params._module;
+		p[6] = p[8] + nu * params._module;
+		p[7] = p[9] + nl * params._module;
 
 		Vec tu = p[6] - p[4];
 		Vec tl = p[7] - p[5];
@@ -144,7 +162,7 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 	nStart = vertices->size();
 	for (short i = 0; i < numberOfEdges + 1; ++i) {
 		double xm1 = axisRadius * cos(2*pi * double(i - 1) / numberOfEdges);
-		double ym1 = axisDiameter * sin(2*pi * double(i - 1) / numberOfEdges);
+		double ym1 = axisRadius * sin(2*pi * double(i - 1) / numberOfEdges);
 		double x0 = axisRadius * cos(2*pi * double(i) / numberOfEdges);
 		double y0 = axisRadius * sin(2*pi * double(i) / numberOfEdges);
 		double xp1 = axisRadius * cos(2*pi * double(i + 1) / numberOfEdges);
@@ -187,10 +205,10 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 			double x1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
 			double y1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
 
-			double x0z = axisRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
-			double y0z = axisRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
-			double x1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
-			double y1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
+			double x0z = axisRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
+			double y0z = axisRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
+			double x1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+			double y1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
 
 			Vec p0, p1;
 			if (j == 0) {
@@ -220,32 +238,32 @@ ParametricSpurGear::ParametricSpurGear(short numberOfTeeth, double depth,
 			double x1 = rootRadius * cos(2. * pi * double(i + 1) / numberOfEdges);
 			double y1 = rootRadius * sin(2. * pi * double(i + 1) / numberOfEdges);
 
-			double x0z = rootRadius * cos(_helix + 2*pi * double(i) / numberOfEdges);
-			double y0z = rootRadius * sin(_helix + 2*pi * double(i) / numberOfEdges);
-			double x1z = rootRadius * cos(_helix + 2*pi * double(i + 1) / numberOfEdges);
-			double y1z = rootRadius * sin(_helix + 2*pi * double(i + 1) / numberOfEdges);
+			double x0z = rootRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
+			double y0z = rootRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
+			double x1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+			double y1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
 
 			Vec p0, p5, n;
 			if (j == 0) {
 				p0 = Vec(x0, y0, 0);
 				p5 = Vec(x1, y1, 0);
 				n = (Vec(x1, y1, 0) - Vec(x0, y0, 0))
-						^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
+										^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
 			} else {
 				p0 = Vec(x0z, y0z, z);
 				p5 = Vec(x1z, y1z, z);
 				n = (Vec(x1z, y1z, 0) - Vec(x0z, y0z, 0))
-						^ (Vec(x0z, y0z, 0) - Vec(x0z, y0z, z));
+										^ (Vec(x0z, y0z, 0) - Vec(x0z, y0z, z));
 			}
 			n.normalize();
 
 			// The tooth. Denendum part.
-			Vec p1 = p0 + n * _module;
-			Vec p4 = p5 + n * _module;
+			Vec p1 = p0 + n * params._module;
+			Vec p4 = p5 + n * params._module;
 
 			// The tooth. Addendum part.
-			Vec p2 = p1 + n * _module;
-			Vec p3 = p4 + n * _module;
+			Vec p2 = p1 + n * params._module;
+			Vec p3 = p4 + n * params._module;
 
 			Vec t = p3 - p2;
 			p2 += t * 1. / 3.;

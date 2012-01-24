@@ -28,9 +28,7 @@ ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
 	// Create the child
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode();
 	addChild(geode);
-	ParametricSpurGear::Ptr pChild = ParametricSpurGear::Ptr(
-			new ParametricSpurGear(numberOfTeeth, depth, axisDiameter, module,
-					helix));
+	ParametricSpurGear::Ptr pChild = ParametricSpurGear::Create (numberOfTeeth, depth, axisDiameter, module, helix);
 	geode->addDrawable(pChild);
 	// Make sure we transform the gear to be perfectly aligned with the axis.
 	osg::Quat quat; quat.makeRotate(Vec(0., 0., 1.), axis);
