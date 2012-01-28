@@ -54,7 +54,8 @@ namespace LibCogmatix
 
 		CompositePart::Ptr CreateCompositePart(CoString name, CoString fileName);
 
-		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, Machine* machine, const Vec& axis, const Vec& origin, short numberOfTeeth, double depth, double axisDiameter, double module, double helix);
+		ParametricSpurGearPart::Ptr CreateParametricSpurGearPart(CoString name, Machine* machine, const Vec& axis, const Vec& origin,
+				short numberOfTeeth, double depth, double axisDiameter, double module, double helix, double pitch_angle=PI/2.);
 
 		Light::Ptr CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 

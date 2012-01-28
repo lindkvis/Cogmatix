@@ -18,10 +18,11 @@ public:
 	enum Compatibility
 	{
 		Compatible=0,
-		Self=1,
-		AlreadyMoving=2,
-		TooFarAway=3,
-		Conflict=4
+		OnAxis=1, // driven by gears axis.
+		Self=2,
+		AlreadyMoving=3,
+		TooFarAway=4,
+		Conflict=5
 	};
 	typedef osg::ref_ptr<ParametricSpurGearPart> Ptr;
 	typedef osg::ref_ptr<const ParametricSpurGearPart> CPtr;
@@ -33,10 +34,12 @@ public:
 	Vec worldAxis() const;
 	// Get the world position of the spur gear
 	Vec worldPosition() const;
+	// Get the world bounding sphere of the spur gear
+	osg::BoundingSphere worldBound() const;
 factory_protected:
 	ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine,
 			const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
-			double axisDiameter, double module, double helix);
+			double axisDiameter, double module, double helix, double pitch_angle);
 	~ParametricSpurGearPart();
 protected:
 	Machine* _machine;

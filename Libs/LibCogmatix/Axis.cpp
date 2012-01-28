@@ -12,7 +12,7 @@ namespace LibCogmatix
 #pragma region RotaryAxis
 	bool RotaryAxis::moveTo (float newValue)
 	{
-		if ((fabs(_min) < epsilon && fabs(_max) < epsilon) || (newValue >= _min && newValue <= _max))
+		if ((fabs(_min) < EPSILON && fabs(_max) < EPSILON) || (newValue >= _min && newValue <= _max))
 		{
 			//osg::Quat quat; quat.makeRotate(newValue-_value, _axisVector);
 			_attitude = _attitude * osg::Quat(newValue-_value, _axisVector);

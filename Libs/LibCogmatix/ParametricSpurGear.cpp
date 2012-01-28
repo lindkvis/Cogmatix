@@ -9,9 +9,9 @@ namespace LibCogmatix
 ParametricSpurGear::GearMap ParametricSpurGear::s_Gears;
 
 ParametricSpurGear::Ptr ParametricSpurGear::Create (short numberOfTeeth, double depth,
-		double axisDiameter, double module, double helix)
+		double axisDiameter, double module, double helix, double pitch_angle)
 {
-	GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix);
+	GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle);
 	GearMap::iterator i = s_Gears.find(params);
 	if (i == s_Gears.end())
 	{
@@ -28,20 +28,26 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 {
 	EXCEPT_IF(params._numberOfTeeth <= 0, CogException::BadParameter,
 			"Wrong Number of Teeth");
-	EXCEPT_IF(params._depth < fabs(epsilon), CogException::BadParameter, "Bad depth");
-	EXCEPT_IF(params._module < fabs(epsilon), CogException::BadParameter, "Bad module");
+	EXCEPT_IF(params._depth < fabs(EPSILON), CogException::BadParameter, "Bad depth");
+	EXCEPT_IF(params._module < fabs(EPSILON), CogException::BadParameter, "Bad module");
 
 	// Derived parameters
 	_rootDiameter = double(params._numberOfTeeth - 2) * params._module;
 	_outsideDiameter = double(params._numberOfTeeth + 2) * params._module;
 	_pitchDiameter = double(params._numberOfTeeth) * params._module;
-	_toothThicknessBottom = 0.5 * pi * params._module;
+	_toothThicknessBottom = 0.5 * PI * params._module;
 	_toothThicknessTop = 0.5 * _toothThicknessBottom; // guess
 
 	double rootRadius = _rootDiameter/2.;
 	double axisRadius = params._axisDiameter/2.;
 
-	EXCEPT_IF(_rootDiameter < fabs(epsilon), CogException::BadParameter,
+	double zrootRadius = rootRadius;
+	if (fabs(fabs(params._pitch_angle) - PI/2.) > EPSILON) // make sure it isn't PI/2, as tan() will be invalid
+	{
+		zrootRadius = rootRadius - params._depth / tan (params._pitch_angle);
+	}
+
+	EXCEPT_IF(_rootDiameter < fabs(EPSILON), CogException::BadParameter,
 			"Bad root diameter");
 	EXCEPT_IF(params._axisDiameter >= _rootDiameter, CogException::BadParameter,
 			"Axis diameter too small");
@@ -68,15 +74,15 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 		nStart = vertices->size();
 
 		Vec p[12]; // 12 points in total.
-		double x0 = rootRadius * cos(2*pi * double(i) / numberOfEdges);
-		double y0 = rootRadius * sin(2*pi * double(i) / numberOfEdges);
-		double xp1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
-		double yp1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
+		double x0 = rootRadius * cos(2*PI * double(i) / numberOfEdges);
+		double y0 = rootRadius * sin(2*PI * double(i) / numberOfEdges);
+		double xp1 = rootRadius * cos(2*PI * double(i + 1) / numberOfEdges);
+		double yp1 = rootRadius * sin(2*PI * double(i + 1) / numberOfEdges);
 
-		double x0z = rootRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
-		double y0z = rootRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
-		double xp1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
-		double yp1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+		double x0z = zrootRadius * cos(params._helix + 2*PI * double(i) / numberOfEdges);
+		double y0z = zrootRadius * sin(params._helix + 2*PI * double(i) / numberOfEdges);
+		double xp1z = zrootRadius * cos(params._helix + 2*PI * double(i + 1) / numberOfEdges);
+		double yp1z = zrootRadius * sin(params._helix + 2*PI * double(i + 1) / numberOfEdges);
 
 		p[0] = Vec(x0, y0, 0.);
 		Vec p0z = Vec(x0z, y0z, 0.);
@@ -125,10 +131,10 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 				normals->push_back(n);
 			}
 		} else {
-			double xm1 = rootRadius * cos(2*pi * double(i - 1) / numberOfEdges);
-			double ym1 = rootRadius * sin(2*pi * double(i - 1) / numberOfEdges);
-			double xp2 = rootRadius * cos(2*pi * double(i + 2) / numberOfEdges);
-			double yp2 = rootRadius * sin(2*pi * double(i + 2) / numberOfEdges);
+			double xm1 = rootRadius * cos(2*PI * double(i - 1) / numberOfEdges);
+			double ym1 = rootRadius * sin(2*PI * double(i - 1) / numberOfEdges);
+			double xp2 = rootRadius * cos(2*PI * double(i + 2) / numberOfEdges);
+			double yp2 = rootRadius * sin(2*PI * double(i + 2) / numberOfEdges);
 
 			Vec pm = Vec(xm1, ym1, 0);
 			Vec pp = Vec(xp2, yp2, 0);
@@ -161,12 +167,12 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 	// Internal edge
 	nStart = vertices->size();
 	for (short i = 0; i < numberOfEdges + 1; ++i) {
-		double xm1 = axisRadius * cos(2*pi * double(i - 1) / numberOfEdges);
-		double ym1 = axisRadius * sin(2*pi * double(i - 1) / numberOfEdges);
-		double x0 = axisRadius * cos(2*pi * double(i) / numberOfEdges);
-		double y0 = axisRadius * sin(2*pi * double(i) / numberOfEdges);
-		double xp1 = axisRadius * cos(2*pi * double(i + 1) / numberOfEdges);
-		double yp1 = axisRadius * sin(2*pi * double(i + 1) / numberOfEdges);
+		double xm1 = axisRadius * cos(2*PI * double(i - 1) / numberOfEdges);
+		double ym1 = axisRadius * sin(2*PI * double(i - 1) / numberOfEdges);
+		double x0 = axisRadius * cos(2*PI * double(i) / numberOfEdges);
+		double y0 = axisRadius * sin(2*PI * double(i) / numberOfEdges);
+		double xp1 = axisRadius * cos(2*PI * double(i + 1) / numberOfEdges);
+		double yp1 = axisRadius * sin(2*PI * double(i + 1) / numberOfEdges);
 
 		// Actual two vertices
 		Vec p0(x0, y0, 0.);
@@ -200,15 +206,15 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 	for (short j = 0; j < 2; ++j) {
 		nStart = vertices->size();
 		for (short i = 0; i < numberOfEdges + 1; ++i) {
-			double x0 = axisRadius * cos(2*pi * double(i) / numberOfEdges);
-			double y0 = axisRadius * sin(2*pi * double(i) / numberOfEdges);
-			double x1 = rootRadius * cos(2*pi * double(i + 1) / numberOfEdges);
-			double y1 = rootRadius * sin(2*pi * double(i + 1) / numberOfEdges);
+			double x0 = axisRadius * cos(2*PI * double(i) / numberOfEdges);
+			double y0 = axisRadius * sin(2*PI * double(i) / numberOfEdges);
+			double x1 = rootRadius * cos(2*PI * double(i + 1) / numberOfEdges);
+			double y1 = rootRadius * sin(2*PI * double(i + 1) / numberOfEdges);
 
-			double x0z = axisRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
-			double y0z = axisRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
-			double x1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
-			double y1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+			double x0z = axisRadius * cos(params._helix + 2*PI * double(i) / numberOfEdges);
+			double y0z = axisRadius * sin(params._helix + 2*PI * double(i) / numberOfEdges);
+			double x1z = zrootRadius * cos(params._helix + 2*PI * double(i + 1) / numberOfEdges);
+			double y1z = zrootRadius * sin(params._helix + 2*PI * double(i + 1) / numberOfEdges);
 
 			Vec p0, p1;
 			if (j == 0) {
@@ -233,15 +239,15 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 	for (short j = 0; j < 2; ++j) {
 		for (short i = 0; i < numberOfEdges; i += 2) {
 			nStart = vertices->size();
-			double x0 = rootRadius * cos(2. * pi * double(i) / numberOfEdges);
-			double y0 = rootRadius * sin(2. * pi * double(i) / numberOfEdges);
-			double x1 = rootRadius * cos(2. * pi * double(i + 1) / numberOfEdges);
-			double y1 = rootRadius * sin(2. * pi * double(i + 1) / numberOfEdges);
+			double x0 = rootRadius * cos(2. * PI * double(i) / numberOfEdges);
+			double y0 = rootRadius * sin(2. * PI * double(i) / numberOfEdges);
+			double x1 = rootRadius * cos(2. * PI * double(i + 1) / numberOfEdges);
+			double y1 = rootRadius * sin(2. * PI * double(i + 1) / numberOfEdges);
 
-			double x0z = rootRadius * cos(params._helix + 2*pi * double(i) / numberOfEdges);
-			double y0z = rootRadius * sin(params._helix + 2*pi * double(i) / numberOfEdges);
-			double x1z = rootRadius * cos(params._helix + 2*pi * double(i + 1) / numberOfEdges);
-			double y1z = rootRadius * sin(params._helix + 2*pi * double(i + 1) / numberOfEdges);
+			double x0z = zrootRadius * cos(params._helix + 2*PI * double(i) / numberOfEdges);
+			double y0z = zrootRadius * sin(params._helix + 2*PI * double(i) / numberOfEdges);
+			double x1z = zrootRadius * cos(params._helix + 2*PI * double(i + 1) / numberOfEdges);
+			double y1z = zrootRadius * sin(params._helix + 2*PI * double(i + 1) / numberOfEdges);
 
 			Vec p0, p5, n;
 			if (j == 0) {

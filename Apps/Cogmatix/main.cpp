@@ -87,6 +87,8 @@ int main( int argc, char **argv )
 	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
+	ParametricSpurGearPart::Ptr gear6 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 0., 1.), Vec(10.5, -6., 9.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
 	Motor::Ptr motor = Factory::get()->CreateMotor(20);
 	machine->addChild(motor);
@@ -94,6 +96,9 @@ int main( int argc, char **argv )
 	machine->addChild(gear2);
 	machine->addChild(gear3);
 	machine->addChild(gear4);
+	machine->addChild(gear5);
+	machine->addChild(gear6);
+
 	Clock::get()->add(motor);
 
 	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
