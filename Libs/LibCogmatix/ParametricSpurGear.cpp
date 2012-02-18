@@ -296,6 +296,21 @@ ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
 
 }
 
-ParametricSpurGear::~ParametricSpurGear(void) {
+ParametricSpurGear::~ParametricSpurGear(void)
+{
 }
+
+Vec ParametricSpurGear::closestGap (const Vec& v) const
+{
+	double angle = acos (v * Vec(1., 0., 0.)/v.length());
+	double i = angle * params._numberOfTeeth / PI;
+	double newangle = floor(i)*PI / params._numberOfTeeth;
+	return v * osg::Matrixd::rotate ( - angle, Vec(0., 0., 1.));
+}
+
+Vec ParametricSpurGear::closestTooth (const Vec& v) const
+{
+	return closestGap(v) * osg::Matrixd::rotate( PI / params._numberOfTeeth, Vec(0., 0., 1.));
+}
+
 }

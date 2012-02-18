@@ -35,9 +35,7 @@ ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
 	osg::ref_ptr<osg::ShapeDrawable> drawable = new osg::ShapeDrawable(cylinder);
 	geode->addDrawable(drawable);
 	// Make sure we transform the gear to be perfectly aligned with the axis.
-	osg::Quat quat; quat.makeRotate(Vec(0., 0., 1.), axis);
-	_attitude = _attitude * quat;
-	_position = _origin;
+	reset();
 	//postMult(Matrix::rotate(Vec(0., 0., 1.), axis));
 
 	// Assign to machine
@@ -50,7 +48,7 @@ ParametricSpurGearPart::~ParametricSpurGearPart()
 }
 
 
-ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave)
+ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const
 {
 	if (slave == this) // A gear can not move itself
 		return Self;
@@ -94,7 +92,9 @@ ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const
 				return OnAxis;
 			else if (distance - (rPitch1+rPitch2) < -PITCH_TOLERANCE && bCompatiblePlane) // too close
 				return Conflict;
-			else if (distance - (rPitch1+rPitch2) > PITCH_TOLERANCE || !bCompatiblePlane) // too far away
+			else if (!bCompatiblePlane)
+				return DifferentPlane;
+			else if (distance - (rPitch1+rPitch2) > PITCH_TOLERANCE) // too far away
 				return TooFarAway;
 		}
 		else if (fabs(gear()->pitchAngle() - PI/4.) < EPSILON && fabs(part->gear()->pitchAngle() - PI/4.) < EPSILON)
@@ -120,6 +120,51 @@ ParametricSpurGearPart::Compatibility ParametricSpurGearPart::isCompatible(const
 		return (bCompatiblePitchAngle && bCompatibleModule && bCompatibleHelixAngle && bCompatibleAxis) ? Compatible : Conflict;
 	}
 	return TooFarAway; // not correct, but we don't have any other types of gears yet.
+}
+
+bool ParametricSpurGearPart::snapTo (const ParametricSpurGearPart* master)
+{
+	if (nullptr==master)
+		return false;
+	Compatibility compat = master->isCompatible(std::set<const MachineNode*>(), this);
+	if (true || TooFarAway == compat || Conflict == compat)
+	{
+		Vec axisOwn = worldAxis();
+		Vec axisOther = master->worldAxis();
+		// Positions along the world axis
+		double n1val = worldPosition() * axisOwn;
+		double n2val = master->worldPosition() * axisOther;
+
+		// Position vectors
+		Vec posOwn = worldPosition() - axisOwn * n1val;
+		Vec posOther = master->worldPosition() - axisOther * n2val;
+		Vec vecDist = posOther - posOwn;
+
+		// total distance between them
+		double distance = vecDist.length();
+		vecDist.normalize();
+		double rPitch1=gear()->pitchRadius();
+		double rPitch2=master->gear()->pitchRadius();
+
+		osg::Matrixd masterM = master->worldMatrix();
+		osg::Matrixd masterMI = osg::Matrixd::inverse(masterM);
+
+		osg::Matrixd M = worldMatrix();
+		osg::Matrixd MI = osg::Matrixd::inverse(M);
+
+		Vec newPosOwn = worldPosition() + vecDist * (distance - (rPitch1+rPitch2));
+		origin (newPosOwn * MI);
+		reset();
+		// now deal with angles.
+		Vec closestMasterGap = master->gear()->closestGap(-vecDist * masterMI) * masterM;
+		Vec closestSlaveTooth = gear()->closestTooth(vecDist * MI) * M;
+
+		osg::Quat qRot;
+		qRot.makeRotate (closestSlaveTooth, -closestMasterGap);
+		_attitude = _attitude * qRot;
+		return true;
+	}
+	return false;
 }
 
 ParametricSpurGear* ParametricSpurGearPart::gear()
@@ -174,25 +219,19 @@ bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& cha
 
 Vec ParametricSpurGearPart::worldAxis() const
 {
-	Vec axis = _axisVector;
-	osg::MatrixList matrices = getParent(0)->getWorldMatrices();
-	// a node may have multiple parents. Only deal with first one for now.
-	osg::Matrixd matrix = matrices.front();
-	//std::cout<< " worldMatrix = " <<matrix(0,0) << " " << matrix(1, 1) << " " << matrix(2, 2) << " " << matrix(3, 3) <<std::endl;
-
-	axis = matrix.getRotate() * axis; // do rotation only
-
-//	std::cout << axis[0] << " " << axis[1] << " " << axis[2] << std::endl;
-	return axis;
+	return worldMatrix().getRotate() * _axisVector; // do rotation only
 }
 Vec ParametricSpurGearPart::worldPosition() const
 {
-	Vec position = _origin;
-	osg::MatrixList matrices = getParent(0)->getWorldMatrices();
+	return _position * worldMatrix();
+}
+
+osg::Matrixd ParametricSpurGearPart::worldMatrix() const
+{
 	// a node may have multiple parents. Only deal with first one for now.
-	if (!matrices.empty())
-		position = position * matrices.front();
-	return position;
+	if (getNumParents() > 0 && !getParent(0)->getWorldMatrices().empty())
+		return getParent(0)->getWorldMatrices().front();
+	return osg::Matrixd();
 }
 
 osg::BoundingSphere ParametricSpurGearPart::worldBound() const

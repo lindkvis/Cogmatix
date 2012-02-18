@@ -3,7 +3,7 @@
 
 namespace LibCogmatix
 {
-	Motor::Motor(NodeID ID, double RPM) : MachineNode(ID), _RPS(RPM/60.), _blocked(false)
+	Motor::Motor(NodeID ID, double RPM) : MachineNode(ID), _RPS(RPM/60.), _blocked(false), _isRunning(false)
 	{
 	}
 

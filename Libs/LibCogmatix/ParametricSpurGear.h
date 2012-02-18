@@ -86,6 +86,9 @@ public:
 			double axisDiameter, double module, double helix, double pitch_angle);
 	ParametricSpurGear(const GearParameters& params);
 	~ParametricSpurGear(void);
+	// Given a vector of orientation. What is vector of the closest gap.
+	Vec closestGap (const Vec& v) const;
+	Vec closestTooth (const Vec& v) const;
 protected:
 	// Input parameters
 	GearParameters params;

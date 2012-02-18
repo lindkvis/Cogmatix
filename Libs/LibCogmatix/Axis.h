@@ -46,14 +46,19 @@ namespace LibCogmatix
 	
 		virtual ~Axis() {};
 
-		void reset () { _attitude = osg::Quat(); _position = _origin; }
+		void reset ()
+		{
+			_attitude.makeRotate (Vec(0., 0., 1.), _axisVector);
+			_position = _origin;
+		}
 		virtual bool moveTo (float newValue)=0;
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)=0;
 
 		// Get methods
-		const Vec& origin() { return _origin; }
-		const Vec& vector() { return _axisVector; }
-		const float& value() { return _value; }
+		const Vec& origin() const { return _origin; }
+		void origin (Vec origin) { _origin = origin; }
+		const Vec& vector() const { return _axisVector; }
+		const float& value() const { return _value; }
 	private:
 	};
 
