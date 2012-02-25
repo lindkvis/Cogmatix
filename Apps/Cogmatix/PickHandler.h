@@ -20,7 +20,7 @@ namespace Cogmatix
 	class PickHandler : public osgGA::GUIEventHandler 
 	{
 	protected:
-		typedef std::map<osg::Node*, osg::ref_ptr<osgWidget::Frame>> SelectionMap;
+		typedef std::map<osg::Node*, osg::ref_ptr<osgWidget::Frame> > SelectionMap;
 		osgWidget::WindowManager* _wm;
 		Machine::Ptr _machine;
 		SelectionMap _selection;
