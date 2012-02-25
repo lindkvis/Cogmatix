@@ -82,7 +82,7 @@ int main( int argc, char **argv )
 	LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
 	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
-	CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	//CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
 	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
@@ -115,7 +115,7 @@ int main( int argc, char **argv )
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
-	osg::Image* image = osgDB::readImageFile("D:/Cogmotion/3rdParty/OpenSceneGraph/data/Images/skymap.jpg");
+	osg::Image* image = osgDB::readImageFile("reflect.rgb");
 	if (image)
 	{
 		osg::Texture2D* texture = new osg::Texture2D;
@@ -176,7 +176,7 @@ int main( int argc, char **argv )
 	wm->resizeAllWindows();
 
 	viewer.realize();
-	Clock::get()->start();
+	//Clock::get()->start();
 
 	while (!viewer.done())
 	{
