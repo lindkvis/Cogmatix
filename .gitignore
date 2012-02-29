@@ -8,3 +8,8 @@ Release/
 *.swp
 *~
 .DS_Store
+xcuserdata/
+DerivedData/
+*.xcuserstate
+UserInterfaceState.xcuserstate
+lindkvis.xcuserdatad
