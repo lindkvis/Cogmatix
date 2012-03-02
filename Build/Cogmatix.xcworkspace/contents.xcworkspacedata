@@ -2,9 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Cogmatix/Cogmatix.xcodeproj">
+      location = "group:iCogmatix/iCogmatix.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:iLibCogmatix/iLibCogmatix.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../OSG/IPhone_Project/OSGIPhone.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:LibCogmatix/LibCogmatix.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Cogmatix/Cogmatix.xcodeproj">
    </FileRef>
 </Workspace>
