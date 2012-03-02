@@ -200,7 +200,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
-				ORGANIZATIONNAME = "Gaute Lindkvist";
+				ORGANIZATIONNAME = Cogmatix;
 			};
 			buildConfigurationList = A7A0617D14F8FF4400A8CA2B /* Build configuration list for PBXProject "LibCogmatix" */;
 			compatibilityVersion = "Xcode 3.2";
