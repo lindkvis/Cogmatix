@@ -1,0 +1,399 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A716D04214FFD3AA00AD1189 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D04114FFD3AA00AD1189 /* Foundation.framework */; };
+		A716D04814FFD3AA00AD1189 /* iLibCogmatix.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */; };
+		A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08514FFD4A400AD1189 /* libOpenThreads.a */; };
+		A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08614FFD4A400AD1189 /* libosg.a */; };
+		A716D08F14FFD4A400AD1189 /* libosgdb_imageio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */; };
+		A716D09014FFD4A400AD1189 /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08814FFD4A400AD1189 /* libosgdb_ive.a */; };
+		A716D09114FFD4A400AD1189 /* libosgdb_obj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08914FFD4A400AD1189 /* libosgdb_obj.a */; };
+		A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */; };
+		A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08B14FFD4A400AD1189 /* libosgDB.a */; };
+		A716D09414FFD4A400AD1189 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08C14FFD4A400AD1189 /* libosgFX.a */; };
+		A7C8B9191500D309006E679B /* Axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8F81500D00E006E679B /* Axis.cpp */; };
+		A7C8B91A1500D309006E679B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FA1500D00E006E679B /* Clock.cpp */; };
+		A7C8B91B1500D309006E679B /* CogException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FC1500D00E006E679B /* CogException.cpp */; };
+		A7C8B91C1500D309006E679B /* CompositePart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FE1500D00E006E679B /* CompositePart.cpp */; };
+		A7C8B91D1500D309006E679B /* Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9001500D00E006E679B /* Factory.cpp */; };
+		A7C8B91E1500D309006E679B /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9071500D00E006E679B /* Light.cpp */; };
+		A7C8B91F1500D309006E679B /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9091500D00E006E679B /* Machine.cpp */; };
+		A7C8B9201500D309006E679B /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90B1500D00E006E679B /* Motor.cpp */; };
+		A7C8B9211500D309006E679B /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90D1500D00E006E679B /* Node.cpp */; };
+		A7C8B9221500D309006E679B /* ParametricSpurGear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */; };
+		A7C8B9231500D309006E679B /* Part.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9111500D00E006E679B /* Part.cpp */; };
+		A7C8B9241500D309006E679B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9141500D00E006E679B /* stdafx.cpp */; };
+		A7C8B9251500D393006E679B /* Axis.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8F91500D00E006E679B /* Axis.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9261500D393006E679B /* Clock.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8FB1500D00E006E679B /* Clock.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9271500D393006E679B /* CogException.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8FD1500D00E006E679B /* CogException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9281500D393006E679B /* CompositePart.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8FF1500D00E006E679B /* CompositePart.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9291500D393006E679B /* Factory.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9011500D00E006E679B /* Factory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92A1500D393006E679B /* LibCogmatix.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9021500D00E006E679B /* LibCogmatix.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92B1500D393006E679B /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9081500D00E006E679B /* Light.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92C1500D393006E679B /* Machine.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90A1500D00E006E679B /* Machine.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92D1500D393006E679B /* Motor.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90C1500D00E006E679B /* Motor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92E1500D393006E679B /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90E1500D00E006E679B /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9101500D00E006E679B /* ParametricSpurGear.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9301500D393006E679B /* Part.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9121500D00E006E679B /* Part.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9311500D393006E679B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9151500D00E006E679B /* stdafx.h */; };
+		A7C8B9321500D393006E679B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9171500D00E006E679B /* Units.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9361500D487006E679B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9341500D487006E679B /* ImageIO.framework */; };
+		A7C8B9381500D4D3006E679B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9371500D4D3006E679B /* OpenGLES.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A716D03E14FFD3AA00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiLibCogmatix.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A716D04114FFD3AA00AD1189 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A716D04514FFD3AA00AD1189 /* iLibCogmatix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iLibCogmatix-Prefix.pch"; sourceTree = "<group>"; };
+		A716D04614FFD3AA00AD1189 /* iLibCogmatix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLibCogmatix.h; sourceTree = "<group>"; };
+		A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iLibCogmatix.mm; sourceTree = "<group>"; };
+		A716D08514FFD4A400AD1189 /* libOpenThreads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenThreads.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libOpenThreads.a"; sourceTree = "<group>"; };
+		A716D08614FFD4A400AD1189 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
+		A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_imageio.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_imageio.a"; sourceTree = "<group>"; };
+		A716D08814FFD4A400AD1189 /* libosgdb_ive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_ive.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_ive.a"; sourceTree = "<group>"; };
+		A716D08914FFD4A400AD1189 /* libosgdb_obj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_obj.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_obj.a"; sourceTree = "<group>"; };
+		A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_osg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_osg.a"; sourceTree = "<group>"; };
+		A716D08B14FFD4A400AD1189 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
+		A716D08C14FFD4A400AD1189 /* libosgFX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgFX.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgFX.a"; sourceTree = "<group>"; };
+		A7C8B8F81500D00E006E679B /* Axis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Axis.cpp; path = ../../../Libs/LibCogmatix/Axis.cpp; sourceTree = "<group>"; };
+		A7C8B8F91500D00E006E679B /* Axis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Axis.h; path = ../../../Libs/LibCogmatix/Axis.h; sourceTree = "<group>"; };
+		A7C8B8FA1500D00E006E679B /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Clock.cpp; path = ../../../Libs/LibCogmatix/Clock.cpp; sourceTree = "<group>"; };
+		A7C8B8FB1500D00E006E679B /* Clock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Clock.h; path = ../../../Libs/LibCogmatix/Clock.h; sourceTree = "<group>"; };
+		A7C8B8FC1500D00E006E679B /* CogException.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CogException.cpp; path = ../../../Libs/LibCogmatix/CogException.cpp; sourceTree = "<group>"; };
+		A7C8B8FD1500D00E006E679B /* CogException.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CogException.h; path = ../../../Libs/LibCogmatix/CogException.h; sourceTree = "<group>"; };
+		A7C8B8FE1500D00E006E679B /* CompositePart.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CompositePart.cpp; path = ../../../Libs/LibCogmatix/CompositePart.cpp; sourceTree = "<group>"; };
+		A7C8B8FF1500D00E006E679B /* CompositePart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CompositePart.h; path = ../../../Libs/LibCogmatix/CompositePart.h; sourceTree = "<group>"; };
+		A7C8B9001500D00E006E679B /* Factory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Factory.cpp; path = ../../../Libs/LibCogmatix/Factory.cpp; sourceTree = "<group>"; };
+		A7C8B9011500D00E006E679B /* Factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Factory.h; path = ../../../Libs/LibCogmatix/Factory.h; sourceTree = "<group>"; };
+		A7C8B9021500D00E006E679B /* LibCogmatix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LibCogmatix.h; path = ../../../Libs/LibCogmatix/LibCogmatix.h; sourceTree = "<group>"; };
+		A7C8B9031500D00E006E679B /* LibCogmatix.suo */ = {isa = PBXFileReference; lastKnownFileType = file; name = LibCogmatix.suo; path = ../../../Libs/LibCogmatix/LibCogmatix.suo; sourceTree = "<group>"; };
+		A7C8B9041500D00E006E679B /* LibCogmatix.vcxproj */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj; sourceTree = "<group>"; };
+		A7C8B9051500D00E006E679B /* LibCogmatix.vcxproj.filters */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj.filters; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj.filters; sourceTree = "<group>"; };
+		A7C8B9061500D00E006E679B /* LibCogmatix.vcxproj.user */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj.user; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj.user; sourceTree = "<group>"; };
+		A7C8B9071500D00E006E679B /* Light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../../../Libs/LibCogmatix/Light.cpp; sourceTree = "<group>"; };
+		A7C8B9081500D00E006E679B /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../../../Libs/LibCogmatix/Light.h; sourceTree = "<group>"; };
+		A7C8B9091500D00E006E679B /* Machine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Machine.cpp; path = ../../../Libs/LibCogmatix/Machine.cpp; sourceTree = "<group>"; };
+		A7C8B90A1500D00E006E679B /* Machine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Machine.h; path = ../../../Libs/LibCogmatix/Machine.h; sourceTree = "<group>"; };
+		A7C8B90B1500D00E006E679B /* Motor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Motor.cpp; path = ../../../Libs/LibCogmatix/Motor.cpp; sourceTree = "<group>"; };
+		A7C8B90C1500D00E006E679B /* Motor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Motor.h; path = ../../../Libs/LibCogmatix/Motor.h; sourceTree = "<group>"; };
+		A7C8B90D1500D00E006E679B /* Node.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Node.cpp; path = ../../../Libs/LibCogmatix/Node.cpp; sourceTree = "<group>"; };
+		A7C8B90E1500D00E006E679B /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../../Libs/LibCogmatix/Node.h; sourceTree = "<group>"; };
+		A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ParametricSpurGear.cpp; path = ../../../Libs/LibCogmatix/ParametricSpurGear.cpp; sourceTree = "<group>"; };
+		A7C8B9101500D00E006E679B /* ParametricSpurGear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParametricSpurGear.h; path = ../../../Libs/LibCogmatix/ParametricSpurGear.h; sourceTree = "<group>"; };
+		A7C8B9111500D00E006E679B /* Part.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Part.cpp; path = ../../../Libs/LibCogmatix/Part.cpp; sourceTree = "<group>"; };
+		A7C8B9121500D00E006E679B /* Part.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Part.h; path = ../../../Libs/LibCogmatix/Part.h; sourceTree = "<group>"; };
+		A7C8B9141500D00E006E679B /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Libs/LibCogmatix/stdafx.cpp; sourceTree = "<group>"; };
+		A7C8B9151500D00E006E679B /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Libs/LibCogmatix/stdafx.h; sourceTree = "<group>"; };
+		A7C8B9171500D00E006E679B /* Units.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Units.h; path = ../../../Libs/LibCogmatix/Units.h; sourceTree = "<group>"; };
+		A7C8B9331500D487006E679B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		A7C8B9341500D487006E679B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A7C8B9371500D4D3006E679B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A716D03B14FFD3AA00AD1189 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7C8B9381500D4D3006E679B /* OpenGLES.framework in Frameworks */,
+				A7C8B9361500D487006E679B /* ImageIO.framework in Frameworks */,
+				A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */,
+				A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */,
+				A716D08F14FFD4A400AD1189 /* libosgdb_imageio.a in Frameworks */,
+				A716D09014FFD4A400AD1189 /* libosgdb_ive.a in Frameworks */,
+				A716D09114FFD4A400AD1189 /* libosgdb_obj.a in Frameworks */,
+				A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */,
+				A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */,
+				A716D09414FFD4A400AD1189 /* libosgFX.a in Frameworks */,
+				A716D04214FFD3AA00AD1189 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A716D03314FFD3AA00AD1189 = {
+			isa = PBXGroup;
+			children = (
+				A716D04314FFD3AA00AD1189 /* iLibCogmatix */,
+				A716D04014FFD3AA00AD1189 /* Frameworks */,
+				A716D03F14FFD3AA00AD1189 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A716D03F14FFD3AA00AD1189 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A716D03E14FFD3AA00AD1189 /* libiLibCogmatix.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A716D04014FFD3AA00AD1189 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7C8B9371500D4D3006E679B /* OpenGLES.framework */,
+				A7C8B9331500D487006E679B /* GLKit.framework */,
+				A7C8B9341500D487006E679B /* ImageIO.framework */,
+				A716D08514FFD4A400AD1189 /* libOpenThreads.a */,
+				A716D08614FFD4A400AD1189 /* libosg.a */,
+				A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */,
+				A716D08814FFD4A400AD1189 /* libosgdb_ive.a */,
+				A716D08914FFD4A400AD1189 /* libosgdb_obj.a */,
+				A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */,
+				A716D08B14FFD4A400AD1189 /* libosgDB.a */,
+				A716D08C14FFD4A400AD1189 /* libosgFX.a */,
+				A716D04114FFD3AA00AD1189 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A716D04314FFD3AA00AD1189 /* iLibCogmatix */ = {
+			isa = PBXGroup;
+			children = (
+				A7C8B8F81500D00E006E679B /* Axis.cpp */,
+				A7C8B8F91500D00E006E679B /* Axis.h */,
+				A7C8B8FA1500D00E006E679B /* Clock.cpp */,
+				A7C8B8FB1500D00E006E679B /* Clock.h */,
+				A7C8B8FC1500D00E006E679B /* CogException.cpp */,
+				A7C8B8FD1500D00E006E679B /* CogException.h */,
+				A7C8B8FE1500D00E006E679B /* CompositePart.cpp */,
+				A7C8B8FF1500D00E006E679B /* CompositePart.h */,
+				A7C8B9001500D00E006E679B /* Factory.cpp */,
+				A7C8B9011500D00E006E679B /* Factory.h */,
+				A7C8B9021500D00E006E679B /* LibCogmatix.h */,
+				A7C8B9031500D00E006E679B /* LibCogmatix.suo */,
+				A7C8B9041500D00E006E679B /* LibCogmatix.vcxproj */,
+				A7C8B9051500D00E006E679B /* LibCogmatix.vcxproj.filters */,
+				A7C8B9061500D00E006E679B /* LibCogmatix.vcxproj.user */,
+				A7C8B9071500D00E006E679B /* Light.cpp */,
+				A7C8B9081500D00E006E679B /* Light.h */,
+				A7C8B9091500D00E006E679B /* Machine.cpp */,
+				A7C8B90A1500D00E006E679B /* Machine.h */,
+				A7C8B90B1500D00E006E679B /* Motor.cpp */,
+				A7C8B90C1500D00E006E679B /* Motor.h */,
+				A7C8B90D1500D00E006E679B /* Node.cpp */,
+				A7C8B90E1500D00E006E679B /* Node.h */,
+				A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */,
+				A7C8B9101500D00E006E679B /* ParametricSpurGear.h */,
+				A7C8B9111500D00E006E679B /* Part.cpp */,
+				A7C8B9121500D00E006E679B /* Part.h */,
+				A7C8B9141500D00E006E679B /* stdafx.cpp */,
+				A7C8B9151500D00E006E679B /* stdafx.h */,
+				A7C8B9171500D00E006E679B /* Units.h */,
+				A716D04614FFD3AA00AD1189 /* iLibCogmatix.h */,
+				A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */,
+				A716D04414FFD3AA00AD1189 /* Supporting Files */,
+			);
+			path = iLibCogmatix;
+			sourceTree = "<group>";
+		};
+		A716D04414FFD3AA00AD1189 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A716D04514FFD3AA00AD1189 /* iLibCogmatix-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A716D03C14FFD3AA00AD1189 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7C8B9251500D393006E679B /* Axis.h in Headers */,
+				A7C8B9261500D393006E679B /* Clock.h in Headers */,
+				A7C8B9271500D393006E679B /* CogException.h in Headers */,
+				A7C8B9281500D393006E679B /* CompositePart.h in Headers */,
+				A7C8B9291500D393006E679B /* Factory.h in Headers */,
+				A7C8B92A1500D393006E679B /* LibCogmatix.h in Headers */,
+				A7C8B92B1500D393006E679B /* Light.h in Headers */,
+				A7C8B92C1500D393006E679B /* Machine.h in Headers */,
+				A7C8B92D1500D393006E679B /* Motor.h in Headers */,
+				A7C8B92E1500D393006E679B /* Node.h in Headers */,
+				A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */,
+				A7C8B9301500D393006E679B /* Part.h in Headers */,
+				A7C8B9321500D393006E679B /* Units.h in Headers */,
+				A7C8B9311500D393006E679B /* stdafx.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A716D03D14FFD3AA00AD1189 /* iLibCogmatix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A716D04B14FFD3AA00AD1189 /* Build configuration list for PBXNativeTarget "iLibCogmatix" */;
+			buildPhases = (
+				A716D03A14FFD3AA00AD1189 /* Sources */,
+				A716D03B14FFD3AA00AD1189 /* Frameworks */,
+				A716D03C14FFD3AA00AD1189 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iLibCogmatix;
+			productName = iLibCogmatix;
+			productReference = A716D03E14FFD3AA00AD1189 /* libiLibCogmatix.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A716D03514FFD3AA00AD1189 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Cogmatix;
+			};
+			buildConfigurationList = A716D03814FFD3AA00AD1189 /* Build configuration list for PBXProject "iLibCogmatix" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A716D03314FFD3AA00AD1189;
+			productRefGroup = A716D03F14FFD3AA00AD1189 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A716D03D14FFD3AA00AD1189 /* iLibCogmatix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A716D03A14FFD3AA00AD1189 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7C8B9191500D309006E679B /* Axis.cpp in Sources */,
+				A7C8B91A1500D309006E679B /* Clock.cpp in Sources */,
+				A7C8B91B1500D309006E679B /* CogException.cpp in Sources */,
+				A7C8B91C1500D309006E679B /* CompositePart.cpp in Sources */,
+				A7C8B91D1500D309006E679B /* Factory.cpp in Sources */,
+				A7C8B91E1500D309006E679B /* Light.cpp in Sources */,
+				A7C8B91F1500D309006E679B /* Machine.cpp in Sources */,
+				A7C8B9201500D309006E679B /* Motor.cpp in Sources */,
+				A7C8B9211500D309006E679B /* Node.cpp in Sources */,
+				A7C8B9221500D309006E679B /* ParametricSpurGear.cpp in Sources */,
+				A7C8B9231500D309006E679B /* Part.cpp in Sources */,
+				A7C8B9241500D309006E679B /* stdafx.cpp in Sources */,
+				A716D04814FFD3AA00AD1189 /* iLibCogmatix.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A716D04914FFD3AA00AD1189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdParty\"",
+					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "";
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A716D04A14FFD3AA00AD1189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../../3rdParty\"",
+					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = "";
+				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A716D04C14FFD3AA00AD1189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iLibCogmatix.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iLibCogmatix/iLibCogmatix-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A716D04D14FFD3AA00AD1189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/iLibCogmatix.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iLibCogmatix/iLibCogmatix-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A716D03814FFD3AA00AD1189 /* Build configuration list for PBXProject "iLibCogmatix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A716D04914FFD3AA00AD1189 /* Debug */,
+				A716D04A14FFD3AA00AD1189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A716D04B14FFD3AA00AD1189 /* Build configuration list for PBXNativeTarget "iLibCogmatix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A716D04C14FFD3AA00AD1189 /* Debug */,
+				A716D04D14FFD3AA00AD1189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A716D03514FFD3AA00AD1189 /* Project object */;
+}
