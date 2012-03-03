@@ -1,0 +1,387 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A716D05E14FFD43D00AD1189 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D05D14FFD43D00AD1189 /* UIKit.framework */; };
+		A716D06014FFD43D00AD1189 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D05F14FFD43D00AD1189 /* Foundation.framework */; };
+		A716D06214FFD43D00AD1189 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D06114FFD43D00AD1189 /* CoreGraphics.framework */; };
+		A716D06414FFD43D00AD1189 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D06314FFD43D00AD1189 /* GLKit.framework */; };
+		A716D06614FFD43D00AD1189 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D06514FFD43D00AD1189 /* OpenGLES.framework */; };
+		A716D06C14FFD43D00AD1189 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A716D06A14FFD43D00AD1189 /* InfoPlist.strings */; };
+		A716D06E14FFD43D00AD1189 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A716D06D14FFD43D00AD1189 /* main.m */; };
+		A716D07214FFD43D00AD1189 /* cogAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D07114FFD43D00AD1189 /* cogAppDelegate.mm */; };
+		A716D07414FFD43D00AD1189 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A716D07314FFD43D00AD1189 /* Shader.fsh */; };
+		A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A716D07514FFD43D00AD1189 /* Shader.vsh */; };
+		A716D07914FFD43D00AD1189 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D07814FFD43D00AD1189 /* ViewController.mm */; };
+		A716D09614FFD58F00AD1189 /* libiLibCogmatix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */; };
+		A7C3BBBB1500EE3700A27D73 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB61500EE3700A27D73 /* libosg.a */; };
+		A7C3BBBC1500EE3700A27D73 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB71500EE3700A27D73 /* libosgDB.a */; };
+		A7C3BBBD1500EE3700A27D73 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB81500EE3700A27D73 /* libosgGA.a */; };
+		A7C3BBBE1500EE3700A27D73 /* libosgViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB91500EE3700A27D73 /* libosgViewer.a */; };
+		A7C3BBBF1500EE3700A27D73 /* libosgWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBBA1500EE3700A27D73 /* libosgWidget.a */; };
+		A7C3BBC41500FDDB00A27D73 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC21500FDDA00A27D73 /* ImageIO.framework */; };
+		A7C3BBC51500FDDB00A27D73 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */; };
+		A7C3BBCE1500FE5E00A27D73 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC61500FE5D00A27D73 /* libOpenThreads.a */; };
+		A7C3BBCF1500FE5E00A27D73 /* libosgdb_imageio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC71500FE5D00A27D73 /* libosgdb_imageio.a */; };
+		A7C3BBD01500FE5E00A27D73 /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC81500FE5E00A27D73 /* libosgdb_ive.a */; };
+		A7C3BBD11500FE5E00A27D73 /* libosgdb_obj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC91500FE5E00A27D73 /* libosgdb_obj.a */; };
+		A7C3BBD21500FE5E00A27D73 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCA1500FE5E00A27D73 /* libosgdb_osg.a */; };
+		A7C3BBD31500FE5E00A27D73 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */; };
+		A7C3BBD41500FE5E00A27D73 /* libosgManipulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCC1500FE5E00A27D73 /* libosgManipulator.a */; };
+		A7C3BBD51500FE5E00A27D73 /* libosgUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCD1500FE5E00A27D73 /* libosgUtil.a */; };
+		A7F6AB5815012C4A00515F77 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */; };
+		A7F6AB5915012C4A00515F77 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A716D05914FFD43D00AD1189 /* iCogmatix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCogmatix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A716D05D14FFD43D00AD1189 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A716D05F14FFD43D00AD1189 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A716D06114FFD43D00AD1189 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A716D06314FFD43D00AD1189 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		A716D06514FFD43D00AD1189 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		A716D06914FFD43D00AD1189 /* iCogmatix-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iCogmatix-Info.plist"; sourceTree = "<group>"; };
+		A716D06B14FFD43D00AD1189 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A716D06D14FFD43D00AD1189 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A716D06F14FFD43D00AD1189 /* iCogmatix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCogmatix-Prefix.pch"; sourceTree = "<group>"; };
+		A716D07014FFD43D00AD1189 /* cogAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cogAppDelegate.h; sourceTree = "<group>"; };
+		A716D07114FFD43D00AD1189 /* cogAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = cogAppDelegate.mm; sourceTree = "<group>"; };
+		A716D07314FFD43D00AD1189 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
+		A716D07514FFD43D00AD1189 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
+		A716D07714FFD43D00AD1189 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A716D07814FFD43D00AD1189 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiLibCogmatix.a; path = "../iLibCogmatix/build/Release-iphoneos/libiLibCogmatix.a"; sourceTree = "<group>"; };
+		A7C3BBB61500EE3700A27D73 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
+		A7C3BBB71500EE3700A27D73 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
+		A7C3BBB81500EE3700A27D73 /* libosgGA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgGA.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgGA.a"; sourceTree = "<group>"; };
+		A7C3BBB91500EE3700A27D73 /* libosgViewer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgViewer.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgViewer.a"; sourceTree = "<group>"; };
+		A7C3BBBA1500EE3700A27D73 /* libosgWidget.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgWidget.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgWidget.a"; sourceTree = "<group>"; };
+		A7C3BBC21500FDDA00A27D73 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		A7C3BBC61500FE5D00A27D73 /* libOpenThreads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenThreads.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libOpenThreads.a"; sourceTree = "<group>"; };
+		A7C3BBC71500FE5D00A27D73 /* libosgdb_imageio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_imageio.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_imageio.a"; sourceTree = "<group>"; };
+		A7C3BBC81500FE5E00A27D73 /* libosgdb_ive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_ive.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_ive.a"; sourceTree = "<group>"; };
+		A7C3BBC91500FE5E00A27D73 /* libosgdb_obj.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_obj.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_obj.a"; sourceTree = "<group>"; };
+		A7C3BBCA1500FE5E00A27D73 /* libosgdb_osg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_osg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_osg.a"; sourceTree = "<group>"; };
+		A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgFX.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgFX.a"; sourceTree = "<group>"; };
+		A7C3BBCC1500FE5E00A27D73 /* libosgManipulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgManipulator.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgManipulator.a"; sourceTree = "<group>"; };
+		A7C3BBCD1500FE5E00A27D73 /* libosgUtil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgUtil.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgUtil.a"; sourceTree = "<group>"; };
+		A7F6AB5515012C4A00515F77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		A7F6AB5715012C4A00515F77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A716D05614FFD43D00AD1189 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7C3BBCE1500FE5E00A27D73 /* libOpenThreads.a in Frameworks */,
+				A7C3BBCF1500FE5E00A27D73 /* libosgdb_imageio.a in Frameworks */,
+				A7C3BBD01500FE5E00A27D73 /* libosgdb_ive.a in Frameworks */,
+				A7C3BBD11500FE5E00A27D73 /* libosgdb_obj.a in Frameworks */,
+				A7C3BBD21500FE5E00A27D73 /* libosgdb_osg.a in Frameworks */,
+				A7C3BBD31500FE5E00A27D73 /* libosgFX.a in Frameworks */,
+				A7C3BBD41500FE5E00A27D73 /* libosgManipulator.a in Frameworks */,
+				A7C3BBD51500FE5E00A27D73 /* libosgUtil.a in Frameworks */,
+				A7C3BBC41500FDDB00A27D73 /* ImageIO.framework in Frameworks */,
+				A7C3BBC51500FDDB00A27D73 /* QuartzCore.framework in Frameworks */,
+				A7C3BBBB1500EE3700A27D73 /* libosg.a in Frameworks */,
+				A7C3BBBC1500EE3700A27D73 /* libosgDB.a in Frameworks */,
+				A7C3BBBD1500EE3700A27D73 /* libosgGA.a in Frameworks */,
+				A7C3BBBE1500EE3700A27D73 /* libosgViewer.a in Frameworks */,
+				A7C3BBBF1500EE3700A27D73 /* libosgWidget.a in Frameworks */,
+				A716D09614FFD58F00AD1189 /* libiLibCogmatix.a in Frameworks */,
+				A716D05E14FFD43D00AD1189 /* UIKit.framework in Frameworks */,
+				A716D06014FFD43D00AD1189 /* Foundation.framework in Frameworks */,
+				A716D06214FFD43D00AD1189 /* CoreGraphics.framework in Frameworks */,
+				A716D06414FFD43D00AD1189 /* GLKit.framework in Frameworks */,
+				A716D06614FFD43D00AD1189 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A716D04E14FFD43D00AD1189 = {
+			isa = PBXGroup;
+			children = (
+				A7C3BBC21500FDDA00A27D73 /* ImageIO.framework */,
+				A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */,
+				A716D06714FFD43D00AD1189 /* iCogmatix */,
+				A716D05C14FFD43D00AD1189 /* Frameworks */,
+				A716D05A14FFD43D00AD1189 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A716D05A14FFD43D00AD1189 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A716D05914FFD43D00AD1189 /* iCogmatix.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A716D05C14FFD43D00AD1189 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A7C3BBC61500FE5D00A27D73 /* libOpenThreads.a */,
+				A7C3BBC71500FE5D00A27D73 /* libosgdb_imageio.a */,
+				A7C3BBC81500FE5E00A27D73 /* libosgdb_ive.a */,
+				A7C3BBC91500FE5E00A27D73 /* libosgdb_obj.a */,
+				A7C3BBCA1500FE5E00A27D73 /* libosgdb_osg.a */,
+				A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */,
+				A7C3BBCC1500FE5E00A27D73 /* libosgManipulator.a */,
+				A7C3BBCD1500FE5E00A27D73 /* libosgUtil.a */,
+				A7C3BBB61500EE3700A27D73 /* libosg.a */,
+				A7C3BBB71500EE3700A27D73 /* libosgDB.a */,
+				A7C3BBB81500EE3700A27D73 /* libosgGA.a */,
+				A7C3BBB91500EE3700A27D73 /* libosgViewer.a */,
+				A7C3BBBA1500EE3700A27D73 /* libosgWidget.a */,
+				A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */,
+				A716D05D14FFD43D00AD1189 /* UIKit.framework */,
+				A716D05F14FFD43D00AD1189 /* Foundation.framework */,
+				A716D06114FFD43D00AD1189 /* CoreGraphics.framework */,
+				A716D06314FFD43D00AD1189 /* GLKit.framework */,
+				A716D06514FFD43D00AD1189 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A716D06714FFD43D00AD1189 /* iCogmatix */ = {
+			isa = PBXGroup;
+			children = (
+				A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */,
+				A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */,
+				A716D07014FFD43D00AD1189 /* cogAppDelegate.h */,
+				A716D07114FFD43D00AD1189 /* cogAppDelegate.mm */,
+				A716D07314FFD43D00AD1189 /* Shader.fsh */,
+				A716D07514FFD43D00AD1189 /* Shader.vsh */,
+				A716D07714FFD43D00AD1189 /* ViewController.h */,
+				A716D07814FFD43D00AD1189 /* ViewController.mm */,
+				A716D06814FFD43D00AD1189 /* Supporting Files */,
+			);
+			path = iCogmatix;
+			sourceTree = "<group>";
+		};
+		A716D06814FFD43D00AD1189 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A716D06914FFD43D00AD1189 /* iCogmatix-Info.plist */,
+				A716D06A14FFD43D00AD1189 /* InfoPlist.strings */,
+				A716D06D14FFD43D00AD1189 /* main.m */,
+				A716D06F14FFD43D00AD1189 /* iCogmatix-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A716D05814FFD43D00AD1189 /* iCogmatix */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A716D08214FFD43E00AD1189 /* Build configuration list for PBXNativeTarget "iCogmatix" */;
+			buildPhases = (
+				A716D05514FFD43D00AD1189 /* Sources */,
+				A716D05614FFD43D00AD1189 /* Frameworks */,
+				A716D05714FFD43D00AD1189 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iCogmatix;
+			productName = iCogmatix;
+			productReference = A716D05914FFD43D00AD1189 /* iCogmatix.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A716D05014FFD43D00AD1189 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Cogmatix;
+			};
+			buildConfigurationList = A716D05314FFD43D00AD1189 /* Build configuration list for PBXProject "iCogmatix" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A716D04E14FFD43D00AD1189;
+			productRefGroup = A716D05A14FFD43D00AD1189 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A716D05814FFD43D00AD1189 /* iCogmatix */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A716D05714FFD43D00AD1189 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A716D06C14FFD43D00AD1189 /* InfoPlist.strings in Resources */,
+				A716D07414FFD43D00AD1189 /* Shader.fsh in Resources */,
+				A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */,
+				A7F6AB5815012C4A00515F77 /* ViewController_iPad.xib in Resources */,
+				A7F6AB5915012C4A00515F77 /* ViewController_iPhone.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A716D05514FFD43D00AD1189 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A716D06E14FFD43D00AD1189 /* main.m in Sources */,
+				A716D07214FFD43D00AD1189 /* cogAppDelegate.mm in Sources */,
+				A716D07914FFD43D00AD1189 /* ViewController.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A716D06A14FFD43D00AD1189 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A716D06B14FFD43D00AD1189 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7F6AB5515012C4A00515F77 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7F6AB5715012C4A00515F77 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A716D08014FFD43E00AD1189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
+					"\"$(SRCROOT)/../../3rdParty\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A716D08114FFD43E00AD1189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
+					"\"$(SRCROOT)/../../3rdParty\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A716D08314FFD43E00AD1189 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iCogmatix/iCogmatix-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A716D08414FFD43E00AD1189 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "iCogmatix/iCogmatix-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A716D05314FFD43D00AD1189 /* Build configuration list for PBXProject "iCogmatix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A716D08014FFD43E00AD1189 /* Debug */,
+				A716D08114FFD43E00AD1189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A716D08214FFD43E00AD1189 /* Build configuration list for PBXNativeTarget "iCogmatix" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A716D08314FFD43E00AD1189 /* Debug */,
+				A716D08414FFD43E00AD1189 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A716D05014FFD43D00AD1189 /* Project object */;
+}

@@ -31,6 +31,7 @@
 #include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
 
+#include "OsgPlugins.h"
 #include "LibCogmatix/Factory.h"
 #include "LibCogmatix/Clock.h"
 
@@ -115,7 +116,7 @@ int main( int argc, char **argv )
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
-	osg::Image* image = osgDB::readImageFile("reflect.rgb");
+	osg::Image* image = osgDB::readImageFile("skymap.jpg");
 	if (image)
 	{
 		osg::Texture2D* texture = new osg::Texture2D;
@@ -129,7 +130,7 @@ int main( int argc, char **argv )
 
 		//geode->setStateSet(stateset);
 	}
-    motor->start();
+    //motor->start();
 
 
 /*	osg::Program* brickProgramObject = new osg::Program;
