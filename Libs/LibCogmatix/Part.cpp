@@ -156,8 +156,8 @@ bool ParametricSpurGearPart::snapTo (const ParametricSpurGearPart* master)
 		origin (newPosOwn * MI);
 		reset();
 		// now deal with angles.
-		Vec closestMasterGap = master->gear()->closestGap(-vecDist * masterMI) * masterM;
-		Vec closestSlaveTooth = gear()->closestTooth(vecDist * MI) * M;
+		Vec closestMasterGap = master->gear()->closestGap(vecDist * masterMI) * masterM;
+		Vec closestSlaveTooth = gear()->closestTooth(-vecDist * MI) * M;
 
 		osg::Quat qRot;
 		qRot.makeRotate (closestSlaveTooth, -closestMasterGap);

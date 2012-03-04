@@ -25,9 +25,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile~ipad</key>
-	<string>MainViewController_iPad</string>
+	<string>ViewController_iPad</string>
 	<key>NSMainNibFile~iphone</key>
-	<string>MainViewController_iPhone</string>
+	<string>ViewController_iPhone</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

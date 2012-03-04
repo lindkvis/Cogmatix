@@ -110,8 +110,6 @@
 		A716D04E14FFD43D00AD1189 = {
 			isa = PBXGroup;
 			children = (
-				A7C3BBC21500FDDA00A27D73 /* ImageIO.framework */,
-				A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */,
 				A716D06714FFD43D00AD1189 /* iCogmatix */,
 				A716D05C14FFD43D00AD1189 /* Frameworks */,
 				A716D05A14FFD43D00AD1189 /* Products */,
@@ -129,6 +127,8 @@
 		A716D05C14FFD43D00AD1189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7C3BBC21500FDDA00A27D73 /* ImageIO.framework */,
+				A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */,
 				A7C3BBC61500FE5D00A27D73 /* libOpenThreads.a */,
 				A7C3BBC71500FE5D00A27D73 /* libosgdb_imageio.a */,
 				A7C3BBC81500FE5E00A27D73 /* libosgdb_ive.a */,

@@ -90,8 +90,8 @@ int main( int argc, char **argv )
 	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0, 12.5), 20, 1.0, 0.5, 0.3, 0.);
 
-//	gear2->snapTo(gear);
-//	gear3->snapTo(gear2);
+	gear2->snapTo(gear);
+	gear3->snapTo(gear2);
 	gear4->snapTo(gear3);
     gear5->snapTo(gear4);
 	//ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
