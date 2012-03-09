@@ -86,9 +86,12 @@ public:
 			double axisDiameter, double module, double helix, double pitch_angle);
 	ParametricSpurGear(const GearParameters& params);
 	~ParametricSpurGear(void);
-	// Given a vector of orientation. What is vector of the closest gap.
-	Vec closestGap (const Vec& v) const;
-	Vec closestTooth (const Vec& v) const;
+	// Given a vector of orientation. How much tooth is at that position 
+    // (1 is right centered on the tooth, 0 is right centered on a gap).
+	double toothRatio (const Vec& v) const;
+    // Given a tooth ratio to match and our own orientation vector, how much
+    // do we need to rotate by to match the ratio.
+    double angleFromRatio (double ratioOther, const Vec& vOwn) const;
 protected:
 	// Input parameters
 	GearParameters params;

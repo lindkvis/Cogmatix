@@ -155,12 +155,14 @@ bool ParametricSpurGearPart::snapTo (const ParametricSpurGearPart* master)
 		Vec newPosOwn = worldPosition() + vecDist * (distance - (rPitch1+rPitch2));
 		origin (newPosOwn * MI);
 		reset();
-		// now deal with angles.
-		Vec closestMasterGap = master->gear()->closestGap(vecDist * masterMI) * masterM;
-		Vec closestSlaveTooth = gear()->closestTooth(-vecDist * MI) * M;
+		// now deal with angles. But first convert orientation vector to local XY coordinates
+        osg::Quat masterAttitude = master->getAttitude().inverse();
+        osg::Quat slaveAttitude = getAttitude().inverse();
+        double toothRatioMaster = master->gear()->toothRatio(masterAttitude * (vecDist * masterMI));
+		double angleSlave = gear()->angleFromRatio(toothRatioMaster, slaveAttitude * (-vecDist * MI));
 
 		osg::Quat qRot;
-		qRot.makeRotate (closestSlaveTooth, -closestMasterGap);
+		qRot.makeRotate (angleSlave, _axisVector);
 		_attitude = _attitude * qRot;
 		return true;
 	}

@@ -130,7 +130,7 @@ int main( int argc, char **argv )
 
 		//geode->setStateSet(stateset);
 	}
-    //motor->start();
+    motor->start();
 
 
 /*	osg::Program* brickProgramObject = new osg::Program;
