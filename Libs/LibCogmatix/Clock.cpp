@@ -51,13 +51,12 @@ namespace LibCogmatix
 	void Clock::start()
 	{
 		_isRunning = true;
-		_startTime = osg::Timer::instance()->getStartTick();
+		_startTime = osg::Timer::instance()->tick();
 	}
 
 	double Clock::elapsed() const
 	{
-		osg::Timer_t current = osg::Timer::instance()->tick();
-		return osg::Timer::instance()->delta_s(_startTime, current);
+		return osg::Timer::instance()->time_s();
 	}
 
 }

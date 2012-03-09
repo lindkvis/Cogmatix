@@ -84,6 +84,7 @@
 /* Begin PBXFileReference section */
 		A75E8A0D14F9340600806EC3 /* skymap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = skymap.jpg; path = ../../3rdParty/OpenSceneGraph/data/Images/skymap.jpg; sourceTree = "<group>"; };
 		A75E8A1414F934F500806EC3 /* reflect.rgb */ = {isa = PBXFileReference; lastKnownFileType = file; name = reflect.rgb; path = ../../3rdParty/OpenSceneGraph/data/Images/reflect.rgb; sourceTree = "<group>"; };
+		A76B4856150A5F2800748B4E /* osgdb_deprecated_osg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_deprecated_osg.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_deprecated_osg.so; sourceTree = "<group>"; };
 		A7A0647014F9113000A8CA2B /* Cogmatix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cogmatix; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A0647614F9113000A8CA2B /* Cogmatix.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Cogmatix.1; sourceTree = "<group>"; };
 		A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = LibCogmatix.dylib; path = ../DerivedData/Cogmatix/Build/Products/Debug/LibCogmatix.dylib; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		A7A0647D14F911A800A8CA2B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				A76B4856150A5F2800748B4E /* osgdb_deprecated_osg.so */,
 				A7F06BD615023307005A185F /* libosgVolume.dylib */,
 				A7F06BD4150232D8005A185F /* libosgTerrain.dylib */,
 				A7F06BD21502329C005A185F /* libosgSim.dylib */,

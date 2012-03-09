@@ -6,7 +6,7 @@
 
 namespace LibCogmatix
 {
-	class CompositePart : public NamedMachineNode, public osg::MatrixTransform
+	class CompositePart : public MachineNode, public osg::MatrixTransform
 	{
 	public:
 		typedef	osg::ref_ptr<CompositePart> Ptr;

@@ -3,6 +3,7 @@
 
 #include <osg/io_utils>
 #include <osg/Transform>
+#include <osgFX/Scribe>
 
 using namespace Cogmatix;
 
@@ -11,10 +12,20 @@ bool PickHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapte
     switch(ea.getEventType())
     {
         case(osgGA::GUIEventAdapter::PUSH):
+        case(osgGA::GUIEventAdapter::MOVE):
         {
-            osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
-            if (view) pick(view,ea);
+            _mx = ea.getX();
+            _my = ea.getY();
             return false;
+        }
+        case(osgGA::GUIEventAdapter::RELEASE):
+        {
+            if (fabs(_mx - ea.getX()) < 1.0e-2 && fabs(_my - ea.getY()) - 1.0e-2)
+            {
+                osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
+                if (view) pick(view,ea);
+                return false;
+            }
         }
         default:
             return false;
@@ -29,69 +40,38 @@ void PickHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
 
     if (view->computeIntersections(x,y,intersections))
     {
-		clearSelection(view);
+	//	clearSelection(view);
 		if (!intersections.empty())
 		{
 			const osgUtil::LineSegmentIntersector::Intersection& intersection = *(intersections.begin());
-			foreach (osg::Node* node, intersection.nodePath)
-			{
-				//if (dynamic_cast<ParametricSpurGearPart*>(node))
-				//	toggleSelection(view, node, intersection.nodePath.front());
-			}
+            const osg::NodePath& nodePath = intersection.nodePath;
+            osg::Node* node = (nodePath.size()>=2)?nodePath[nodePath.size()-2]:0;
+            osg::Group* parent = (nodePath.size()>=3)?dynamic_cast<osg::Group*>(nodePath[nodePath.size()-3]):0;
+            toggleSelection(view, node, parent);
 		}
     }
 }
 
-void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Node* root)
+void PickHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent)
 {
-
-	addToSelection(view, node, root);
+    osgFX::Scribe* parentAsScribe = dynamic_cast<osgFX::Scribe*>(parent);
+    if (!parentAsScribe)
+    {
+        // node not already picked, so highlight it with an osgFX::Scribe
+        osgFX::Scribe* scribe = new osgFX::Scribe();
+        scribe->addChild(node);
+        parent->replaceChild(node,scribe);
+    }
+    else
+    {
+        // node already picked so we want to remove scribe to unpick it.
+        osg::Node::ParentList parentList = parentAsScribe->getParents();
+        for(osg::Node::ParentList::iterator itr=parentList.begin();
+            itr!=parentList.end();
+            ++itr)
+        {
+            (*itr)->replaceChild(parentAsScribe,node);
+        }
+    }
 }
 
-void PickHandler::addToSelection(osgViewer::View* view, osg::Node* node, osg::Node* root)
-{
-	const ParametricSpurGearPart* gear = dynamic_cast<const ParametricSpurGearPart*>(node);
-	assert(view && view->getCamera());
-	if (gear)
-	{
-		osg::Camera* camera = view->getCamera();
-		Matrix matProj = camera->getProjectionMatrix();
-		Matrix matView = camera->getViewMatrix();
-		Matrix matWin = camera->getViewport()->computeWindowMatrix();
-		Matrix matWorldToScreen = matView * matProj * matWin;
-
-		osg::BoundingSphere sphereWorld = node->getParent(0)->getBound();
-		osg::BoundingSphere sphereScreen = LibCogmatix::transform(matWorldToScreen, sphereWorld);
-
-		//osg::BoundingBox boxWorld = gear->getBoundingBox();
-//		osg::BoundingBox boxScreen = boxWorld;
-		//osg::BoundingBox boxScreen = osg::transform(matWorldToScreen, boxWorld);
-
-		double width = sphereScreen.radius();
-		double height = width;
-		double xmin = sphereScreen.center()[0] - width;
-		double ymin = sphereScreen.center()[1] - height;
-
-		osg::ref_ptr<osgWidget::Frame> frame = osgWidget::Frame::createSimpleFrameFromTheme(
-			"frameTheme",
-			osgDB::readImageFile("theme-2.png"),
-			width,
-			height,
-			osgWidget::Frame::FRAME_ALL
-			);
-		frame->setPosition(xmin, ymin,0);
-		frame->getBackground()->setColor(1.0f, 1.0f, 1.0f, 0.0f);
-		_wm->addChild(frame);
-		_selection[node] = frame;
-	}
-
-}
-
-void PickHandler::clearSelection(osgViewer::View* view)
-{
-	foreach (SelectionMap::value_type item, _selection)
-	{
-		item.second->hide();
-	}
-	_selection.clear();
-}

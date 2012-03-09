@@ -66,7 +66,8 @@ int main( int argc, char **argv )
 {
 
 	osgViewer::Viewer viewer;
-
+    osgDB::setLibraryFilePathList("."); 
+    
 	osgWidget::WindowManager* wm = new osgWidget::WindowManager(
 		&viewer,
 		1280.0f,

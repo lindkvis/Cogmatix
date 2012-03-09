@@ -3,8 +3,9 @@
 
 namespace LibCogmatix
 {
-	Machine::Machine(NodeID ID, CoString name) : NamedMachineNode(ID, name)
+	Machine::Machine(NodeID ID, CoString name) : MachineNode(ID)
 	{
+        setName(name);
 	}
 
 	Machine::~Machine(void)

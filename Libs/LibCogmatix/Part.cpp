@@ -37,7 +37,7 @@ ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
 	// Make sure we transform the gear to be perfectly aligned with the axis.
 	reset();
 	//postMult(Matrix::rotate(Vec(0., 0., 1.), axis));
-
+    setName(name);
 	// Assign to machine
 	if (_machine)
 		_machine->addGear(this);

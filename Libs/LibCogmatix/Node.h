@@ -7,7 +7,41 @@
 
 namespace LibCogmatix
 {
-	class RotaryAxis;
+    // Recursive find function
+    template<class ClassType>
+    const ClassType* findChildOfType (const osg::Node* node)
+    {
+        const ClassType* found = dynamic_cast<const ClassType*>(node);
+        if (found)
+            return found;
+        const osg::Group* group = dynamic_cast<const osg::Group*>(node);
+        for (int i=0; group && i < group->getNumChildren(); ++i)
+        {
+            const ClassType* child = findChildOfType<ClassType>(group->getChild(i));
+            if (child)
+                return child;
+        }
+        return nullptr;
+    }
+    
+    // Recursive find function
+    template<class ClassType>
+    ClassType* findChildOfType (osg::Node* node)
+    {
+        ClassType* found = dynamic_cast<ClassType*>(node);
+        if (found)
+            return found;
+        osg::Group* group = dynamic_cast<osg::Group*>(node);
+        for (int i=0; group && i < group->getNumChildren(); ++i)
+        {
+            ClassType* child = findChildOfType<ClassType>(group->getChild(i));
+            if (child)
+                return child;
+        }
+        return nullptr;
+    }	
+    
+    class RotaryAxis;
 	class LinearAxis;
 
 	/**
@@ -25,25 +59,6 @@ namespace LibCogmatix
 		*/
 		MachineNode(NodeID ID) : _ID (ID) {}
 		virtual ~MachineNode() {};
-	private:
-	};
-
-	/**
-	 * Abtract Named node. Any item requiring a user visible name will inherit from this
-	 */
-	class NamedMachineNode : public MachineNode
-	{
-	public:
-		CoString Name() const { return _machineNodeName; }
-		void SetName (CoString name) { _machineNodeName = name; }
-	protected:
-		String _machineNodeName;
-		/**
-		* Made protected because the constructors should never be called manually.
-		*/
-		NamedMachineNode(NodeID ID, CoString name) : MachineNode (ID), _machineNodeName(name) {}
-		virtual ~NamedMachineNode() {};
-
 	private:
 	};
 }

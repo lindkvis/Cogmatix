@@ -1,9 +1,12 @@
 #pragma once
 
 #include <osg/Group>
+#include <osg/Timer>
+
 #include "LibCogmatix.h"
 #include "Axis.h"
 #include "Node.h"
+
 
 namespace LibCogmatix
 {
@@ -14,15 +17,15 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<const Motor> CPtr;
 		void setAxis (Axis::Ptr axis)
 		{
-			setChild(0, axis.get());
+           setChild(0, axis.get());
 		}
 		const Axis* getAxis () const
 		{
-			return (getNumChildren() > 0) ? dynamic_cast<const Axis*>(getChild(0)) : nullptr;
+            return findChildOfType<Axis> (this);
 		}
 		Axis* getAxis ()
 		{
-			return (getNumChildren() > 0) ? dynamic_cast<Axis*>(getChild(0)) : nullptr;
+            return findChildOfType<Axis> (this);
 		}
 
 		void start() { _isRunning=true; }
@@ -37,7 +40,7 @@ namespace LibCogmatix
 		bool _blocked; // is it being blocked by a conflict in the gear chain?
 		double _RPS; // rotations per second
 		friend class Clock;
-		void tick(double secs);
+		void tick(double dsecs);
 		bool _isRunning;
-	};
+ 	};
 }

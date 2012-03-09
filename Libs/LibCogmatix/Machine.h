@@ -11,7 +11,7 @@
 
 namespace LibCogmatix
 {
-	class Machine : public NamedMachineNode, public osg::MatrixTransform	
+	class Machine : public MachineNode, public osg::MatrixTransform	
 	{
 	protected:
 		GearSet _gears;
