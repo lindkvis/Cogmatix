@@ -7,7 +7,7 @@
 namespace LibCogmatix
 {
 
-	class Light : public MachineNode, public osg::LightSource
+	class Light : public TMachineNode<osg::LightSource>
 	{
 	protected:
 		static unsigned int s_nextLightNumber;

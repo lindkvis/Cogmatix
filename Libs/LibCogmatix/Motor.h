@@ -10,7 +10,7 @@
 
 namespace LibCogmatix
 {
-	class Motor : public MachineNode, public osg::Group
+	class Motor : public TMachineNode<osg::Group>
 	{
 	public:
 		typedef osg::ref_ptr<Motor> Ptr;

@@ -51,3 +51,5 @@ protected:
 
 typedef std::set<ParametricSpurGearPart*> GearSet;
 }
+
+#include "PartImpl.h"

@@ -24,7 +24,6 @@
 		A7A061A814F9016A00A8CA2B /* Factory.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A0619E14F9016A00A8CA2B /* Factory.h */; };
 		A7A061B814F9017900A8CA2B /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061A914F9017900A8CA2B /* Light.cpp */; };
 		A7A061B914F9017900A8CA2B /* Light.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061AA14F9017900A8CA2B /* Light.h */; };
-		A7A061BA14F9017900A8CA2B /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061AB14F9017900A8CA2B /* Machine.cpp */; };
 		A7A061BB14F9017900A8CA2B /* Machine.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061AC14F9017900A8CA2B /* Machine.h */; };
 		A7A061BC14F9017900A8CA2B /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061AD14F9017900A8CA2B /* Motor.cpp */; };
 		A7A061BD14F9017900A8CA2B /* Motor.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061AE14F9017900A8CA2B /* Motor.h */; };
@@ -32,7 +31,7 @@
 		A7A061BF14F9017900A8CA2B /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B014F9017900A8CA2B /* Node.h */; };
 		A7A061C014F9017900A8CA2B /* ParametricSpurGear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B114F9017900A8CA2B /* ParametricSpurGear.cpp */; };
 		A7A061C114F9017900A8CA2B /* ParametricSpurGear.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B214F9017900A8CA2B /* ParametricSpurGear.h */; };
-		A7A061C214F9017900A8CA2B /* Part.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B314F9017900A8CA2B /* Part.cpp */; };
+		A7A061C214F9017900A8CA2B /* PartImpl.h in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B314F9017900A8CA2B /* PartImpl.h */; };
 		A7A061C314F9017900A8CA2B /* Part.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B414F9017900A8CA2B /* Part.h */; };
 		A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B514F9017900A8CA2B /* stdafx.cpp */; };
 		A7A061C514F9017900A8CA2B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B614F9017900A8CA2B /* stdafx.h */; };
@@ -62,7 +61,6 @@
 		A7A0619E14F9016A00A8CA2B /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Factory.h; path = ../../../Libs/LibCogmatix/Factory.h; sourceTree = "<group>"; };
 		A7A061A914F9017900A8CA2B /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../../../Libs/LibCogmatix/Light.cpp; sourceTree = "<group>"; };
 		A7A061AA14F9017900A8CA2B /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../../../Libs/LibCogmatix/Light.h; sourceTree = "<group>"; };
-		A7A061AB14F9017900A8CA2B /* Machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Machine.cpp; path = ../../../Libs/LibCogmatix/Machine.cpp; sourceTree = "<group>"; };
 		A7A061AC14F9017900A8CA2B /* Machine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Machine.h; path = ../../../Libs/LibCogmatix/Machine.h; sourceTree = "<group>"; };
 		A7A061AD14F9017900A8CA2B /* Motor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Motor.cpp; path = ../../../Libs/LibCogmatix/Motor.cpp; sourceTree = "<group>"; };
 		A7A061AE14F9017900A8CA2B /* Motor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Motor.h; path = ../../../Libs/LibCogmatix/Motor.h; sourceTree = "<group>"; };
@@ -70,7 +68,7 @@
 		A7A061B014F9017900A8CA2B /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../../Libs/LibCogmatix/Node.h; sourceTree = "<group>"; };
 		A7A061B114F9017900A8CA2B /* ParametricSpurGear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParametricSpurGear.cpp; path = ../../../Libs/LibCogmatix/ParametricSpurGear.cpp; sourceTree = "<group>"; };
 		A7A061B214F9017900A8CA2B /* ParametricSpurGear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParametricSpurGear.h; path = ../../../Libs/LibCogmatix/ParametricSpurGear.h; sourceTree = "<group>"; };
-		A7A061B314F9017900A8CA2B /* Part.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Part.cpp; path = ../../../Libs/LibCogmatix/Part.cpp; sourceTree = "<group>"; };
+		A7A061B314F9017900A8CA2B /* PartImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartImpl.h; path = ../../../Libs/LibCogmatix/PartImpl.h; sourceTree = "<group>"; };
 		A7A061B414F9017900A8CA2B /* Part.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Part.h; path = ../../../Libs/LibCogmatix/Part.h; sourceTree = "<group>"; };
 		A7A061B514F9017900A8CA2B /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Libs/LibCogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7A061B614F9017900A8CA2B /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Libs/LibCogmatix/stdafx.h; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 			children = (
 				A7A061A914F9017900A8CA2B /* Light.cpp */,
 				A7A061AA14F9017900A8CA2B /* Light.h */,
-				A7A061AB14F9017900A8CA2B /* Machine.cpp */,
 				A7A061AC14F9017900A8CA2B /* Machine.h */,
 				A7A061AD14F9017900A8CA2B /* Motor.cpp */,
 				A7A061AE14F9017900A8CA2B /* Motor.h */,
@@ -122,7 +119,7 @@
 				A7A061B014F9017900A8CA2B /* Node.h */,
 				A7A061B114F9017900A8CA2B /* ParametricSpurGear.cpp */,
 				A7A061B214F9017900A8CA2B /* ParametricSpurGear.h */,
-				A7A061B314F9017900A8CA2B /* Part.cpp */,
+				A7A061B314F9017900A8CA2B /* PartImpl.h */,
 				A7A061B414F9017900A8CA2B /* Part.h */,
 				A7A061B514F9017900A8CA2B /* stdafx.cpp */,
 				A7A061B614F9017900A8CA2B /* stdafx.h */,
@@ -246,11 +243,10 @@
 				A7A061A514F9016A00A8CA2B /* CompositePart.cpp in Sources */,
 				A7A061A714F9016A00A8CA2B /* Factory.cpp in Sources */,
 				A7A061B814F9017900A8CA2B /* Light.cpp in Sources */,
-				A7A061BA14F9017900A8CA2B /* Machine.cpp in Sources */,
 				A7A061BC14F9017900A8CA2B /* Motor.cpp in Sources */,
 				A7A061BE14F9017900A8CA2B /* Node.cpp in Sources */,
 				A7A061C014F9017900A8CA2B /* ParametricSpurGear.cpp in Sources */,
-				A7A061C214F9017900A8CA2B /* Part.cpp in Sources */,
+				A7A061C214F9017900A8CA2B /* PartImpl.h in Sources */,
 				A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

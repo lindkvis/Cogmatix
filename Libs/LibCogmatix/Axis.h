@@ -11,7 +11,7 @@ namespace LibCogmatix
 	* Inherits osg::MatrixTransform, so that all children will receive any movement applied to this axis.
 	* @author Gaute Lindkvist <lindkvis@gmail.com>
 	*/
-	class Axis : public MachineNode, public osg::PositionAttitudeTransform
+	class Axis : public TMachineNode<osg::PositionAttitudeTransform>
 	{
 	public:
 		enum DiagnosticEnum
@@ -33,7 +33,7 @@ namespace LibCogmatix
 		static Diagnostics s_diagnostics;   ///<Diagnostic values. Will only be set if an axis function returns false>
 
 		Axis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
-			: MachineNode(ID), _origin(origin), _axisVector (axisVector), _valueInitial (valueInitial), _min (min), _max (max)
+			: TMachineNode(ID), _origin(origin), _axisVector (axisVector), _valueInitial (valueInitial), _min (min), _max (max)
 		{
 			reset();
 			// TODO: throw exception if we're already outside axis limits

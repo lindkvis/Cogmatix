@@ -6,7 +6,7 @@
 
 namespace LibCogmatix
 {
-	CompositePart::CompositePart(NodeID ID, CoString name, CoString fileName) : MachineNode(ID)
+	CompositePart::CompositePart(NodeID ID, CoString name, CoString fileName) : TMachineNode(ID)
 	{
 		loadGraphics(fileName);
         setName(name);

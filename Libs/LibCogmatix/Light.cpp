@@ -4,7 +4,7 @@
 namespace LibCogmatix
 {
 	unsigned int Light::s_nextLightNumber = 0;
-	Light::Light(NodeID ID, Machine* machine, const Vec& position, const Vec4& colour) : MachineNode(ID), _machine(machine)
+	Light::Light(NodeID ID, Machine* machine, const Vec& position, const Vec4& colour) : TMachineNode(ID), _machine(machine)
 	{
 		osg::ref_ptr<osg::Light> light = new osg::Light();
 		light->setLightNum(s_nextLightNumber++);

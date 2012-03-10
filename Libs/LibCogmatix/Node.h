@@ -41,24 +41,30 @@ namespace LibCogmatix
         return nullptr;
     }	
     
-    class RotaryAxis;
-	class LinearAxis;
-
 	/**
-	 * Abstract Node class. Any Cogmatic machine component will inherit from this
+	 * Templated Node interface, to inject Cogmatix specific information into the scenegraph.
 	 */
 	class MachineNode
 	{
-	public:
-		NodeID ID() { return _ID; }
+    public:
+        NodeID ID() { return _ID; }
 	protected:
 		NodeID _ID; ///<Machine specific ID. Unique within the machine.
 
 		/**
 		* Made protected because the constructors should never be called manually.
 		*/
-		MachineNode(NodeID ID) : _ID (ID) {}
+        MachineNode(NodeID ID) : _ID (ID) {}
 		virtual ~MachineNode() {};
 	private:
 	};
+    
+    template<class T>
+    class TMachineNode : public MachineNode, public T
+    {
+    factory_protected:
+        TMachineNode(NodeID ID, CoString name="") : MachineNode(ID) { T::setName (name); }
+        virtual ~TMachineNode() {}
+        
+    };
 }
