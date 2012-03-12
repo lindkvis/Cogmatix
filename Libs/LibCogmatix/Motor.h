@@ -35,6 +35,11 @@ namespace LibCogmatix
 		
 	factory_protected:
 		Motor(NodeID ID, double RPM);
+        Motor(const Motor& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
+        : TMachineNode<osg::Group>(copyFrom, copyop), _blocked(copyFrom._blocked), _RPS(copyFrom._RPS)
+        {
+        }
+
 		~Motor();
 	protected:
 		bool _blocked; // is it being blocked by a conflict in the gear chain?

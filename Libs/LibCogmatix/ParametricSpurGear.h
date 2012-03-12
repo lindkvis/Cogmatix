@@ -84,6 +84,7 @@ public:
 	static GearMap s_Gears; // Set of gears that can be reused
 	static ParametricSpurGear::Ptr Create(short numberOfTeeth, double depth,
 			double axisDiameter, double module, double helix, double pitch_angle);
+    static ParametricSpurGear::Ptr Create(const GearParameters& params);
 	ParametricSpurGear(const GearParameters& params);
 	~ParametricSpurGear(void);
 	// Given a vector of orientation. How much tooth is at that position 
@@ -92,6 +93,7 @@ public:
     // Given a tooth ratio to match and our own orientation vector, how much
     // do we need to rotate by to match the ratio.
     double angleFromRatio (double ratioOther, const Vec& vOwn) const;
+    const GearParameters& getParams() const { return params; }
 protected:
 	// Input parameters
 	GearParameters params;

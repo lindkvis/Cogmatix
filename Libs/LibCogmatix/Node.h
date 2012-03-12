@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "LibCogmatix.h"
+#include "Action.h"
 
 namespace LibCogmatix
 {
@@ -41,13 +42,35 @@ namespace LibCogmatix
         return nullptr;
     }	
     
+    // Recursive find function
+    template<class ClassType>
+    void findDescendantsOfType (osg::Node* node, std::list<ClassType*>& matches)
+    {
+        ClassType* found = dynamic_cast<ClassType*>(node);
+        if (found)
+            matches.push_back(found);
+        osg::Group* group = dynamic_cast<osg::Group*>(node);
+        for (int i=0; group && i < group->getNumChildren(); ++i)
+        {
+            findDescendantsOfType<ClassType>(group->getChild(i), matches);
+        }
+    }	
+    
 	/**
 	 * Templated Node interface, to inject Cogmatix specific information into the scenegraph.
 	 */
 	class MachineNode
 	{
     public:
-        NodeID ID() { return _ID; }
+        NodeID ID() const { return _ID; }
+        /**
+         * Retrieve a list of valid actions for the given node
+         * Any sub-class should specialise this and explicitly call the parent method 
+         * to inject the parent actions.
+         */
+        virtual Actions validActions () const;
+        virtual ActionResult perform (CoString act, const ActionArgs& args);
+        virtual bool snapTo (const MachineNode* master) { return false; }
 	protected:
 		NodeID _ID; ///<Machine specific ID. Unique within the machine.
 
@@ -56,15 +79,26 @@ namespace LibCogmatix
 		*/
         MachineNode(NodeID ID) : _ID (ID) {}
 		virtual ~MachineNode() {};
-	private:
+        MachineNode() : _ID(-1) {}
+   	factory_protected:
+        void setID (NodeID ID) { _ID = ID; }
 	};
     
     template<class T>
     class TMachineNode : public MachineNode, public T
     {
+        META_Node(LibCogmatix, TMachineNode<T>);
     factory_protected:
+        TMachineNode() : MachineNode(), T() {}
         TMachineNode(NodeID ID, CoString name="") : MachineNode(ID) { T::setName (name); }
+        TMachineNode(NodeID ID, const TMachineNode<T>& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
+            : MachineNode(ID), T(copyFrom, copyop)
+        {
+        }
+        TMachineNode(const TMachineNode<T>& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
+            : MachineNode(-1), T(copyFrom, copyop)
+        {
+        }
         virtual ~TMachineNode() {}
-        
     };
 }

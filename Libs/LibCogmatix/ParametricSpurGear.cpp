@@ -12,6 +12,11 @@ namespace LibCogmatix
                                                         double axisDiameter, double module, double helix, double pitch_angle)
     {
         GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle);
+        return Create(params);
+    }
+    
+    ParametricSpurGear::Ptr ParametricSpurGear::Create (const GearParameters& params)
+    {
         GearMap::iterator i = s_Gears.find(params);
         if (i == s_Gears.end())
         {
@@ -22,6 +27,7 @@ namespace LibCogmatix
         else
             return i->second;
     }
+
     
     ParametricSpurGear::ParametricSpurGear(const GearParameters& p)
     : params (p)

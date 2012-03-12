@@ -320,6 +320,8 @@
 		A7A0647B14F9113000A8CA2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../3rdParty/OpenSceneGraph/osx/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",
@@ -337,6 +339,8 @@
 		A7A0647C14F9113000A8CA2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../3rdParty/OpenSceneGraph/osx/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",

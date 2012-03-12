@@ -11,22 +11,23 @@
 namespace LibCogmatix
 {
     class ParametricSpurGearPart;
-    typedef std::set<ParametricSpurGearPart*> GearSet;
+    typedef std::list<ParametricSpurGearPart*> GearList;
 
 	class Machine : public TMachineNode<osg::MatrixTransform>	
 	{
-	protected:
-		GearSet _gears;
-	public:
+        META_Node(LibCogmatix, Machine);	
+    public:
 		typedef osg::ref_ptr<Machine> Ptr;
 		typedef osg::ref_ptr<const Machine> CPtr;
-		// TODO: May want to just search the tree
-		void addGear(ParametricSpurGearPart* gear) { _gears.insert(gear); }
-		const GearSet& gears() const { return _gears; }
-		void removeGear(ParametricSpurGearPart* gear) { _gears.erase(gear); }
-		void clearGears() { _gears.clear(); }
+		GearList gears();
     factory_protected:
 		Machine(NodeID ID, CoString name) : TMachineNode<osg::MatrixTransform>(ID, name) {}
+        Machine(const Machine& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
+            : TMachineNode<osg::MatrixTransform>(copyFrom, copyop)
+        {
+        }
 		~Machine(void) {}
+    private:
+        Machine() : TMachineNode<osg::MatrixTransform>() {}
 	};
 }

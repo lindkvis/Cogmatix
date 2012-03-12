@@ -34,6 +34,10 @@
 #include "OsgPlugins.h"
 #include "LibCogmatix/Factory.h"
 #include "LibCogmatix/Clock.h"
+#include "LibCogmatix/Light.h"
+#include "LibCogmatix/Node.h"
+#include "LibCogmatix/Part.h"
+
 
 #include "PickHandler.h"
 
@@ -79,9 +83,9 @@ int main( int argc, char **argv )
 	viewer.getCamera()->setClearColor(osg::Vec4(0.7,0.7,0.8,0.5));
 
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
-	LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
+	//LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	//LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	//LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
 	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
 	//CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
@@ -180,10 +184,18 @@ int main( int argc, char **argv )
 	viewer.realize();
 	//Clock::get()->start();
 
+    bool addedNewGear=false;
 	while (!viewer.done())
 	{
 		Clock::get()->tick();
 		viewer.frame(Clock::get()->elapsed());
+        if (Clock::get()->elapsed() > 10.)
+            gear4->perform("remove", ActionArgs());
+        if (Clock::get()->elapsed() > 5. && !addedNewGear)
+        {
+            gear5->perform("copy", ActionArgs());
+            addedNewGear=true;
+        }        
 	}
 
 

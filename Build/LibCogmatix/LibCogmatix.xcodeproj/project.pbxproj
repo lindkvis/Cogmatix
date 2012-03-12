@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A70138DE150E4C62005373F4 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A70138DD150E4C62005373F4 /* Machine.cpp */; };
+		A70138E0150E4D95005373F4 /* Part.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B314F9017900A8CA2B /* Part.cpp */; };
 		A7255BA915022563001C41B2 /* libOpenThreads.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA515022563001C41B2 /* libOpenThreads.dylib */; };
 		A7255BAA15022563001C41B2 /* libosg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA615022563001C41B2 /* libosg.dylib */; };
 		A7255BAB15022563001C41B2 /* libosgDB.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA715022563001C41B2 /* libosgDB.dylib */; };
@@ -35,9 +37,12 @@
 		A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B514F9017900A8CA2B /* stdafx.cpp */; };
 		A7A061C514F9017900A8CA2B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B614F9017900A8CA2B /* stdafx.h */; };
 		A7A061C614F9017900A8CA2B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B714F9017900A8CA2B /* Units.h */; };
+		A7CE6D89150E201300BC6194 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CE6D85150E201300BC6194 /* Action.h */; };
+		A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A70138DD150E4C62005373F4 /* Machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Machine.cpp; sourceTree = "<group>"; };
 		A7255BA515022563001C41B2 /* libOpenThreads.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenThreads.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libOpenThreads.dylib; sourceTree = "<group>"; };
 		A7255BA615022563001C41B2 /* libosg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosg.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosg.dylib; sourceTree = "<group>"; };
 		A7255BA715022563001C41B2 /* libosgDB.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgDB.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgDB.dylib; sourceTree = "<group>"; };
@@ -67,11 +72,14 @@
 		A7A061B014F9017900A8CA2B /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../../Libs/LibCogmatix/Node.h; sourceTree = "<group>"; };
 		A7A061B114F9017900A8CA2B /* ParametricSpurGear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParametricSpurGear.cpp; path = ../../../Libs/LibCogmatix/ParametricSpurGear.cpp; sourceTree = "<group>"; };
 		A7A061B214F9017900A8CA2B /* ParametricSpurGear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParametricSpurGear.h; path = ../../../Libs/LibCogmatix/ParametricSpurGear.h; sourceTree = "<group>"; };
-		A7A061B314F9017900A8CA2B /* PartImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartImpl.h; path = ../../../Libs/LibCogmatix/PartImpl.h; sourceTree = "<group>"; };
+		A7A061B314F9017900A8CA2B /* Part.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Part.cpp; path = ../../../Libs/LibCogmatix/Part.cpp; sourceTree = "<group>"; };
 		A7A061B414F9017900A8CA2B /* Part.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Part.h; path = ../../../Libs/LibCogmatix/Part.h; sourceTree = "<group>"; };
 		A7A061B514F9017900A8CA2B /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Libs/LibCogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7A061B614F9017900A8CA2B /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Libs/LibCogmatix/stdafx.h; sourceTree = "<group>"; };
 		A7A061B714F9017900A8CA2B /* Units.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Units.h; path = ../../../Libs/LibCogmatix/Units.h; sourceTree = "<group>"; };
+		A7CE6D85150E201300BC6194 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = ../../../Libs/LibCogmatix/Action.h; sourceTree = "<group>"; };
+		A7CE6D86150E201300BC6194 /* Actions.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Actions.strings; path = ../../../Libs/LibCogmatix/Actions.strings; sourceTree = "<group>"; };
+		A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibCogmatix.cpp; path = ../../../Libs/LibCogmatix/LibCogmatix.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +117,13 @@
 		A7A0618514F8FF4400A8CA2B /* LibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
-				A7A061B314F9017900A8CA2B /* PartImpl.h */,
+				A7CE6D85150E201300BC6194 /* Action.h */,
+				A7A0619314F9015C00A8CA2B /* LibCogmatix.h */,
+				A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */,
 				A7A061A914F9017900A8CA2B /* Light.cpp */,
 				A7A061AA14F9017900A8CA2B /* Light.h */,
 				A7A061AC14F9017900A8CA2B /* Machine.h */,
+				A70138DD150E4C62005373F4 /* Machine.cpp */,
 				A7A061AD14F9017900A8CA2B /* Motor.cpp */,
 				A7A061AE14F9017900A8CA2B /* Motor.h */,
 				A7A061AF14F9017900A8CA2B /* Node.cpp */,
@@ -120,6 +131,7 @@
 				A7A061B114F9017900A8CA2B /* ParametricSpurGear.cpp */,
 				A7A061B214F9017900A8CA2B /* ParametricSpurGear.h */,
 				A7A061B414F9017900A8CA2B /* Part.h */,
+				A7A061B314F9017900A8CA2B /* Part.cpp */,
 				A7A061B514F9017900A8CA2B /* stdafx.cpp */,
 				A7A061B614F9017900A8CA2B /* stdafx.h */,
 				A7A061B714F9017900A8CA2B /* Units.h */,
@@ -133,7 +145,6 @@
 				A7A0619C14F9016A00A8CA2B /* CompositePart.h */,
 				A7A0619D14F9016A00A8CA2B /* Factory.cpp */,
 				A7A0619E14F9016A00A8CA2B /* Factory.h */,
-				A7A0619314F9015C00A8CA2B /* LibCogmatix.h */,
 				A7A0618814F8FF4400A8CA2B /* LibCogmatixProj.xcconfig */,
 				A7A0618914F8FF4400A8CA2B /* LibCogmatixTarget.xcconfig */,
 				A7A0618B14F8FF4400A8CA2B /* LibCogmatixPriv.h */,
@@ -145,6 +156,7 @@
 		A7A0618614F8FF4400A8CA2B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7CE6D86150E201300BC6194 /* Actions.strings */,
 				A7A0618714F8FF4400A8CA2B /* LibCogmatix-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -182,6 +194,7 @@
 				A7A061C314F9017900A8CA2B /* Part.h in Headers */,
 				A7A061C514F9017900A8CA2B /* stdafx.h in Headers */,
 				A7A061C614F9017900A8CA2B /* Units.h in Headers */,
+				A7CE6D89150E201300BC6194 /* Action.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A70138E0150E4D95005373F4 /* Part.cpp in Sources */,
 				A7A0619F14F9016A00A8CA2B /* Axis.cpp in Sources */,
 				A7A061A114F9016A00A8CA2B /* Clock.cpp in Sources */,
 				A7A061A314F9016A00A8CA2B /* CogException.cpp in Sources */,
@@ -246,6 +260,8 @@
 				A7A061BE14F9017900A8CA2B /* Node.cpp in Sources */,
 				A7A061C014F9017900A8CA2B /* ParametricSpurGear.cpp in Sources */,
 				A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */,
+				A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */,
+				A70138DE150E4C62005373F4 /* Machine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +273,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -285,6 +303,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -304,6 +324,8 @@
 		A7A0619114F8FF4400A8CA2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../3rdParty/OpenSceneGraph/osx/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",
@@ -320,6 +342,8 @@
 		A7A0619214F8FF4400A8CA2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/../../3rdParty/OpenSceneGraph/osx/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",

@@ -13,6 +13,3 @@
 
 #define isnan _isnan
 // TODO: reference additional headers your program requires here
-#include <osg/Node>
-
-#include "LibCogmatix.h"

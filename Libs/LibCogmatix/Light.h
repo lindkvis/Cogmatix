@@ -21,6 +21,12 @@ namespace LibCogmatix
 		bool IsOn() const;
 	factory_protected:
 		Light(NodeID ID, Machine* machine, const Vec& position, const Vec4& colour);
+        Light(const Light& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
+            : TMachineNode<osg::LightSource>(copyFrom, copyop)
+        {
+        }
+        Light() : TMachineNode<osg::LightSource>() {}
 		~Light();
+        META_Node (LibCogmatix, Light);
 	};
 }

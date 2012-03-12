@@ -38,6 +38,7 @@ namespace LibCogmatix
 			reset();
 			// TODO: throw exception if we're already outside axis limits
 		}
+        Axis() : TMachineNode<osg::PositionAttitudeTransform>() {}
 	public:
 		typedef osg::ref_ptr<Axis> Ptr;
 		typedef osg::ref_ptr<const Axis> CPtr;
@@ -73,6 +74,7 @@ namespace LibCogmatix
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~RotaryAxis() {}
+        RotaryAxis() : Axis() {}
 	private:
 	};
 
@@ -87,6 +89,7 @@ namespace LibCogmatix
 		LinearAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
 		virtual ~LinearAxis() {}
+        LinearAxis() : Axis() {}
 	private:
 	};
 }
