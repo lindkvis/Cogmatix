@@ -1,0 +1,12 @@
+/* 
+  Strings.strings
+  LibCogmatix
+
+  Created by Gaute Lindkvist on 12/03/2012.
+  Copyright (c) 2012 Cogmatix. All rights reserved.
+*/
+
+/* Delete a node */
+"remove" = "remove";
+/* Copy a node */
+"copy" = "copy";

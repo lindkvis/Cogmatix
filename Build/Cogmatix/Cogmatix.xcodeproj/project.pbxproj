@@ -33,13 +33,6 @@
 		A7F06BB2150227CD005A185F /* libosgViewer.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06BAC150227B2005A185F /* libosgViewer.dylib */; };
 		A7F06BB3150227CD005A185F /* libosgWidget.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06BAD150227B2005A185F /* libosgWidget.dylib */; };
 		A7F06BCA150230B0005A185F /* skydome.ive in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BC91502309D005A185F /* skydome.ive */; };
-		A7F06BCB150231A8005A185F /* osgdb_ive.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BC715022BC5005A185F /* osgdb_ive.so */; };
-		A7F06BCC150231A8005A185F /* osgdb_bmp.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB415022857005A185F /* osgdb_bmp.so */; };
-		A7F06BCD150231A8005A185F /* osgdb_glsl.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB515022857005A185F /* osgdb_glsl.so */; };
-		A7F06BCE150231A8005A185F /* osgdb_imageio.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB615022857005A185F /* osgdb_imageio.so */; };
-		A7F06BCF150231A8005A185F /* osgdb_obj.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB715022857005A185F /* osgdb_obj.so */; };
-		A7F06BD0150231A8005A185F /* osgdb_osg.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB815022857005A185F /* osgdb_osg.so */; };
-		A7F06BD1150231A8005A185F /* osgdb_rgb.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BB915022857005A185F /* osgdb_rgb.so */; };
 		A7F06BD31502329C005A185F /* libosgSim.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD21502329C005A185F /* libosgSim.dylib */; };
 		A7F06BD5150232D8005A185F /* libosgTerrain.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD4150232D8005A185F /* libosgTerrain.dylib */; };
 		A7F06BD715023307005A185F /* libosgVolume.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD615023307005A185F /* libosgVolume.dylib */; };
@@ -55,13 +48,6 @@
 				A7F06BD715023307005A185F /* libosgVolume.dylib in CopyFiles */,
 				A7F06BD5150232D8005A185F /* libosgTerrain.dylib in CopyFiles */,
 				A7F06BD31502329C005A185F /* libosgSim.dylib in CopyFiles */,
-				A7F06BCB150231A8005A185F /* osgdb_ive.so in CopyFiles */,
-				A7F06BCC150231A8005A185F /* osgdb_bmp.so in CopyFiles */,
-				A7F06BCD150231A8005A185F /* osgdb_glsl.so in CopyFiles */,
-				A7F06BCE150231A8005A185F /* osgdb_imageio.so in CopyFiles */,
-				A7F06BCF150231A8005A185F /* osgdb_obj.so in CopyFiles */,
-				A7F06BD0150231A8005A185F /* osgdb_osg.so in CopyFiles */,
-				A7F06BD1150231A8005A185F /* osgdb_rgb.so in CopyFiles */,
 				A7F06BCA150230B0005A185F /* skydome.ive in CopyFiles */,
 				A7F06BAE150227B2005A185F /* libosgText.dylib in CopyFiles */,
 				A7F06BAF150227B2005A185F /* libosgUtil.dylib in CopyFiles */,
@@ -84,7 +70,6 @@
 /* Begin PBXFileReference section */
 		A75E8A0D14F9340600806EC3 /* skymap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = skymap.jpg; path = ../../3rdParty/OpenSceneGraph/data/Images/skymap.jpg; sourceTree = "<group>"; };
 		A75E8A1414F934F500806EC3 /* reflect.rgb */ = {isa = PBXFileReference; lastKnownFileType = file; name = reflect.rgb; path = ../../3rdParty/OpenSceneGraph/data/Images/reflect.rgb; sourceTree = "<group>"; };
-		A76B4856150A5F2800748B4E /* osgdb_deprecated_osg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_deprecated_osg.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_deprecated_osg.so; sourceTree = "<group>"; };
 		A7A0647014F9113000A8CA2B /* Cogmatix */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Cogmatix; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7A0647614F9113000A8CA2B /* Cogmatix.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Cogmatix.1; sourceTree = "<group>"; };
 		A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = LibCogmatix.dylib; path = ../DerivedData/Cogmatix/Build/Products/Debug/LibCogmatix.dylib; sourceTree = "<group>"; };
@@ -103,14 +88,7 @@
 		A7F06BAB150227B2005A185F /* libosgUtil.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgUtil.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgUtil.dylib; sourceTree = "<group>"; };
 		A7F06BAC150227B2005A185F /* libosgViewer.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgViewer.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgViewer.dylib; sourceTree = "<group>"; };
 		A7F06BAD150227B2005A185F /* libosgWidget.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgWidget.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgWidget.dylib; sourceTree = "<group>"; };
-		A7F06BB415022857005A185F /* osgdb_bmp.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_bmp.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_bmp.so; sourceTree = "<group>"; };
-		A7F06BB515022857005A185F /* osgdb_glsl.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_glsl.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_glsl.so; sourceTree = "<group>"; };
-		A7F06BB615022857005A185F /* osgdb_imageio.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_imageio.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_imageio.so; sourceTree = "<group>"; };
-		A7F06BB715022857005A185F /* osgdb_obj.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_obj.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_obj.so; sourceTree = "<group>"; };
-		A7F06BB815022857005A185F /* osgdb_osg.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_osg.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_osg.so; sourceTree = "<group>"; };
-		A7F06BB915022857005A185F /* osgdb_rgb.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_rgb.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_rgb.so; sourceTree = "<group>"; };
 		A7F06BC115022A4F005A185F /* OsgPlugins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OsgPlugins.h; path = ../../../Apps/Cogmatix/OsgPlugins.h; sourceTree = "<group>"; };
-		A7F06BC715022BC5005A185F /* osgdb_ive.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_ive.so; path = ../../3rdParty/OpenSceneGraph/osx/lib/osgdb_ive.so; sourceTree = "<group>"; };
 		A7F06BC91502309D005A185F /* skydome.ive */ = {isa = PBXFileReference; lastKnownFileType = file; name = skydome.ive; path = ../../3rdParty/OpenSceneGraph/data/skydome.ive; sourceTree = "<group>"; };
 		A7F06BD21502329C005A185F /* libosgSim.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgSim.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgSim.dylib; sourceTree = "<group>"; };
 		A7F06BD4150232D8005A185F /* libosgTerrain.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgTerrain.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgTerrain.dylib; sourceTree = "<group>"; };
@@ -182,17 +160,9 @@
 		A7A0647D14F911A800A8CA2B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				A76B4856150A5F2800748B4E /* osgdb_deprecated_osg.so */,
 				A7F06BD615023307005A185F /* libosgVolume.dylib */,
 				A7F06BD4150232D8005A185F /* libosgTerrain.dylib */,
 				A7F06BD21502329C005A185F /* libosgSim.dylib */,
-				A7F06BC715022BC5005A185F /* osgdb_ive.so */,
-				A7F06BB415022857005A185F /* osgdb_bmp.so */,
-				A7F06BB515022857005A185F /* osgdb_glsl.so */,
-				A7F06BB615022857005A185F /* osgdb_imageio.so */,
-				A7F06BB715022857005A185F /* osgdb_obj.so */,
-				A7F06BB815022857005A185F /* osgdb_osg.so */,
-				A7F06BB915022857005A185F /* osgdb_rgb.so */,
 				A7F06BAA150227B2005A185F /* libosgText.dylib */,
 				A7F06BAB150227B2005A185F /* libosgUtil.dylib */,
 				A7F06BAC150227B2005A185F /* libosgViewer.dylib */,
