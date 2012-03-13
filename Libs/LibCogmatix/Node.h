@@ -69,7 +69,7 @@ namespace LibCogmatix
          * to inject the parent actions.
          */
         virtual Actions validActions () const;
-        virtual ActionResult perform (CoString act, const ActionArgs& args);
+        virtual ActionResult perform (CoString action, const ActionArgs& args);
         virtual bool snapTo (const MachineNode* master) { return false; }
 	protected:
 		NodeID _ID; ///<Machine specific ID. Unique within the machine.

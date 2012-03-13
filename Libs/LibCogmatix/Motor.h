@@ -32,7 +32,10 @@ namespace LibCogmatix
 		void stop() { _isRunning=false; }
 		bool isRunning() const { return _isRunning; }
 		bool isBlocked() const { return _blocked; }
-		
+        // Valid actions
+		virtual Actions validActions() const;
+        virtual ActionResult perform(CoString action, const ActionArgs& args); 
+        
 	factory_protected:
 		Motor(NodeID ID, double RPM);
         Motor(const Motor& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 

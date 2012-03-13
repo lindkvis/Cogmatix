@@ -306,17 +306,19 @@ namespace LibCogmatix
     {
     }
         
-    double ParametricSpurGear::toothRatio (const Vec& v) const
+    double ParametricSpurGear::toothRatio (const Vec& v, double rRotatedAngle) const
     {
+        Vec ownAngle = Vec(1., 0., 0.);
+        ownAngle = ownAngle * osg::Matrix::rotate(rRotatedAngle, Vec(0., 0., 1.));
         double delta = 2. * PI / params._numberOfTeeth;
-        double angle = acos (v * Vec(1., 0., 0.)/v.length());
+        double angle = acos ((v * ownAngle)/v.length());
         double ratioEdge = fmod (angle, delta) / delta;
         return fmod(ratioEdge+0.5, 1.);
     }
     
-    double ParametricSpurGear::angleFromRatio (double ratioOther, const Vec& vOwn) const
+    double ParametricSpurGear::angleFromRatio (double ratioOther, const Vec& vOwn, double rRotatedAngle) const
     {
-        double ratioOwn = toothRatio (vOwn);
+        double ratioOwn = toothRatio (vOwn, rRotatedAngle);
         double dRatio = 1. - (ratioOther + ratioOwn);
         double dAngle = 2. * PI / params._numberOfTeeth;
         return dRatio * dAngle;

@@ -89,10 +89,10 @@ public:
 	~ParametricSpurGear(void);
 	// Given a vector of orientation. How much tooth is at that position 
     // (1 is right centered on the tooth, 0 is right centered on a gap).
-	double toothRatio (const Vec& v) const;
+	double toothRatio (const Vec& v, double rRotatedAngle) const;
     // Given a tooth ratio to match and our own orientation vector, how much
     // do we need to rotate by to match the ratio.
-    double angleFromRatio (double ratioOther, const Vec& vOwn) const;
+    double angleFromRatio (double ratioOther, const Vec& vOwn, double rRotatedAngle) const;
     const GearParameters& getParams() const { return params; }
 protected:
 	// Input parameters

@@ -184,18 +184,32 @@ int main( int argc, char **argv )
 	viewer.realize();
 	//Clock::get()->start();
 
+    // testing
     bool addedNewGear=false;
+    bool bStopped=false;
+    bool bStarted=false;
 	while (!viewer.done())
 	{
 		Clock::get()->tick();
 		viewer.frame(Clock::get()->elapsed());
         if (Clock::get()->elapsed() > 10.)
             gear4->perform("remove", ActionArgs());
-        if (Clock::get()->elapsed() > 5. && !addedNewGear)
+        if (Clock::get()->elapsed() > 5.2 && !addedNewGear)
         {
             gear5->perform("copy", ActionArgs());
             addedNewGear=true;
         }        
+        if (Clock::get()->elapsed() > 2.5 && !bStopped)
+        {
+            motor->perform("stop", ActionArgs());
+            bStopped=true;
+        }
+        if (Clock::get()->elapsed() > 7.5 && !bStarted)
+        {
+            motor->perform("start", ActionArgs());
+            bStarted=true;
+        }
+            
 	}
 
 

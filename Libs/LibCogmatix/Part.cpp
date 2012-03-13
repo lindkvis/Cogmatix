@@ -170,8 +170,8 @@ namespace LibCogmatix
             // now deal with angles. But first convert orientation vector to local XY coordinates
             osg::Quat masterAttitude = master->getAttitude().inverse();
             osg::Quat slaveAttitude = getAttitude().inverse();
-            double toothRatioMaster = master->gear()->toothRatio(masterAttitude * (vecDist * masterMI));
-            double angleSlave = gear()->angleFromRatio(toothRatioMaster, slaveAttitude * (-vecDist * MI));
+            double toothRatioMaster = master->gear()->toothRatio(masterAttitude * (vecDist * masterMI), _value);
+            double angleSlave = gear()->angleFromRatio(toothRatioMaster, slaveAttitude * (-vecDist * MI), _value);
             
             osg::Quat qRot;
             qRot.makeRotate (angleSlave, _axisVector);

@@ -37,4 +37,27 @@ namespace LibCogmatix
 		}
         accelTimer+= dsecs;
 	}
+    
+    // Valid actions
+    Actions Motor::validActions() const
+    {
+        Actions actions = MachineNode::validActions();
+        if (isRunning())
+            actions.push_back(Action("stop"));
+        else
+            actions.push_back(Action("start"));
+        return actions;
+    }
+    
+    ActionResult Motor::perform(CoString action, const ActionArgs& args)
+    {
+        if (action == "start")
+            start();
+        else if (action == "stop")
+            stop();
+        else
+            return MachineNode::perform(action, args);
+        
+        return ActionResult();
+    }
 }
