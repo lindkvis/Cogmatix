@@ -15,7 +15,6 @@
 #define OSGTerrain 1
 
 #include <osg/CoordinateSystemNode>
-#include <OpenThreads/ReentrantMutex>
 
 #include <osgTerrain/TerrainTile>
 
@@ -110,7 +109,7 @@ class OSGTERRAIN_EXPORT Terrain : public osg::CoordinateSystemNode
         TerrainTile::BlendingPolicy         _blendingPolicy;
         bool                                _equalizeBoundaries;
 
-        mutable OpenThreads::ReentrantMutex _mutex;
+        mutable OpenThreads::Mutex          _mutex;
         TerrainTileSet                      _terrainTileSet;
         TerrainTileMap                      _terrainTileMap;
         TerrainTileSet                      _updateTerrainTileSet;

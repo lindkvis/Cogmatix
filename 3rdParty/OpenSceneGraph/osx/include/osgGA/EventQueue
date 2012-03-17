@@ -196,13 +196,11 @@ class OSGGA_EXPORT EventQueue : public osg::Referenced
         void frame(double time);
         
 
-        void setStartTick(osg::Timer_t tick) { _startTick = tick; clear(); }
+        void setStartTick(osg::Timer_t tick) { _startTick = tick; }
         osg::Timer_t getStartTick() const { return _startTick; }
 
         double getTime() const { return osg::Timer::instance()->delta_s(_startTick, osg::Timer::instance()->tick()); }
 
-        /** clear all events from queue. */
-        void clear();
 
         /** convenience method for create an event ready to fill in.  Clones the getCurrentEventState() to produce a up to date event state. */
         GUIEventAdapter* createEvent();
@@ -218,8 +216,6 @@ class OSGGA_EXPORT EventQueue : public osg::Referenced
         /** Method for adapting user defined events with specified event time */
         void userEvent(osg::Referenced* userEventData, double time);
 
-        void setFirstTouchEmulatesMouse(bool b) { _firstTouchEmulatesMouse = b; }
-        bool getFirstTouchEmulatesMouse() const { return _firstTouchEmulatesMouse; }
 
     protected:
 
@@ -235,7 +231,6 @@ class OSGGA_EXPORT EventQueue : public osg::Referenced
         osg::Timer_t                _startTick;
         mutable OpenThreads::Mutex  _eventQueueMutex;
         Events                      _eventQueue;
-        bool                        _firstTouchEmulatesMouse;
     
 };
 

@@ -161,8 +161,7 @@ class OSG_EXPORT CullSettings
         {
             DO_NOT_COMPUTE_NEAR_FAR = 0,
             COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES,
-            COMPUTE_NEAR_FAR_USING_PRIMITIVES,
-            COMPUTE_NEAR_USING_PRIMITIVES
+            COMPUTE_NEAR_FAR_USING_PRIMITIVES
         };
 
         void setComputeNearFarMode(ComputeNearFarMode cnfm) { _computeNearFar=cnfm; applyMaskAction(COMPUTE_NEAR_FAR_MODE); } 
@@ -217,8 +216,7 @@ class OSG_EXPORT CullSettings
         /** Get the LOD bias.*/
         float getLODScale() const { return _LODScale; }
 
-        /** Threshold at which small features are culled.
-        \param value Boulding volume size in screen space. Default is 2.0. */
+        /** Set the Small Feature Culling Pixel Size.*/
         void setSmallFeatureCullingPixelSize(float value) { _smallFeatureCullingPixelSize=value; applyMaskAction(SMALL_FEATURE_CULLING_PIXEL_SIZE); }
 
         /** Get the Small Feature Culling Pixel Size.*/
