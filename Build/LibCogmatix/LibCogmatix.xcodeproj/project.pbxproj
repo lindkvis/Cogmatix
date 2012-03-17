@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A70138DE150E4C62005373F4 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A70138DD150E4C62005373F4 /* Machine.cpp */; };
 		A70138E0150E4D95005373F4 /* Part.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B314F9017900A8CA2B /* Part.cpp */; };
 		A7255BA915022563001C41B2 /* libOpenThreads.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA515022563001C41B2 /* libOpenThreads.dylib */; };
 		A7255BAA15022563001C41B2 /* libosg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA615022563001C41B2 /* libosg.dylib */; };
@@ -39,10 +38,10 @@
 		A7A061C614F9017900A8CA2B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B714F9017900A8CA2B /* Units.h */; };
 		A7CE6D89150E201300BC6194 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CE6D85150E201300BC6194 /* Action.h */; };
 		A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */; };
+		A7E8E97A1514861100BF25A3 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8E9791514861100BF25A3 /* Machine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A70138DD150E4C62005373F4 /* Machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Machine.cpp; sourceTree = "<group>"; };
 		A7255BA515022563001C41B2 /* libOpenThreads.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenThreads.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libOpenThreads.dylib; sourceTree = "<group>"; };
 		A7255BA615022563001C41B2 /* libosg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosg.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosg.dylib; sourceTree = "<group>"; };
 		A7255BA715022563001C41B2 /* libosgDB.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgDB.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgDB.dylib; sourceTree = "<group>"; };
@@ -51,7 +50,6 @@
 		A7A0618714F8FF4400A8CA2B /* LibCogmatix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LibCogmatix-Prefix.pch"; sourceTree = "<group>"; };
 		A7A0618814F8FF4400A8CA2B /* LibCogmatixProj.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LibCogmatixProj.xcconfig; sourceTree = "<group>"; };
 		A7A0618914F8FF4400A8CA2B /* LibCogmatixTarget.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = LibCogmatixTarget.xcconfig; sourceTree = "<group>"; };
-		A7A0618B14F8FF4400A8CA2B /* LibCogmatixPriv.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibCogmatixPriv.h; sourceTree = "<group>"; };
 		A7A0619314F9015C00A8CA2B /* LibCogmatix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibCogmatix.h; path = ../../../Libs/LibCogmatix/LibCogmatix.h; sourceTree = "<group>"; };
 		A7A0619514F9016900A8CA2B /* Axis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Axis.cpp; path = ../../../Libs/LibCogmatix/Axis.cpp; sourceTree = "<group>"; };
 		A7A0619614F9016900A8CA2B /* Axis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Axis.h; path = ../../../Libs/LibCogmatix/Axis.h; sourceTree = "<group>"; };
@@ -80,6 +78,7 @@
 		A7CE6D85150E201300BC6194 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = ../../../Libs/LibCogmatix/Action.h; sourceTree = "<group>"; };
 		A7CE6D86150E201300BC6194 /* Actions.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Actions.strings; path = ../../../Libs/LibCogmatix/Actions.strings; sourceTree = "<group>"; };
 		A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibCogmatix.cpp; path = ../../../Libs/LibCogmatix/LibCogmatix.cpp; sourceTree = "<group>"; };
+		A7E8E9791514861100BF25A3 /* Machine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Machine.cpp; path = ../../../Libs/LibCogmatix/Machine.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,13 +116,13 @@
 		A7A0618514F8FF4400A8CA2B /* LibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
+				A7E8E9791514861100BF25A3 /* Machine.cpp */,
 				A7CE6D85150E201300BC6194 /* Action.h */,
 				A7A0619314F9015C00A8CA2B /* LibCogmatix.h */,
 				A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */,
 				A7A061A914F9017900A8CA2B /* Light.cpp */,
 				A7A061AA14F9017900A8CA2B /* Light.h */,
 				A7A061AC14F9017900A8CA2B /* Machine.h */,
-				A70138DD150E4C62005373F4 /* Machine.cpp */,
 				A7A061AD14F9017900A8CA2B /* Motor.cpp */,
 				A7A061AE14F9017900A8CA2B /* Motor.h */,
 				A7A061AF14F9017900A8CA2B /* Node.cpp */,
@@ -147,7 +146,6 @@
 				A7A0619E14F9016A00A8CA2B /* Factory.h */,
 				A7A0618814F8FF4400A8CA2B /* LibCogmatixProj.xcconfig */,
 				A7A0618914F8FF4400A8CA2B /* LibCogmatixTarget.xcconfig */,
-				A7A0618B14F8FF4400A8CA2B /* LibCogmatixPriv.h */,
 				A7A0618614F8FF4400A8CA2B /* Supporting Files */,
 			);
 			path = LibCogmatix;
@@ -261,7 +259,7 @@
 				A7A061C014F9017900A8CA2B /* ParametricSpurGear.cpp in Sources */,
 				A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */,
 				A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */,
-				A70138DE150E4C62005373F4 /* Machine.cpp in Sources */,
+				A7E8E97A1514861100BF25A3 /* Machine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,8 @@
 
 int main(int argc, char *argv[])
 {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([cogAppDelegate class]));
-    }
+    NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	UIApplicationMain(argc, argv, nil, @"cogAppDelegate");
+	[pool release];
+    return 0;
 }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A716D04214FFD3AA00AD1189 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D04114FFD3AA00AD1189 /* Foundation.framework */; };
-		A716D04814FFD3AA00AD1189 /* iLibCogmatix.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */; };
 		A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08514FFD4A400AD1189 /* libOpenThreads.a */; };
 		A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08614FFD4A400AD1189 /* libosg.a */; };
 		A716D08F14FFD4A400AD1189 /* libosgdb_imageio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */; };
@@ -41,18 +40,19 @@
 		A7C8B92E1500D393006E679B /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90E1500D00E006E679B /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9101500D00E006E679B /* ParametricSpurGear.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9301500D393006E679B /* Part.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9121500D00E006E679B /* Part.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7C8B9311500D393006E679B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9151500D00E006E679B /* stdafx.h */; };
+		A7C8B9311500D393006E679B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9151500D00E006E679B /* stdafx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9321500D393006E679B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9171500D00E006E679B /* Units.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9361500D487006E679B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9341500D487006E679B /* ImageIO.framework */; };
 		A7C8B9381500D4D3006E679B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9371500D4D3006E679B /* OpenGLES.framework */; };
+		A7E8E97F1514866D00BF25A3 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8E97B1514866D00BF25A3 /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7E8E9801514866D00BF25A3 /* LibCogmatix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */; };
+		A7E8E9811514866D00BF25A3 /* PartImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8E97E1514866D00BF25A3 /* PartImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A716D03E14FFD3AA00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiLibCogmatix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A716D04114FFD3AA00AD1189 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A716D04514FFD3AA00AD1189 /* iLibCogmatix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iLibCogmatix-Prefix.pch"; sourceTree = "<group>"; };
-		A716D04614FFD3AA00AD1189 /* iLibCogmatix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iLibCogmatix.h; sourceTree = "<group>"; };
-		A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = iLibCogmatix.mm; sourceTree = "<group>"; };
 		A716D08514FFD4A400AD1189 /* libOpenThreads.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOpenThreads.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libOpenThreads.a"; sourceTree = "<group>"; };
 		A716D08614FFD4A400AD1189 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
 		A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_imageio.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_imageio.a"; sourceTree = "<group>"; };
@@ -72,10 +72,6 @@
 		A7C8B9001500D00E006E679B /* Factory.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Factory.cpp; path = ../../../Libs/LibCogmatix/Factory.cpp; sourceTree = "<group>"; };
 		A7C8B9011500D00E006E679B /* Factory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Factory.h; path = ../../../Libs/LibCogmatix/Factory.h; sourceTree = "<group>"; };
 		A7C8B9021500D00E006E679B /* LibCogmatix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LibCogmatix.h; path = ../../../Libs/LibCogmatix/LibCogmatix.h; sourceTree = "<group>"; };
-		A7C8B9031500D00E006E679B /* LibCogmatix.suo */ = {isa = PBXFileReference; lastKnownFileType = file; name = LibCogmatix.suo; path = ../../../Libs/LibCogmatix/LibCogmatix.suo; sourceTree = "<group>"; };
-		A7C8B9041500D00E006E679B /* LibCogmatix.vcxproj */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj; sourceTree = "<group>"; };
-		A7C8B9051500D00E006E679B /* LibCogmatix.vcxproj.filters */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj.filters; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj.filters; sourceTree = "<group>"; };
-		A7C8B9061500D00E006E679B /* LibCogmatix.vcxproj.user */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = LibCogmatix.vcxproj.user; path = ../../../Libs/LibCogmatix/LibCogmatix.vcxproj.user; sourceTree = "<group>"; };
 		A7C8B9071500D00E006E679B /* Light.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../../../Libs/LibCogmatix/Light.cpp; sourceTree = "<group>"; };
 		A7C8B9081500D00E006E679B /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Light.h; path = ../../../Libs/LibCogmatix/Light.h; sourceTree = "<group>"; };
 		A7C8B9091500D00E006E679B /* Machine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Machine.cpp; path = ../../../Libs/LibCogmatix/Machine.cpp; sourceTree = "<group>"; };
@@ -94,6 +90,10 @@
 		A7C8B9331500D487006E679B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		A7C8B9341500D487006E679B /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		A7C8B9371500D4D3006E679B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		A7E8E97B1514866D00BF25A3 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = ../../../Libs/LibCogmatix/Action.h; sourceTree = "<group>"; };
+		A7E8E97C1514866D00BF25A3 /* Actions.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Actions.strings; path = ../../../Libs/LibCogmatix/Actions.strings; sourceTree = "<group>"; };
+		A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibCogmatix.cpp; path = ../../../Libs/LibCogmatix/LibCogmatix.cpp; sourceTree = "<group>"; };
+		A7E8E97E1514866D00BF25A3 /* PartImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartImpl.h; path = ../../../Libs/LibCogmatix/PartImpl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +157,10 @@
 		A716D04314FFD3AA00AD1189 /* iLibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
+				A7E8E97B1514866D00BF25A3 /* Action.h */,
+				A7E8E97C1514866D00BF25A3 /* Actions.strings */,
+				A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */,
+				A7E8E97E1514866D00BF25A3 /* PartImpl.h */,
 				A7C8B8F81500D00E006E679B /* Axis.cpp */,
 				A7C8B8F91500D00E006E679B /* Axis.h */,
 				A7C8B8FA1500D00E006E679B /* Clock.cpp */,
@@ -168,10 +172,6 @@
 				A7C8B9001500D00E006E679B /* Factory.cpp */,
 				A7C8B9011500D00E006E679B /* Factory.h */,
 				A7C8B9021500D00E006E679B /* LibCogmatix.h */,
-				A7C8B9031500D00E006E679B /* LibCogmatix.suo */,
-				A7C8B9041500D00E006E679B /* LibCogmatix.vcxproj */,
-				A7C8B9051500D00E006E679B /* LibCogmatix.vcxproj.filters */,
-				A7C8B9061500D00E006E679B /* LibCogmatix.vcxproj.user */,
 				A7C8B9071500D00E006E679B /* Light.cpp */,
 				A7C8B9081500D00E006E679B /* Light.h */,
 				A7C8B9091500D00E006E679B /* Machine.cpp */,
@@ -187,8 +187,6 @@
 				A7C8B9141500D00E006E679B /* stdafx.cpp */,
 				A7C8B9151500D00E006E679B /* stdafx.h */,
 				A7C8B9171500D00E006E679B /* Units.h */,
-				A716D04614FFD3AA00AD1189 /* iLibCogmatix.h */,
-				A716D04714FFD3AA00AD1189 /* iLibCogmatix.mm */,
 				A716D04414FFD3AA00AD1189 /* Supporting Files */,
 			);
 			path = iLibCogmatix;
@@ -209,6 +207,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7C8B9311500D393006E679B /* stdafx.h in Headers */,
+				A7E8E97F1514866D00BF25A3 /* Action.h in Headers */,
+				A7E8E9811514866D00BF25A3 /* PartImpl.h in Headers */,
 				A7C8B9251500D393006E679B /* Axis.h in Headers */,
 				A7C8B9261500D393006E679B /* Clock.h in Headers */,
 				A7C8B9271500D393006E679B /* CogException.h in Headers */,
@@ -222,7 +223,6 @@
 				A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */,
 				A7C8B9301500D393006E679B /* Part.h in Headers */,
 				A7C8B9321500D393006E679B /* Units.h in Headers */,
-				A7C8B9311500D393006E679B /* stdafx.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +289,7 @@
 				A7C8B9221500D309006E679B /* ParametricSpurGear.cpp in Sources */,
 				A7C8B9231500D309006E679B /* Part.cpp in Sources */,
 				A7C8B9241500D309006E679B /* stdafx.cpp in Sources */,
-				A716D04814FFD3AA00AD1189 /* iLibCogmatix.mm in Sources */,
+				A7E8E9801514866D00BF25A3 /* LibCogmatix.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

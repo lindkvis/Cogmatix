@@ -24,6 +24,8 @@
 
 #include "LibCogmatix/Factory.h"
 #include "LibCogmatix/Clock.h"
+#include "LibCogmatix/Light.h"
+#include "LibCogmatix/Part.h"
 
 using namespace LibCogmatix;
 using namespace osgViewer;

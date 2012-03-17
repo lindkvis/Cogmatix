@@ -34,10 +34,10 @@
 		A7C3BBD31500FE5E00A27D73 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */; };
 		A7C3BBD41500FE5E00A27D73 /* libosgManipulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCC1500FE5E00A27D73 /* libosgManipulator.a */; };
 		A7C3BBD51500FE5E00A27D73 /* libosgUtil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCD1500FE5E00A27D73 /* libosgUtil.a */; };
+		A7E8E99E15148E2E00BF25A3 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7E8E99D15148E2E00BF25A3 /* MainWindow_iPad.xib */; };
 		A7F607AB1505165300CBEAF3 /* libosgText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F607A91505165300CBEAF3 /* libosgText.a */; };
 		A7F607AC1505165300CBEAF3 /* libosgVolume.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F607AA1505165300CBEAF3 /* libosgVolume.a */; };
-		A7F6AB5815012C4A00515F77 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */; };
-		A7F6AB5915012C4A00515F77 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */; };
+		A7F6AB5815012C4A00515F77 /* MainView_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7F6AB5415012C4A00515F77 /* MainView_iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,10 +73,10 @@
 		A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgFX.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgFX.a"; sourceTree = "<group>"; };
 		A7C3BBCC1500FE5E00A27D73 /* libosgManipulator.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgManipulator.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgManipulator.a"; sourceTree = "<group>"; };
 		A7C3BBCD1500FE5E00A27D73 /* libosgUtil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgUtil.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgUtil.a"; sourceTree = "<group>"; };
+		A7E8E99D15148E2E00BF25A3 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
 		A7F607A91505165300CBEAF3 /* libosgText.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgText.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgText.a"; sourceTree = "<group>"; };
 		A7F607AA1505165300CBEAF3 /* libosgVolume.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgVolume.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgVolume.a"; sourceTree = "<group>"; };
-		A7F6AB5515012C4A00515F77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
-		A7F6AB5715012C4A00515F77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		A7F6AB5515012C4A00515F77 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainView_iPad.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,8 +163,8 @@
 		A716D06714FFD43D00AD1189 /* iCogmatix */ = {
 			isa = PBXGroup;
 			children = (
-				A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */,
-				A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */,
+				A7E8E99D15148E2E00BF25A3 /* MainWindow_iPad.xib */,
+				A7F6AB5415012C4A00515F77 /* MainView_iPad.xib */,
 				A716D07014FFD43D00AD1189 /* cogAppDelegate.h */,
 				A716D07114FFD43D00AD1189 /* cogAppDelegate.mm */,
 				A716D07314FFD43D00AD1189 /* Shader.fsh */,
@@ -241,8 +241,8 @@
 				A716D06C14FFD43D00AD1189 /* InfoPlist.strings in Resources */,
 				A716D07414FFD43D00AD1189 /* Shader.fsh in Resources */,
 				A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */,
-				A7F6AB5815012C4A00515F77 /* ViewController_iPad.xib in Resources */,
-				A7F6AB5915012C4A00515F77 /* ViewController_iPhone.xib in Resources */,
+				A7F6AB5815012C4A00515F77 /* MainView_iPad.xib in Resources */,
+				A7E8E99E15148E2E00BF25A3 /* MainWindow_iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,20 +270,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		A7F6AB5415012C4A00515F77 /* ViewController_iPad.xib */ = {
+		A7F6AB5415012C4A00515F77 /* MainView_iPad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				A7F6AB5515012C4A00515F77 /* en */,
 			);
-			name = ViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-		A7F6AB5615012C4A00515F77 /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A7F6AB5715012C4A00515F77 /* en */,
-			);
-			name = ViewController_iPhone.xib;
+			name = MainView_iPad.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
