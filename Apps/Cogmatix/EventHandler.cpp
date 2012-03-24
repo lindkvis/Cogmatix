@@ -5,6 +5,10 @@
 #include <osg/Transform>
 #include <osgFX/Scribe>
 
+#include <osgWidget/Label>
+
+#include "LibCogmatix/Action.h"
+
 using namespace Cogmatix;
 
 bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
@@ -107,6 +111,7 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
         scribe->addChild(node);
         parent->replaceChild(node,scribe);
         _selection.push_back(node);
+        addedToSelection(node);
     }
     else
     {
@@ -119,9 +124,62 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
             (*itr)->replaceChild(parentAsScribe,node);
         }
         std::list<osg::Node*>::iterator it = std::find(allof(_selection), node);
-        if (it != _selection.end())
+        if (it != _selection.end()) {
             _selection.erase(it);
+            removedFromSelection(node);
+        }
     }
+}
+
+void removeLabels(osgWidget::Window* window)
+{
+    while (window->begin() != window->end()) {
+        window->removeWidget(window->begin()->get());
+    }
+}
+
+void createLabels(osgWidget::Window* window, std::list<osg::Node*> selection)
+{
+    std::set<Action> actions;
+    
+    for (std::list<osg::Node*>::iterator itr = selection.begin();
+         itr != selection.end();
+         ++itr)
+    {
+        LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(*itr);
+        if (!node)
+            continue;
+        
+        LibCogmatix::Actions nodeActions = node->validActions();
+        actions.insert(nodeActions.begin(), nodeActions.end());
+    }
+    
+    for (std::set<Action>::iterator itr = actions.begin();
+         itr != actions.end();
+         ++itr)
+    {
+        LibCogmatix::Action action = *itr;
+        osgWidget::Label* label = new osgWidget::Label("", action.name);
+        label->setFont("fonts/Vera.ttf");
+        label->setFontSize(30);
+        label->setColor(0.8f, 0.2f, 0.2f, 0.8f);
+        label->setCanFill(true);
+        label->setShadow(0.1f);
+        label->addSize(20.0f, 20.0f);
+        window->addWidget(label);
+    }
+}
+                  
+void EventHandler::addedToSelection(osg::Node* node)
+{
+    removeLabels(_labelWindow);
+    createLabels(_labelWindow, _selection);
+}
+
+void EventHandler::removedFromSelection(osg::Node* node)
+{
+    removeLabels(_labelWindow);
+    createLabels(_labelWindow, _selection);
 }
 
 void EventHandler::moveSelection(Vec worldShift)
