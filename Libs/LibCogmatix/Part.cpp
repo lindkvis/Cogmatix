@@ -165,7 +165,7 @@ namespace LibCogmatix
             osg::Matrixd MI = osg::Matrixd::inverse(M);
             
             Vec newPosOwn = worldPosition() + vecDist * (distance - (rPitch1+rPitch2));
-            origin (newPosOwn * MI);
+            setOrigin (newPosOwn * MI);
             reset();
             // now deal with angles. But first convert orientation vector to local XY coordinates
             osg::Quat masterAttitude = master->getAttitude().inverse();
@@ -230,27 +230,4 @@ namespace LibCogmatix
         RotaryAxis::moveTo(_value + delta);
         return bOK;
     }
-    
-    Vec ParametricSpurGearPart::worldAxis() const
-    {
-        return worldMatrix().getRotate() * _axisVector; // do rotation only
-    }
-    Vec ParametricSpurGearPart::worldPosition() const
-    {
-        return _position * worldMatrix();
-    }
-    
-    osg::Matrixd ParametricSpurGearPart::worldMatrix() const
-    {
-        // a node may have multiple parents. Only deal with first one for now.
-        if (getNumParents() > 0 && !getParent(0)->getWorldMatrices().empty())
-            return getParent(0)->getWorldMatrices().front();
-        return osg::Matrixd();
-    }
-    
-    osg::BoundingSphere ParametricSpurGearPart::worldBound() const
-    {
-        return transformBoundingSphere (getParent(0)->getWorldMatrices().front(), getBound());
-    }
-    
 }

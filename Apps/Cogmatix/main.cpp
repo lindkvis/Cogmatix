@@ -21,15 +21,13 @@
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
 #include <osgViewer/Viewer>
-#include <osgViewer/ViewerEventHandlers>
-#include <osgGA/TrackballManipulator>
 #include <osg/PolygonMode>
 #include <iostream>
 #include <osg/TexGen>
 #include <osg/Texture2D>
 #include <osgWidget/Util>
-#include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
+#include <osgGA/StateSetManipulator>
 
 #include "OsgPlugins.h"
 #include "LibCogmatix/Factory.h"
@@ -39,7 +37,7 @@
 #include "LibCogmatix/Part.h"
 
 
-#include "PickHandler.h"
+#include "EventHandler.h"
 
 using namespace LibCogmatix;
 using namespace Cogmatix;
@@ -157,14 +155,11 @@ int main( int argc, char **argv )
 	Vec vecGear1 = gear->worldPosition();
 
 	double distance = (vecGear1 - vecGear2).length();
-	viewer.setCameraManipulator(new osgGA::TrackballManipulator());
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
 	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
 	viewer.getCamera()->setClearStencil(0);
 	// add the handler for doing the picking
-	viewer.addEventHandler(new PickHandler(wm, machine));
-
-	viewer.addEventHandler(new osgWidget::MouseHandler(wm));
+	viewer.addEventHandler(new EventHandler(&viewer, wm, machine));
 	viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
 	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
 	viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
@@ -172,7 +167,7 @@ int main( int argc, char **argv )
 	viewer.addEventHandler(new osgViewer::WindowSizeHandler());
 	viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
 
-
+    
     viewer.setUpViewInWindow(
         50,
         50,

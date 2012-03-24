@@ -54,12 +54,19 @@ namespace LibCogmatix
 		}
 		virtual bool moveTo (float newValue)=0;
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)=0;
-
-		// Get methods
-		const Vec& origin() const { return _origin; }
-		void origin (Vec origin) { _origin = origin; }
+  		// Get methods
+		virtual Vec origin() const { return _origin; }
+		virtual void setOrigin (Vec origin) { _origin = origin; reset(); }
 		const Vec& vector() const { return _axisVector; }
 		const float& value() const { return _value; }
+        // Get the world axis
+        Vec worldAxis() const;
+        // Get the world position
+        Vec worldPosition() const;
+        // Get the world matrix for the spur gear
+        osg::Matrixd worldMatrix() const;
+        // Get the world bounding sphere of the spur gear
+        osg::BoundingSphere worldBound() const;
 	private:
 	};
 

@@ -7,6 +7,28 @@ namespace LibCogmatix
 #pragma region Axis
 	// Initialise static diagnostics
 	Axis::Diagnostics Axis::s_diagnostics = Diagnostics();
+    
+    Vec Axis::worldAxis() const
+    {
+        return worldMatrix().getRotate() * _axisVector; // do rotation only
+    }
+    Vec Axis::worldPosition() const
+    {
+        return _position * worldMatrix();
+    }
+    
+    osg::Matrixd Axis::worldMatrix() const
+    {
+        // a node may have multiple parents. Only deal with first one for now.
+        if (getNumParents() > 0 && !getParent(0)->getWorldMatrices().empty())
+            return getParent(0)->getWorldMatrices().front();
+        return osg::Matrixd();
+    }
+    
+    osg::BoundingSphere Axis::worldBound() const
+    {
+        return transformBoundingSphere (getParent(0)->getWorldMatrices().front(), getBound());
+    }    
 #pragma endregion
 
 #pragma region RotaryAxis

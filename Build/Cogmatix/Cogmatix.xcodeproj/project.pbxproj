@@ -19,7 +19,7 @@
 		A78F2F6F151DCC2B0099A3ED /* osgdb_ive.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A78F2F6E151DCC2B0099A3ED /* osgdb_ive.so */; };
 		A7A0647714F9113000A8CA2B /* Cogmatix.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7A0647614F9113000A8CA2B /* Cogmatix.1 */; };
 		A7A0648514F911E900A8CA2B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648014F911D300A8CA2B /* main.cpp */; };
-		A7A0648614F911EB00A8CA2B /* PickHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648114F911D300A8CA2B /* PickHandler.cpp */; };
+		A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648114F911D300A8CA2B /* EventHandler.cpp */; };
 		A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648314F911D300A8CA2B /* stdafx.cpp */; };
 		A7F06B9515022680005A185F /* LibCogmatix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */; };
 		A7F06B9D1502273A005A185F /* libOpenThreads.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06B971502273A005A185F /* libOpenThreads.dylib */; };
@@ -98,8 +98,8 @@
 		A7A0647614F9113000A8CA2B /* Cogmatix.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = Cogmatix.1; sourceTree = "<group>"; };
 		A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = LibCogmatix.dylib; path = ../DerivedData/Cogmatix/Build/Products/Debug/LibCogmatix.dylib; sourceTree = "<group>"; };
 		A7A0648014F911D300A8CA2B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../Apps/Cogmatix/main.cpp; sourceTree = "<group>"; };
-		A7A0648114F911D300A8CA2B /* PickHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PickHandler.cpp; path = ../../../Apps/Cogmatix/PickHandler.cpp; sourceTree = "<group>"; };
-		A7A0648214F911D300A8CA2B /* PickHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PickHandler.h; path = ../../../Apps/Cogmatix/PickHandler.h; sourceTree = "<group>"; };
+		A7A0648114F911D300A8CA2B /* EventHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = ../../../Apps/Cogmatix/EventHandler.cpp; sourceTree = "<group>"; };
+		A7A0648214F911D300A8CA2B /* EventHandler.h */ = {isa = PBXFileReference; name = EventHandler.h; path = ../../../Apps/Cogmatix/EventHandler.h; sourceTree = "<group>"; };
 		A7A0648314F911D300A8CA2B /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Apps/Cogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7A0648414F911D300A8CA2B /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Apps/Cogmatix/stdafx.h; sourceTree = "<group>"; };
 		A7F06B971502273A005A185F /* libOpenThreads.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenThreads.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libOpenThreads.dylib; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				A7A0648014F911D300A8CA2B /* main.cpp */,
-				A7A0648114F911D300A8CA2B /* PickHandler.cpp */,
-				A7A0648214F911D300A8CA2B /* PickHandler.h */,
+				A7A0648114F911D300A8CA2B /* EventHandler.cpp */,
+				A7A0648214F911D300A8CA2B /* EventHandler.h */,
 				A7A0648314F911D300A8CA2B /* stdafx.cpp */,
 				A7A0648414F911D300A8CA2B /* stdafx.h */,
 				A7A0647614F9113000A8CA2B /* Cogmatix.1 */,
@@ -262,7 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7A0648514F911E900A8CA2B /* main.cpp in Sources */,
-				A7A0648614F911EB00A8CA2B /* PickHandler.cpp in Sources */,
+				A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */,
 				A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

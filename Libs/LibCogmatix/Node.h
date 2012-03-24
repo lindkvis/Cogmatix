@@ -71,6 +71,18 @@ namespace LibCogmatix
         virtual Actions validActions () const;
         virtual ActionResult perform (CoString action, const ActionArgs& args);
         virtual bool snapTo (const MachineNode* master) { return false; }
+        virtual void setOrigin (Vec newOrigin) {}
+        virtual Vec origin() const { return Vec(0., 0., 0.); }
+        
+        // Get the world axis
+        virtual Vec worldAxis() const { return Vec(0., 0., 0.); }
+        // Get the world position
+        virtual Vec worldPosition() const { return Vec(0., 0., 0.); }
+        // Get the world matrix for the spur gear
+        virtual osg::Matrixd worldMatrix() const { return osg::Matrixd(); }
+        // Get the world bounding sphere of the spur gear
+        virtual osg::BoundingSphere worldBound() const { return osg::BoundingSphere(); }
+        
 	protected:
 		NodeID _ID; ///<Machine specific ID. Unique within the machine.
 

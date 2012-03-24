@@ -33,14 +33,7 @@ public:
 	ParametricSpurGear* gear();
 	const ParametricSpurGear* gear() const;
 	virtual bool move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master);
-	// Get the world axis of the spur gear
-	Vec worldAxis() const;
-	// Get the world position of the spur gear
-	Vec worldPosition() const;
-	// Get the world matrix for the spur gear
-	osg::Matrixd worldMatrix() const;
-	// Get the world bounding sphere of the spur gear
-	osg::BoundingSphere worldBound() const;
+
 factory_protected:
 	ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine,
 			const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
