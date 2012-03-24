@@ -113,9 +113,9 @@ int main( int argc, char **argv )
 
 	Clock::get()->add(motor);
 
-	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
+	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.9, 0.9, 1., 1.));
 	machine->addChild(lightBlue);
-	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
+	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.9, 0.9, 1.));
 	machine->addChild(lightRed);
 
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
