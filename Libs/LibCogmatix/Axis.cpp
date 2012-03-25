@@ -46,9 +46,9 @@ namespace LibCogmatix
 			s_diagnostics[LimitsExceeded] = true;
 		return false;
 	}
-	bool RotaryAxis::move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
+	bool RotaryAxis::move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)
 	{
-		return moveTo(_value + delta);
+		return blocked ? false : moveTo(_value + delta);
 	}
 
 #pragma endregion
@@ -67,9 +67,9 @@ namespace LibCogmatix
 			s_diagnostics[LimitsExceeded] = true;
 		return false;
 	}
-	bool LinearAxis::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
+	bool LinearAxis::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)
 	{
-		return moveTo(_value + delta);
+		return blocked ? false : moveTo(_value + delta);
 	}
 #pragma endregion
 }

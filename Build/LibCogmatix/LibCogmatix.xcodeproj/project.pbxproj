@@ -116,13 +116,13 @@
 		A7A0618514F8FF4400A8CA2B /* LibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
-				A7E8E9791514861100BF25A3 /* Machine.cpp */,
 				A7CE6D85150E201300BC6194 /* Action.h */,
 				A7A0619314F9015C00A8CA2B /* LibCogmatix.h */,
 				A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */,
 				A7A061A914F9017900A8CA2B /* Light.cpp */,
 				A7A061AA14F9017900A8CA2B /* Light.h */,
 				A7A061AC14F9017900A8CA2B /* Machine.h */,
+				A7E8E9791514861100BF25A3 /* Machine.cpp */,
 				A7A061AD14F9017900A8CA2B /* Motor.cpp */,
 				A7A061AE14F9017900A8CA2B /* Motor.h */,
 				A7A061AF14F9017900A8CA2B /* Node.cpp */,

@@ -61,8 +61,6 @@ namespace LibCogmatix
         if (slave == this) // A gear can not move itself
             return Self;
         
-        if (chain.find(slave) != chain.end())
-            return AlreadyMoving;
         const ParametricSpurGearPart* part = dynamic_cast<const ParametricSpurGearPart*>(slave);
         if (part)
         {
@@ -103,7 +101,15 @@ namespace LibCogmatix
                 else if (!bCompatiblePlane)
                     return DifferentPlane;
                 else if (distance - (rPitch1+rPitch2) > PITCH_TOLERANCE) // too far away
-                    return TooFarAway;
+                {
+                    if (distance - (rPitch1+rPitch2) < SNAP_TOLERANCE)
+                        return CanSnapTo;
+                    else
+                        return TooFarAway;
+                }
+                else if (chain.find(slave) != chain.end())
+                    return AlreadyMoving;
+
             }
             else if (fabs(gear()->pitchAngle() - PI/4.) < EPSILON && fabs(part->gear()->pitchAngle() - PI/4.) < EPSILON)
             {
@@ -130,13 +136,31 @@ namespace LibCogmatix
         return TooFarAway; // not correct, but we don't have any other types of gears yet.
     }
     
+    bool ParametricSpurGearPart::snapTo()
+    {
+        assert (_machine);
+        GearList gears = _machine->gears();
+        std::cout << gears.size() << std::endl;
+        for (GearList::const_iterator it = gears.begin(); it != gears.end(); ++it)
+        {
+            const ParametricSpurGearPart* gear = *it;
+            if (gear)
+            {
+                Compatibility compat = gear->isCompatible(std::set<const MachineNode*>(), this);
+                if (compat == CanSnapTo || compat == Conflict)
+                    return snapTo(gear);
+            }
+        }
+        return false;
+    }
+    
     bool ParametricSpurGearPart::snapTo (const MachineNode* masterNode)
     {
         const ParametricSpurGearPart* master = dynamic_cast<const ParametricSpurGearPart*>(masterNode);
         if (nullptr==master)
             return false;
         Compatibility compat = master->isCompatible(std::set<const MachineNode*>(), this);
-        if (true || TooFarAway == compat || Conflict == compat)
+        if (CanSnapTo == compat || TooFarAway == compat || Conflict == compat)
         {
             Vec axisOwn = worldAxis();
             Vec axisOther = master->worldAxis();
@@ -190,13 +214,16 @@ namespace LibCogmatix
     
     const ParametricSpurGear* ParametricSpurGearPart::gear() const
     {
-        const osg::Geode* pChild = dynamic_cast<const osg::Geode*>(getChild(0));
-        return pChild ?
-        dynamic_cast<const ParametricSpurGear*>(pChild->getDrawable(0)) :
-        nullptr;
+        assert(getNumChildren() > 0);
+        if (getNumChildren() > 0)
+        {
+            const osg::Geode* pChild = dynamic_cast<const osg::Geode*>(getChild(0));
+            return pChild ? dynamic_cast<const ParametricSpurGear*>(pChild->getDrawable(0)) : nullptr;
+        }
+        return nullptr;
     }
     
-    bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master)
+    bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)
     {
         bool bOK=true;
         // Do some magic to move other gears
@@ -211,10 +238,10 @@ namespace LibCogmatix
                     switch (compat)
                     {
                         case Compatible:
-                            bOK = slave->move(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), chain, master);
+                            bOK = slave->move(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), chain, master, blocked);
                             break;
                         case OnAxis:
-                            bOK = slave->move(delta, chain, master);
+                            bOK = slave->move(delta, chain, master, blocked);
                             break;
                         case Conflict:
                             bOK = false;
@@ -227,7 +254,8 @@ namespace LibCogmatix
             }
         }
         // Call parent moveTo method
-        RotaryAxis::moveTo(_value + delta);
+        if (!blocked)
+            RotaryAxis::moveTo(_value + delta);
         return bOK;
     }
 }

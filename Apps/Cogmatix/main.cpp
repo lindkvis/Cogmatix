@@ -186,7 +186,8 @@ int main( int argc, char **argv )
 	while (!viewer.done())
 	{
 		Clock::get()->tick();
-		viewer.frame(Clock::get()->elapsed());
+        viewer.frame(Clock::get()->elapsed());
+        /*
         if (Clock::get()->elapsed() > 10.)
             gear4->perform("remove", ActionArgs());
         if (Clock::get()->elapsed() > 5.2 && !addedNewGear)
@@ -203,7 +204,7 @@ int main( int argc, char **argv )
         {
             motor->perform("start", ActionArgs());
             bStarted=true;
-        }
+        }*/
             
 	}
 

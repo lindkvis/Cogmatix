@@ -21,6 +21,7 @@
 		A7A0648514F911E900A8CA2B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648014F911D300A8CA2B /* main.cpp */; };
 		A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648114F911D300A8CA2B /* EventHandler.cpp */; };
 		A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648314F911D300A8CA2B /* stdafx.cpp */; };
+		A7E3D895151F36AF00831F63 /* libosgUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06BAB150227B2005A185F /* libosgUtil.dylib */; };
 		A7F06B9515022680005A185F /* LibCogmatix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */; };
 		A7F06B9D1502273A005A185F /* libOpenThreads.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06B971502273A005A185F /* libOpenThreads.dylib */; };
 		A7F06B9E1502273A005A185F /* libosg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06B981502273A005A185F /* libosg.dylib */; };
@@ -99,7 +100,7 @@
 		A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = LibCogmatix.dylib; path = ../DerivedData/Cogmatix/Build/Products/Debug/LibCogmatix.dylib; sourceTree = "<group>"; };
 		A7A0648014F911D300A8CA2B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../Apps/Cogmatix/main.cpp; sourceTree = "<group>"; };
 		A7A0648114F911D300A8CA2B /* EventHandler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = ../../../Apps/Cogmatix/EventHandler.cpp; sourceTree = "<group>"; };
-		A7A0648214F911D300A8CA2B /* EventHandler.h */ = {isa = PBXFileReference; name = EventHandler.h; path = ../../../Apps/Cogmatix/EventHandler.h; sourceTree = "<group>"; };
+		A7A0648214F911D300A8CA2B /* EventHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../../Apps/Cogmatix/EventHandler.h; sourceTree = "<group>"; };
 		A7A0648314F911D300A8CA2B /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Apps/Cogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7A0648414F911D300A8CA2B /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Apps/Cogmatix/stdafx.h; sourceTree = "<group>"; };
 		A7F06B971502273A005A185F /* libOpenThreads.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libOpenThreads.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libOpenThreads.dylib; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7E3D895151F36AF00831F63 /* libosgUtil.dylib in Frameworks */,
 				A7F06BB2150227CD005A185F /* libosgViewer.dylib in Frameworks */,
 				A7F06BB3150227CD005A185F /* libosgWidget.dylib in Frameworks */,
 				A7F06B9D1502273A005A185F /* libOpenThreads.dylib in Frameworks */,

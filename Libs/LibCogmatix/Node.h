@@ -71,6 +71,7 @@ namespace LibCogmatix
         virtual Actions validActions () const;
         virtual ActionResult perform (CoString action, const ActionArgs& args);
         virtual bool snapTo (const MachineNode* master) { return false; }
+        virtual bool snapTo () { return false; }
         virtual void setOrigin (Vec newOrigin) {}
         virtual Vec origin() const { return Vec(0., 0., 0.); }
         

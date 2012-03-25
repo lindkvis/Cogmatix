@@ -51,9 +51,10 @@ namespace LibCogmatix
 		{
 			_attitude.makeRotate (Vec(0., 0., 1.), _axisVector);
 			_position = _origin;
+            dirtyBound();
 		}
 		virtual bool moveTo (float newValue)=0;
-		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master)=0;
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)=0;
   		// Get methods
 		virtual Vec origin() const { return _origin; }
 		virtual void setOrigin (Vec origin) { _origin = origin; reset(); }
@@ -76,7 +77,7 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<RotaryAxis> Ptr;
 		typedef osg::ref_ptr<const RotaryAxis> CPtr;
 		virtual bool moveTo(float newValue);
-		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master);
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
 	factory_protected:
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
@@ -91,7 +92,7 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<LinearAxis> Ptr;
 		typedef osg::ref_ptr<const LinearAxis> CPtr;
 		virtual bool moveTo(float newValue);
-		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master);
+		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
 	factory_protected:
 		LinearAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
 			: Axis (ID, axisVector, origin, valueInitial, min, max) {}

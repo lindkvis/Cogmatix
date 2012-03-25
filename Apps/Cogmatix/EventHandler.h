@@ -31,14 +31,14 @@ namespace Cogmatix
             Dragging=2
         };
         DragState _dragging;
-        osgGA::TrackballManipulator* _cameraManipulator;
+        osg::ref_ptr<osgGA::TrackballManipulator> _cameraManipulator;
         osgViewer::Viewer* _viewer;
 		osgWidget::WindowManager* _wm;
 		Machine::Ptr _machine;
         float _mx, _my;
         Vec _oldPosition;
 		void toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
-        std::set<osg::Node*> _selection;
+        std::list<osg::Node*> _selection;
 //		void addToSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
 //		void clearSelection(osgViewer::View* view);
 	public: 

@@ -16,6 +16,7 @@ namespace LibCogmatix
 	static const double EPSILON = 1.0e-9;
 	static const double AXIS_TOLERANCE = 1.0e-5;
 	static const double PITCH_TOLERANCE = 1.0e-1;
+    static const double SNAP_TOLERANCE = 1.5;
 
 	static const double PI = 3.14159265358979323846;
 }
