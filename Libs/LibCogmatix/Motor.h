@@ -2,6 +2,9 @@
 
 #include <osg/Group>
 #include <osg/Timer>
+#include <osg/Geode>
+#include <osg/ShapeDrawable>
+#include <osg/Shape>
 
 #include "LibCogmatix.h"
 #include "Axis.h"
@@ -45,10 +48,30 @@ namespace LibCogmatix
 
 		~Motor();
 	protected:
+        Axis* axis;
 		bool _blocked; // is it being blocked by a conflict in the gear chain?
 		double _RPS; // rotations per second
 		friend class Clock;
 		void tick(double dsecs);
 		bool _isRunning;
  	};
+    
+    class BoxMotor : public Motor
+    {
+    public:
+        typedef osg::ref_ptr<BoxMotor> Ptr;
+        typedef osg::ref_ptr<const BoxMotor> CPtr;
+    factory_protected:
+        BoxMotor(NodeID ID, double RPM, Vec boxCenter, Vec boxWidths) : Motor (ID, RPM)
+        {
+            osg::Geode* geode = new osg::Geode();
+            osg::Box* box = new osg::Box(boxCenter, boxWidths[0], boxWidths[1], boxWidths[2]);
+            osg::ShapeDrawable* drawable = new osg::ShapeDrawable(box);
+            geode->addDrawable(drawable);	
+            
+            addChild(geode);
+        }
+        ~BoxMotor() {}
+        
+    };
 }

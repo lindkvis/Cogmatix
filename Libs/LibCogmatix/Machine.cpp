@@ -7,7 +7,7 @@
 //
 
 #include "Machine.h"
-#include "Part.h"
+#include "GearPart.h"
 
 namespace LibCogmatix
 {

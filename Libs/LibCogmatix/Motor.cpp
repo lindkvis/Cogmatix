@@ -14,14 +14,11 @@ namespace LibCogmatix
 
 	void Motor::tick(double dsecs)
 	{
-//	    static double accelTimer=0.;
 		if (isRunning() && getAxis())
 		{
-            //            double RPS = std::min (_RPS, (accelTimer * _RPS)); // hardcoded acceleration. Will reach full speed in one second
 			std::set<const MachineNode*> chain;
 			_blocked = !getAxis()->move(dsecs * _RPS, chain, this, _blocked);
 		}
-        //      accelTimer+= dsecs;
 	}
     
     // Valid actions

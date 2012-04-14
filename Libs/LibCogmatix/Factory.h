@@ -16,6 +16,7 @@ namespace LibCogmatix
     class ParametricSpurGearPart;
     class Light;
     class Motor;
+    class BoxMotor;
     
 	/**
 	* Factory class, using the singleton pattern.
@@ -65,6 +66,8 @@ namespace LibCogmatix
 		osg::ref_ptr<Light> CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 
 		osg::ref_ptr<Motor> CreateMotor(double RPM);
+        
+        osg::ref_ptr<BoxMotor> CreateBoxMotor(double RPM, Vec boxCenter, Vec boxWidths);
         
         osg::Object* getNode (NodeID ID) const
         {

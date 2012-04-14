@@ -26,7 +26,7 @@
 		A7C8B9201500D309006E679B /* Motor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90B1500D00E006E679B /* Motor.cpp */; };
 		A7C8B9211500D309006E679B /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90D1500D00E006E679B /* Node.cpp */; };
 		A7C8B9221500D309006E679B /* ParametricSpurGear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */; };
-		A7C8B9231500D309006E679B /* Part.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9111500D00E006E679B /* Part.cpp */; };
+		A7C8B9231500D309006E679B /* GearPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9111500D00E006E679B /* GearPart.cpp */; };
 		A7C8B9241500D309006E679B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B9141500D00E006E679B /* stdafx.cpp */; };
 		A7C8B9251500D393006E679B /* Axis.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8F91500D00E006E679B /* Axis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9261500D393006E679B /* Clock.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B8FB1500D00E006E679B /* Clock.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -39,14 +39,13 @@
 		A7C8B92D1500D393006E679B /* Motor.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90C1500D00E006E679B /* Motor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B92E1500D393006E679B /* Node.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B90E1500D00E006E679B /* Node.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9101500D00E006E679B /* ParametricSpurGear.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7C8B9301500D393006E679B /* Part.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9121500D00E006E679B /* Part.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7C8B9301500D393006E679B /* GearPart.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9121500D00E006E679B /* GearPart.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9311500D393006E679B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9151500D00E006E679B /* stdafx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9321500D393006E679B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7C8B9171500D00E006E679B /* Units.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7C8B9361500D487006E679B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9341500D487006E679B /* ImageIO.framework */; };
 		A7C8B9381500D4D3006E679B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C8B9371500D4D3006E679B /* OpenGLES.framework */; };
 		A7E8E97F1514866D00BF25A3 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8E97B1514866D00BF25A3 /* Action.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7E8E9801514866D00BF25A3 /* LibCogmatix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */; };
-		A7E8E9811514866D00BF25A3 /* PartImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E8E97E1514866D00BF25A3 /* PartImpl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,8 +81,8 @@
 		A7C8B90E1500D00E006E679B /* Node.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Node.h; path = ../../../Libs/LibCogmatix/Node.h; sourceTree = "<group>"; };
 		A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ParametricSpurGear.cpp; path = ../../../Libs/LibCogmatix/ParametricSpurGear.cpp; sourceTree = "<group>"; };
 		A7C8B9101500D00E006E679B /* ParametricSpurGear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ParametricSpurGear.h; path = ../../../Libs/LibCogmatix/ParametricSpurGear.h; sourceTree = "<group>"; };
-		A7C8B9111500D00E006E679B /* Part.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Part.cpp; path = ../../../Libs/LibCogmatix/Part.cpp; sourceTree = "<group>"; };
-		A7C8B9121500D00E006E679B /* Part.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Part.h; path = ../../../Libs/LibCogmatix/Part.h; sourceTree = "<group>"; };
+		A7C8B9111500D00E006E679B /* GearPart.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GearPart.cpp; path = ../../../Libs/LibCogmatix/GearPart.cpp; sourceTree = "<group>"; };
+		A7C8B9121500D00E006E679B /* GearPart.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GearPart.h; path = ../../../Libs/LibCogmatix/GearPart.h; sourceTree = "<group>"; };
 		A7C8B9141500D00E006E679B /* stdafx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Libs/LibCogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7C8B9151500D00E006E679B /* stdafx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Libs/LibCogmatix/stdafx.h; sourceTree = "<group>"; };
 		A7C8B9171500D00E006E679B /* Units.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Units.h; path = ../../../Libs/LibCogmatix/Units.h; sourceTree = "<group>"; };
@@ -93,7 +92,6 @@
 		A7E8E97B1514866D00BF25A3 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = ../../../Libs/LibCogmatix/Action.h; sourceTree = "<group>"; };
 		A7E8E97C1514866D00BF25A3 /* Actions.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Actions.strings; path = ../../../Libs/LibCogmatix/Actions.strings; sourceTree = "<group>"; };
 		A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibCogmatix.cpp; path = ../../../Libs/LibCogmatix/LibCogmatix.cpp; sourceTree = "<group>"; };
-		A7E8E97E1514866D00BF25A3 /* PartImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PartImpl.h; path = ../../../Libs/LibCogmatix/PartImpl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +158,6 @@
 				A7E8E97B1514866D00BF25A3 /* Action.h */,
 				A7E8E97C1514866D00BF25A3 /* Actions.strings */,
 				A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */,
-				A7E8E97E1514866D00BF25A3 /* PartImpl.h */,
 				A7C8B8F81500D00E006E679B /* Axis.cpp */,
 				A7C8B8F91500D00E006E679B /* Axis.h */,
 				A7C8B8FA1500D00E006E679B /* Clock.cpp */,
@@ -182,8 +179,8 @@
 				A7C8B90E1500D00E006E679B /* Node.h */,
 				A7C8B90F1500D00E006E679B /* ParametricSpurGear.cpp */,
 				A7C8B9101500D00E006E679B /* ParametricSpurGear.h */,
-				A7C8B9111500D00E006E679B /* Part.cpp */,
-				A7C8B9121500D00E006E679B /* Part.h */,
+				A7C8B9111500D00E006E679B /* GearPart.cpp */,
+				A7C8B9121500D00E006E679B /* GearPart.h */,
 				A7C8B9141500D00E006E679B /* stdafx.cpp */,
 				A7C8B9151500D00E006E679B /* stdafx.h */,
 				A7C8B9171500D00E006E679B /* Units.h */,
@@ -209,7 +206,6 @@
 			files = (
 				A7C8B9311500D393006E679B /* stdafx.h in Headers */,
 				A7E8E97F1514866D00BF25A3 /* Action.h in Headers */,
-				A7E8E9811514866D00BF25A3 /* PartImpl.h in Headers */,
 				A7C8B9251500D393006E679B /* Axis.h in Headers */,
 				A7C8B9261500D393006E679B /* Clock.h in Headers */,
 				A7C8B9271500D393006E679B /* CogException.h in Headers */,
@@ -221,7 +217,7 @@
 				A7C8B92D1500D393006E679B /* Motor.h in Headers */,
 				A7C8B92E1500D393006E679B /* Node.h in Headers */,
 				A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */,
-				A7C8B9301500D393006E679B /* Part.h in Headers */,
+				A7C8B9301500D393006E679B /* GearPart.h in Headers */,
 				A7C8B9321500D393006E679B /* Units.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,7 +283,7 @@
 				A7C8B9201500D309006E679B /* Motor.cpp in Sources */,
 				A7C8B9211500D309006E679B /* Node.cpp in Sources */,
 				A7C8B9221500D309006E679B /* ParametricSpurGear.cpp in Sources */,
-				A7C8B9231500D309006E679B /* Part.cpp in Sources */,
+				A7C8B9231500D309006E679B /* GearPart.cpp in Sources */,
 				A7C8B9241500D309006E679B /* stdafx.cpp in Sources */,
 				A7E8E9801514866D00BF25A3 /* LibCogmatix.cpp in Sources */,
 			);

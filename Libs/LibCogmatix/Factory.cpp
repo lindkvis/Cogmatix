@@ -5,7 +5,7 @@
 #include "Light.h"
 #include "Machine.h"
 #include "Motor.h"
-#include "Part.h"
+#include "GearPart.h"
 #include "ParametricSpurGear.h"
 
 namespace LibCogmatix
@@ -103,4 +103,11 @@ namespace LibCogmatix
         _nodeDB[_nextID++] = PCAST(osg::Object, motor);
         return motor;
 	}
+    
+    BoxMotor::Ptr Factory::CreateBoxMotor(double RPM, Vec boxCenter, Vec boxWidths)
+    {
+        BoxMotor::Ptr motor (new BoxMotor(_nextID, RPM, boxCenter, boxWidths));
+        _nodeDB[_nextID++] = PCAST(osg::Object, motor);
+        return motor;
+    }
 }
