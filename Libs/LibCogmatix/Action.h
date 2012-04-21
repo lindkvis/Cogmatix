@@ -24,7 +24,11 @@ namespace LibCogmatix
     {
         std::string name; ///<Name of the action>
         Action () {}                
-        Action (CoString actionName) : name(actionName) {}        
+        Action (CoString actionName) : name(actionName) {} 
+        
+        bool operator==(Action other) const { return name == other.name; }
+        bool operator< (Action other) const { return name < other.name; }
+        bool operator> (Action other) const { return name > other.name; }
         bool operator==(CoString actionName) const { return name == actionName; }
     };
     typedef std::vector<Action> Actions;

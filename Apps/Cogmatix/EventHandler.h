@@ -14,6 +14,7 @@
 #include <osgWidget/Util>
 #include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
+#include <osgWidget/Label>
 
 #include "LibCogmatix/Machine.h"
 
@@ -39,6 +40,12 @@ namespace Cogmatix
         Vec _oldPosition;
 		void toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
         std::list<osg::Node*> _selection;
+        
+        osgWidget::Window* _labelWindow;
+        
+        void addedToSelection(osg::Node* node);
+        void removedFromSelection(osg::Node* node);
+        
 //		void addToSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
 //		void clearSelection(osgViewer::View* view);
 	public: 
@@ -47,7 +54,9 @@ namespace Cogmatix
         {
             _cameraManipulator = new osgGA::TrackballManipulator();
             _viewer->setCameraManipulator(_cameraManipulator);    
-          
+            _labelWindow = new osgWidget::Box("", osgWidget::Box::VERTICAL);
+            wm->addChild(_labelWindow);
+            
         }
 		~EventHandler() {}
 
