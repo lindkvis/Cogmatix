@@ -25,14 +25,14 @@ namespace LibCogmatix
     ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
                                                    Machine* machine, const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
                                                    double axisDiameter, double module, double helix, double pitch_angle) 
-    : RotaryAxis(ID, axis, origin, 0., 0., 0.), _machine(machine)
+    : RotaryAxis(ID, axis, origin, axisDiameter, depth*2, 0., 0., 0.), _machine(machine)
     {
         ParametricSpurGear::GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle);
         init(params);
     }
  
     ParametricSpurGearPart::ParametricSpurGearPart(const ParametricSpurGearPart& copyFrom, const osg::CopyOp& copyop)
-    : RotaryAxis (copyFrom.ID(), copyFrom.vector(), copyFrom.origin(), 0., 0., 0.), _machine(copyFrom._machine) 
+    : RotaryAxis (copyFrom.ID(), copyFrom.vector(), copyFrom.origin(), copyFrom.diameter(), copyFrom.length(), 0., 0., 0.), _machine(copyFrom._machine) 
     {
         init(copyFrom.gear()->getParams());
     }
@@ -41,14 +41,10 @@ namespace LibCogmatix
     {
         ParametricSpurGear::Ptr pChild = ParametricSpurGear::Create (params);
         // Create the child
-        osg::ref_ptr<osg::Geode> geode = new osg::Geode();
-        addChild(geode);
-        geode->addDrawable(pChild);
-        osg::ref_ptr<osg::Cylinder> cylinder = new osg::Cylinder(Vec(0., 0., 0.), params._axisDiameter/2., params._depth);
-        osg::ref_ptr<osg::ShapeDrawable> drawable = new osg::ShapeDrawable(cylinder);
-        geode->addDrawable(drawable);
+        _geode->addDrawable(pChild);
         // Make sure we transform the gear to be perfectly aligned with the axis.
         reset();
+        assert (gear());
     }
     
     ParametricSpurGearPart::~ParametricSpurGearPart()
@@ -60,6 +56,11 @@ namespace LibCogmatix
     {
         if (slave == this) // A gear can not move itself
             return Self;
+        
+        Compatibility rotaryAxisCompatibility = RotaryAxis::isCompatible(chain, slave);
+        // Check axis compatibility first
+        if (rotaryAxisCompatibility != MachineNode::NotDetermined)
+            return rotaryAxisCompatibility;
         
         const ParametricSpurGearPart* part = dynamic_cast<const ParametricSpurGearPart*>(slave);
         if (part)
@@ -100,16 +101,13 @@ namespace LibCogmatix
                     return Conflict;
                 else if (!bCompatiblePlane)
                     return DifferentPlane;
-                else if (distance - (rPitch1+rPitch2) > PITCH_TOLERANCE) // too far away
+                else if (bCompatibleAxis && (distance - (rPitch1+rPitch2) > PITCH_TOLERANCE)) // too far away
                 {
                     if (distance - (rPitch1+rPitch2) < SNAP_TOLERANCE)
                         return CanSnapTo;
                     else
                         return TooFarAway;
                 }
-                else if (chain.find(slave) != chain.end())
-                    return AlreadyMoving;
-
             }
             else if (fabs(gear()->pitchAngle() - PI/4.) < EPSILON && fabs(part->gear()->pitchAngle() - PI/4.) < EPSILON)
             {
@@ -139,28 +137,24 @@ namespace LibCogmatix
     bool ParametricSpurGearPart::snapTo()
     {
         assert (_machine);
-        GearList gears = _machine->gears();
-        std::cout << gears.size() << std::endl;
-        for (GearList::const_iterator it = gears.begin(); it != gears.end(); ++it)
+        AxisList axes = _machine->axes();
+        for (AxisList::const_iterator it = axes.begin(); it != axes.end(); ++it)
         {
-            const ParametricSpurGearPart* gear = *it;
-            if (gear)
-            {
-                Compatibility compat = gear->isCompatible(std::set<const MachineNode*>(), this);
-                if (compat == CanSnapTo || compat == Conflict)
-                    return snapTo(gear);
-            }
+            Compatibility compat = (*it)->isCompatible(std::set<const MachineNode*>(), this);
+            if (compat == CanSnapTo || compat == Conflict)
+                return snapTo(*it);
         }
         return false;
     }
     
     bool ParametricSpurGearPart::snapTo (const MachineNode* masterNode)
     {
+
         const ParametricSpurGearPart* master = dynamic_cast<const ParametricSpurGearPart*>(masterNode);
-        if (nullptr==master)
-            return false;
-        Compatibility compat = master->isCompatible(std::set<const MachineNode*>(), this);
-        if (CanSnapTo == compat || TooFarAway == compat || Conflict == compat)
+        if (!master)
+            return RotaryAxis::snapTo(masterNode);
+        Compatibility compat = masterNode->isCompatible(std::set<const MachineNode*>(), this);
+        if (compat == CanSnapTo || compat == Conflict)
         {
             Vec axisOwn = worldAxis();
             Vec axisOther = master->worldAxis();
@@ -190,7 +184,7 @@ namespace LibCogmatix
             
             Vec newPosOwn = worldPosition() + vecDist * (distance - (rPitch1+rPitch2));
             setOrigin (newPosOwn * MI);
-            reset();
+           
             // now deal with angles. But first convert orientation vector to local XY coordinates
             osg::Quat masterAttitude = master->getAttitude().inverse();
             osg::Quat slaveAttitude = getAttitude().inverse();
@@ -200,6 +194,7 @@ namespace LibCogmatix
             osg::Quat qRot;
             qRot.makeRotate (angleSlave, _axisVector);
             _attitude = _attitude * qRot;
+            reset();
             return true;
         }
         return false;
@@ -207,55 +202,21 @@ namespace LibCogmatix
     
     ParametricSpurGear* ParametricSpurGearPart::gear()
     {
-        osg::Geode* pChild = dynamic_cast<osg::Geode*>(getChild(0));
-        return pChild ?
-        dynamic_cast<ParametricSpurGear*>(pChild->getDrawable(0)) : nullptr;
+        return findChildOfType<ParametricSpurGear>(this);
     }
     
     const ParametricSpurGear* ParametricSpurGearPart::gear() const
     {
-        assert(getNumChildren() > 0);
-        if (getNumChildren() > 0)
-        {
-            const osg::Geode* pChild = dynamic_cast<const osg::Geode*>(getChild(0));
-            return pChild ? dynamic_cast<const ParametricSpurGear*>(pChild->getDrawable(0)) : nullptr;
-        }
-        return nullptr;
+        return findChildOfType<const ParametricSpurGear>(this);
     }
     
-    bool ParametricSpurGearPart::move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)
+    bool ParametricSpurGearPart::move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)
     {
-        bool bOK=true;
-        // Do some magic to move other gears
-        if (_machine)
-        {
-            chain.insert(this);
-            foreach (ParametricSpurGearPart* slave, _machine->gears())
-            {
-                if (bOK)
-                {
-                    Compatibility compat = isCompatible(chain, slave);
-                    switch (compat)
-                    {
-                        case Compatible:
-                            bOK = slave->move(-delta*gear()->pitchRadius()/slave->gear()->pitchRadius(), chain, master, blocked);
-                            break;
-                        case OnAxis:
-                            bOK = slave->move(delta, chain, master, blocked);
-                            break;
-                        case Conflict:
-                            bOK = false;
-                            break;
-                        default:
-                            // do nothing
-                            break;
-                    }
-                }
-            }
-        }
-        // Call parent moveTo method
-        if (!blocked)
-            RotaryAxis::moveTo(_value + delta);
-        return bOK;
+        float my_delta=delta;
+        const ParametricSpurGearPart* gear_master = dynamic_cast<const ParametricSpurGearPart*>(master);
+        if (gear_master)
+            my_delta *= -(gear_master->gear()->pitchRadius()/gear()->pitchRadius());
+        return RotaryAxis::move(my_delta, chain, master, blocked);
     }
+    
 }

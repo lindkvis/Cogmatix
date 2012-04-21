@@ -1,7 +1,9 @@
 #pragma once
 
 #include <osg/MatrixTransform>
+#include <osg/Geode>
 #include <fstream>
+#include <assert.h>
 
 #include "LibCogmatix.h"
 #include "Action.h"
@@ -22,6 +24,13 @@ namespace LibCogmatix
             if (child)
                 return child;
         }
+        const osg::Geode* geode = dynamic_cast<const osg::Geode*>(node);
+        for (int i=0; geode && i < geode->getNumDrawables(); ++i)
+        {
+            const ClassType* child = dynamic_cast<const ClassType*>(geode->getDrawable(i));
+            if (child)
+                return child;
+        }
         return nullptr;
     }
     
@@ -39,6 +48,14 @@ namespace LibCogmatix
             if (child)
                 return child;
         }
+        osg::Geode* geode = dynamic_cast<osg::Geode*>(node);
+        for (int i=0; geode && i < geode->getNumDrawables(); ++i)
+        {
+            ClassType* child = dynamic_cast<ClassType*>(geode->getDrawable(i));
+            if (child)
+                return child;
+        }
+        
         return nullptr;
     }	
     
@@ -46,6 +63,7 @@ namespace LibCogmatix
     template<class ClassType>
     void findDescendantsOfType (osg::Node* node, std::list<ClassType*>& matches)
     {
+        assert (node);
         ClassType* found = dynamic_cast<ClassType*>(node);
         if (found)
             matches.push_back(found);
@@ -56,12 +74,37 @@ namespace LibCogmatix
         }
     }	
     
+    template<class ClassType>
+    void findParentsOfType (osg::Node* node, std::list<ClassType*>& matches)
+    {
+        assert (node && node->getNumParents() <= 1);
+        if (!node || node->getNumParents() != 1) return;
+        ClassType* match = dynamic_cast<ClassType*>(node->getParent(0));
+        if (match)
+            matches.push_back(match);
+        findParentsOfType<ClassType>(node->getParent(0), matches);
+    }
+    
+    
 	/**
 	 * Templated Node interface, to inject Cogmatix specific information into the scenegraph.
 	 */
 	class MachineNode
 	{
     public:
+        enum Compatibility
+        {
+            Compatible=0,
+            NotDetermined, // Not enough information to determine compatibility
+            OnAxis, // driven by gears axis.
+            Self,
+            AlreadyMoving,
+            CanSnapTo,
+            TooFarAway,
+            DifferentPlane,
+            Conflict
+        };
+        
         NodeID ID() const { return _ID; }
         /**
          * Retrieve a list of valid actions for the given node
@@ -83,6 +126,11 @@ namespace LibCogmatix
         virtual osg::Matrixd worldMatrix() const { return osg::Matrixd(); }
         // Get the world bounding sphere of the spur gear
         virtual osg::BoundingSphere worldBound() const { return osg::BoundingSphere(); }
+        
+        virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const
+        {
+            return NotDetermined;
+        }
         
 	protected:
 		NodeID _ID; ///<Machine specific ID. Unique within the machine.

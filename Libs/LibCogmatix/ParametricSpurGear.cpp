@@ -67,9 +67,10 @@ namespace LibCogmatix
         // Create twice as many flat edges as we need teeth (i.e. both the tooth and the space between)
         int numberOfEdges = 2 * params._numberOfTeeth;
         int nStart = 0;
-        double z = -params._depth;
-        Vec O(0., 0., 0.);
-        Vec Oz(0., 0., z);
+        double z0 = 0.5*params._depth;
+        double z1 = -0.5*params._depth;
+        Vec O(0., 0., z0);
+        Vec Oz(0., 0., z1);
         Vec NO(0., 0., 1.);
         Vec NOz(0., 0., -1.);
         // Edges (Quadstrips)
@@ -90,13 +91,13 @@ namespace LibCogmatix
             double xp1z = zrootRadius * cos(params._helix + 2*PI * double(i + 1) / numberOfEdges);
             double yp1z = zrootRadius * sin(params._helix + 2*PI * double(i + 1) / numberOfEdges);
             
-            p[0] = Vec(x0, y0, 0.);
-            Vec p0z = Vec(x0z, y0z, 0.);
-            Vec p1nz = Vec(x0, y0, z);
-            p[1] = Vec(x0z, y0z, z);
+            p[0] = Vec(x0, y0, z0);
+            Vec p0z = Vec(x0z, y0z, z0);
+            Vec p1nz = Vec(x0, y0, z1);
+            p[1] = Vec(x0z, y0z, z1);
             // the space in between.
-            p[10] = Vec(xp1, yp1, 0.);
-            p[11] = Vec(xp1z, yp1z, z);
+            p[10] = Vec(xp1, yp1, z0);
+            p[11] = Vec(xp1z, yp1z, z1);
             Vec nu = (p1nz - p[0]) ^ (p[10] - p[0]);
             nu.normalize();
             Vec nl = (p[1] - p0z) ^ (p[11] - p[1]);
@@ -181,15 +182,15 @@ namespace LibCogmatix
             double yp1 = axisRadius * sin(2*PI * double(i + 1) / numberOfEdges);
             
             // Actual two vertices
-            Vec p0(x0, y0, 0.);
-            Vec p1(x0, y0, z);
+            Vec p0(x0, y0, z0);
+            Vec p1(x0, y0, z1);
             
             // Last two vertices
-            Vec pm0(xm1, ym1, 0.);
-            Vec pm1(xm1, ym1, z);
+            Vec pm0(xm1, ym1, z0);
+            Vec pm1(xm1, ym1, z1);
             // Next two vertices
-            Vec pp0(xp1, yp1, 0);
-            Vec pp1(xp1, yp1, z);
+            Vec pp0(xp1, yp1, z0);
+            Vec pp1(xp1, yp1, z1);
             
             Vec n1 = (p1 - p0) ^ (pp1 - p0);
             Vec n2 = (p1 - p0) ^ (p0 - pm1);
@@ -224,11 +225,11 @@ namespace LibCogmatix
                 
                 Vec p0, p1;
                 if (j == 0) {
-                    p0 = Vec(x0, y0, 0);
-                    p1 = Vec(x1, y1, 0);
+                    p0 = Vec(x0, y0, z0);
+                    p1 = Vec(x1, y1, z0);
                 } else {
-                    p0 = Vec(x0z, y0z, z);
-                    p1 = Vec(x1z, y1z, z);
+                    p0 = Vec(x0z, y0z, z1);
+                    p1 = Vec(x1z, y1z, z1);
                 }
                 vertices->push_back(p0);
                 vertices->push_back(p1);
@@ -257,15 +258,15 @@ namespace LibCogmatix
                 
                 Vec p0, p5, n;
                 if (j == 0) {
-                    p0 = Vec(x0, y0, 0);
-                    p5 = Vec(x1, y1, 0);
-                    n = (Vec(x1, y1, 0) - Vec(x0, y0, 0))
-                    ^ (Vec(x0, y0, 0) - Vec(x0, y0, z));
+                    p0 = Vec(x0, y0, z0);
+                    p5 = Vec(x1, y1, z0);
+                    n = (Vec(x1, y1, z0) - Vec(x0, y0, z0))
+                    ^ (Vec(x0, y0, z0) - Vec(x0, y0, z1));
                 } else {
-                    p0 = Vec(x0z, y0z, z);
-                    p5 = Vec(x1z, y1z, z);
-                    n = (Vec(x1z, y1z, 0) - Vec(x0z, y0z, 0))
-                    ^ (Vec(x0z, y0z, 0) - Vec(x0z, y0z, z));
+                    p0 = Vec(x0z, y0z, z1);
+                    p5 = Vec(x1z, y1z, z1);
+                    n = (Vec(x1z, y1z, z0) - Vec(x0z, y0z, z0))
+                    ^ (Vec(x0z, y0z, z0) - Vec(x0z, y0z, z1));
                 }
                 n.normalize();
                 

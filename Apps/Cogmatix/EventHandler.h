@@ -39,7 +39,7 @@ namespace Cogmatix
         float _mx, _my;
         Vec _oldPosition;
 		void toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
-        std::list<osg::Node*> _selection;
+        std::list<osg::ref_ptr<osg::Node> > _selection;
         
         osgWidget::Window* _labelWindow;
         
@@ -63,5 +63,6 @@ namespace Cogmatix
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);
 		virtual void pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea);
         void moveSelection(Vec shift);
+        
 	};
 }

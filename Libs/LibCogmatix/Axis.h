@@ -2,6 +2,9 @@
 
 #include <bitset>
 #include <osg/PositionAttitudeTransform>
+#include <osg/Geode>
+#include <osg/ShapeDrawable>
+#include <osg/Shape>
 #include "Node.h"
 
 namespace LibCogmatix
@@ -39,12 +42,18 @@ namespace LibCogmatix
 			// TODO: throw exception if we're already outside axis limits
 		}
         Axis() : TMachineNode<osg::PositionAttitudeTransform>() {}
+        
+        Axis(const Axis& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY)
+            : TMachineNode<osg::PositionAttitudeTransform>(copyFrom, copyop)
+            , _origin (copyFrom.origin()), _axisVector(copyFrom.vector()), _value (copyFrom.value()), _valueInitial(copyFrom.valueInitial())
+            , _min (copyFrom.min()), _max (copyFrom.max()) {}
+
 	public:
 		typedef osg::ref_ptr<Axis> Ptr;
 		typedef osg::ref_ptr<const Axis> CPtr;
 
 		static const Diagnostics& GetDiagnostics() { return s_diagnostics; }
-	
+        
 		virtual ~Axis() {};
 
 		void reset ()
@@ -59,7 +68,10 @@ namespace LibCogmatix
 		virtual Vec origin() const { return _origin; }
 		virtual void setOrigin (Vec origin) { _origin = origin; reset(); }
 		const Vec& vector() const { return _axisVector; }
-		const float& value() const { return _value; }
+		float value() const { return _value; }
+        float valueInitial() const { return _valueInitial; }
+        float min() const { return _min; }
+        float max() const { return _max; }
         // Get the world axis
         Vec worldAxis() const;
         // Get the world position
@@ -68,6 +80,9 @@ namespace LibCogmatix
         osg::Matrixd worldMatrix() const;
         // Get the world bounding sphere of the spur gear
         osg::BoundingSphere worldBound() const;
+        
+        virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
+        bool moveOthers (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
 	private:
 	};
 
@@ -78,11 +93,33 @@ namespace LibCogmatix
 		typedef osg::ref_ptr<const RotaryAxis> CPtr;
 		virtual bool moveTo(float newValue);
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
+        
+        virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
+
+        double diameter() const { return _axisDiameter; }
+        double length() const { return _axisLength; }
+        virtual bool snapTo (const MachineNode* master);
+        
 	factory_protected:
-		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max) 
-			: Axis (ID, axisVector, origin, valueInitial, min, max) {}
+		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength, float valueInitial, float min, float max) 
+			: Axis (ID, axisVector, origin, valueInitial, min, max), _axisDiameter(axisDiameter), _axisLength(axisLength)
+        {
+            _geode = new osg::Geode();
+            addChild(_geode);
+        
+            osg::ref_ptr<osg::Cylinder> cylinder = new osg::Cylinder(Vec(0., 0., 0.), _axisDiameter/2., _axisLength);
+            osg::ref_ptr<osg::ShapeDrawable> drawable = new osg::ShapeDrawable(cylinder);
+            _geode->addDrawable(drawable);
+        }
 		virtual ~RotaryAxis() {}
         RotaryAxis() : Axis() {}
+        RotaryAxis(const RotaryAxis& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY)
+        : Axis(copyFrom, copyop) {}
+        
+    protected:
+        osg::ref_ptr<osg::Geode> _geode;
+        double _axisDiameter;
+        double _axisLength;
 	private:
 	};
 

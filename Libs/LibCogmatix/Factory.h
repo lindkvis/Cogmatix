@@ -51,7 +51,7 @@ namespace LibCogmatix
 		 * @min Lower axis limit
 		 * @max Upper axis limit
 		 */
-		osg::ref_ptr<RotaryAxis> CreateRotaryAxis(const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max);
+		osg::ref_ptr<RotaryAxis> CreateRotaryAxis(const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength, float valueInitial, float min, float max);
 
 		/**
 		 * Constructs a new Machine
@@ -65,9 +65,9 @@ namespace LibCogmatix
 
 		osg::ref_ptr<Light> CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 
-		osg::ref_ptr<Motor> CreateMotor(double RPM);
+		osg::ref_ptr<Motor> CreateMotor(double RPM, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength);
         
-        osg::ref_ptr<BoxMotor> CreateBoxMotor(double RPM, Vec boxCenter, Vec boxWidths);
+        osg::ref_ptr<BoxMotor> CreateBoxMotor(double RPM, const Vec& axisVector, const Vec& origin, Vec boxWidths, double axisDiameter, double axisLength);
         
         osg::Object* getNode (NodeID ID) const
         {

@@ -16,25 +16,14 @@ class ParametricSpurGearPart: public RotaryAxis
 {
     META_Node(LibCogmatix, ParametricSpurGearPart);
 public:
-	enum Compatibility
-	{
-		Compatible=0,
-		OnAxis, // driven by gears axis.
-		Self,
-		AlreadyMoving,
-        CanSnapTo,
-		TooFarAway,
-		DifferentPlane,
-		Conflict
-	};
 	typedef osg::ref_ptr<ParametricSpurGearPart> Ptr;
 	typedef osg::ref_ptr<const ParametricSpurGearPart> CPtr;
-	Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
+	virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
 	virtual bool snapTo (const MachineNode* master);
     virtual bool snapTo ();
 	ParametricSpurGear* gear();
 	const ParametricSpurGear* gear() const;
-	virtual bool move(float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
+    virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
 
 factory_protected:
 	ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine,

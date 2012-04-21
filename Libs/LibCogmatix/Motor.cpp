@@ -3,7 +3,7 @@
 
 namespace LibCogmatix
 {
-	Motor::Motor(NodeID ID, double RPM) : TMachineNode(ID), _RPS(RPM/60.), _blocked(false), _isRunning(false)
+	Motor::Motor(NodeID ID, double RPM, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength) : RotaryAxis(ID, axisVector, origin, axisDiameter, axisLength, 0., 0., 0.), _RPS(RPM/60.), _blocked(false), _isRunning(false)
 	{
 	}
 
@@ -14,10 +14,10 @@ namespace LibCogmatix
 
 	void Motor::tick(double dsecs)
 	{
-		if (isRunning() && getAxis())
+		if (isRunning())
 		{
 			std::set<const MachineNode*> chain;
-			_blocked = !getAxis()->move(dsecs * _RPS, chain, this, _blocked);
+			_blocked = !moveOthers(dsecs * _RPS, chain, this, _blocked);
 		}
 	}
     

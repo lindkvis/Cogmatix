@@ -61,9 +61,9 @@ namespace LibCogmatix
 		return axis;
 	}
 
-	RotaryAxis::Ptr Factory::CreateRotaryAxis(const Vec& axisVector, const Vec& origin, float valueInitial, float min, float max)
+	RotaryAxis::Ptr Factory::CreateRotaryAxis(const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength, float valueInitial, float min, float max)
 	{
-		RotaryAxis::Ptr axis (new RotaryAxis (_nextID, axisVector, origin, valueInitial, min, max));
+		RotaryAxis::Ptr axis (new RotaryAxis (_nextID, axisVector, origin, axisDiameter, axisLength, valueInitial, min, max));
         _nodeDB[_nextID++] = PCAST(osg::Object, axis);
         return axis;
 	}
@@ -97,16 +97,16 @@ namespace LibCogmatix
         return light;
 	}
 
-	Motor::Ptr Factory::CreateMotor(double RPM)
+	Motor::Ptr Factory::CreateMotor(double RPM, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength)
 	{
-		Motor::Ptr motor (new Motor(_nextID, RPM));
+		Motor::Ptr motor (new Motor(_nextID, RPM, axisVector, origin, axisDiameter, axisLength));
         _nodeDB[_nextID++] = PCAST(osg::Object, motor);
         return motor;
 	}
     
-    BoxMotor::Ptr Factory::CreateBoxMotor(double RPM, Vec boxCenter, Vec boxWidths)
+    BoxMotor::Ptr Factory::CreateBoxMotor(double RPM, const Vec& axisVector, const Vec& origin, Vec boxWidths, double axisDiameter, double axisLength)
     {
-        BoxMotor::Ptr motor (new BoxMotor(_nextID, RPM, boxCenter, boxWidths));
+        BoxMotor::Ptr motor (new BoxMotor(_nextID, RPM, axisVector, origin, boxWidths, axisDiameter, axisLength));
         _nodeDB[_nextID++] = PCAST(osg::Object, motor);
         return motor;
     }

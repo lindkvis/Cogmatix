@@ -10,8 +10,8 @@
 
 namespace LibCogmatix
 {
-    class ParametricSpurGearPart;
-    typedef std::list<ParametricSpurGearPart*> GearList;
+    class Axis;
+    typedef std::list<Axis*> AxisList;
 
 	class Machine : public TMachineNode<osg::MatrixTransform>	
 	{
@@ -19,7 +19,7 @@ namespace LibCogmatix
     public:
 		typedef osg::ref_ptr<Machine> Ptr;
 		typedef osg::ref_ptr<const Machine> CPtr;
-		GearList gears();
+		AxisList axes();
     factory_protected:
 		Machine(NodeID ID, CoString name) : TMachineNode<osg::MatrixTransform>(ID, name) {}
         Machine(const Machine& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 

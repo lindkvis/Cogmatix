@@ -33,18 +33,23 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             if (!_selection.empty())
             {
                 _dragging=DragInitiated;
-                _viewer->setCameraManipulator(nullptr); 
+                _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
                 return true;
             }
             break;
         }
         case(osgGA::GUIEventAdapter::DRAG):
         { 
-            if ((fabs(dx) > 1.0e-2 && fabs(dy) > 1.0e-2) && (_dragging == DragInitiated || _dragging == Dragging))
+            if (_dragging == DragInitiated || _dragging == Dragging)
             {
-                moveSelection (newPosition - _oldPosition);
-                _dragging=Dragging;
-            }
+                _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
+                //if (fabs(dx) > 1.0e-2 && fabs(dy) > 1.0e-2)
+                {
+                    moveSelection (newPosition - _oldPosition);
+                    _dragging=Dragging;
+                }
+                return true;
+            }	
             break;
         }
         case(osgGA::GUIEventAdapter::RELEASE):
@@ -53,18 +58,17 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             {
                 osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
                 if (view) pick(view,ea);
+                return true;
             }
-            else if (_dragging == Dragging)
+            else if (_dragging == Dragging && !_selection.empty())
             {
-                if (!_selection.empty())
-                {
-                    LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.front());
-                    if (mnode)
-                        mnode->snapTo();
-                }
-                // _viewer->setCameraManipulator(_cameraManipulator); 
+                LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.front().get());
+                if (mnode)
+                    mnode->snapTo();
+                return true;
             }
             _dragging = NotDragging;
+            _cameraManipulator->setIgnoreHandledEventsMask(0);
             break;
         }
         default:
@@ -94,9 +98,11 @@ void EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
     }
     else 
     {
-        foreach(osg::Node* sel, _selection)
+        while (!_selection.empty())
         {
-            toggleSelection(view, sel, sel->getParent(0));  
+            osg::Node* sel = _selection.front();    
+            if (sel && sel->getNumParents() > 0)
+                toggleSelection(view, sel, sel->getParent(0));  
         }
     }
   }
@@ -123,7 +129,7 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
         {
             (*itr)->replaceChild(parentAsScribe,node);
         }
-        std::list<osg::Node*>::iterator it = std::find(allof(_selection), node);
+        std::list<osg::ref_ptr<osg::Node> >::iterator it = std::find(allof(_selection), node);
         if (it != _selection.end()) {
             _selection.erase(it);
             removedFromSelection(node);
@@ -138,15 +144,15 @@ void removeLabels(osgWidget::Window* window)
     }
 }
 
-void createLabels(osgWidget::Window* window, std::list<osg::Node*> selection)
+void createLabels(osgWidget::Window* window, const std::list<osg::ref_ptr<osg::Node> >& selection)
 {
     std::set<Action> actions;
     
-    for (std::list<osg::Node*>::iterator itr = selection.begin();
+    for (std::list<osg::ref_ptr<osg::Node> >::const_iterator itr = selection.begin();
          itr != selection.end();
          ++itr)
     {
-        LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(*itr);
+        const LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(itr->get());
         if (!node)
             continue;
         
@@ -161,7 +167,7 @@ void createLabels(osgWidget::Window* window, std::list<osg::Node*> selection)
         LibCogmatix::Action action = *itr;
         osgWidget::Label* label = new osgWidget::Label("", action.name);
         label->setFont("fonts/Vera.ttf");
-        label->setFontSize(30);
+        label->setFontSize(10);
         label->setColor(0.8f, 0.2f, 0.2f, 0.8f);
         label->setCanFill(true);
         label->setShadow(0.1f);

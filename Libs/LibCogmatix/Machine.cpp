@@ -11,10 +11,10 @@
 
 namespace LibCogmatix
 {
-    GearList Machine::gears()
+    AxisList Machine::axes()
     { 
-        GearList gears;
-        findDescendantsOfType<ParametricSpurGearPart> (this, gears);
-        return gears;
+        AxisList nodes;
+        findDescendantsOfType<Axis> (dynamic_cast<osg::Node*> (this), nodes);
+        return nodes;
     }
 }

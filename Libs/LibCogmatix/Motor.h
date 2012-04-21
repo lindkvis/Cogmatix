@@ -13,23 +13,11 @@
 
 namespace LibCogmatix
 {
-	class Motor : public TMachineNode<osg::Group>
+	class Motor : public RotaryAxis
 	{
 	public:
 		typedef osg::ref_ptr<Motor> Ptr;
 		typedef osg::ref_ptr<const Motor> CPtr;
-		void setAxis (Axis::Ptr axis)
-		{
-           setChild(0, axis.get());
-		}
-		const Axis* getAxis () const
-		{
-            return findChildOfType<Axis> (this);
-		}
-		Axis* getAxis ()
-		{
-            return findChildOfType<Axis> (this);
-		}
 
 		void start() { _isRunning=true; }
 		void stop() { _isRunning=false; }
@@ -40,15 +28,14 @@ namespace LibCogmatix
         virtual ActionResult perform(CoString action, const ActionArgs& args); 
         
 	factory_protected:
-		Motor(NodeID ID, double RPM);
+		Motor(NodeID ID, double RPM, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength);
         Motor(const Motor& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 
-        : TMachineNode<osg::Group>(copyFrom, copyop), _blocked(copyFrom._blocked), _RPS(copyFrom._RPS)
+        : RotaryAxis(copyFrom, copyop), _blocked(copyFrom._blocked), _RPS(copyFrom._RPS)
         {
         }
 
 		~Motor();
 	protected:
-        Axis* axis;
 		bool _blocked; // is it being blocked by a conflict in the gear chain?
 		double _RPS; // rotations per second
 		friend class Clock;
@@ -62,14 +49,11 @@ namespace LibCogmatix
         typedef osg::ref_ptr<BoxMotor> Ptr;
         typedef osg::ref_ptr<const BoxMotor> CPtr;
     factory_protected:
-        BoxMotor(NodeID ID, double RPM, Vec boxCenter, Vec boxWidths) : Motor (ID, RPM)
+        BoxMotor(NodeID ID, double RPM, const Vec& axisVector, const Vec& origin, Vec boxWidths, double axisDiameter, double axisLength) : Motor (ID, RPM, axisVector, origin, axisDiameter, axisLength)
         {
-            osg::Geode* geode = new osg::Geode();
-            osg::Box* box = new osg::Box(boxCenter, boxWidths[0], boxWidths[1], boxWidths[2]);
+            osg::Box* box = new osg::Box(Vec(0., 0., 0.), boxWidths[0], boxWidths[1], boxWidths[2]);
             osg::ShapeDrawable* drawable = new osg::ShapeDrawable(box);
-            geode->addDrawable(drawable);	
-            
-            addChild(geode);
+            _geode->addDrawable(drawable);	            
         }
         ~BoxMotor() {}
         
