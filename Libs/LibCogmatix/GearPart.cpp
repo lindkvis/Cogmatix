@@ -1,6 +1,7 @@
 #include "StdAfx.h"
-
+#define __USE_ISOC99
 #include <boost/numeric/interval.hpp>
+#undef __USE_ISOC99
 #include <osg/Plane>
 #include <osg/ShapeDrawable>
 #include "CogException.h"
@@ -133,16 +134,20 @@ namespace LibCogmatix
         }
         return TooFarAway; // not correct, but we don't have any other types of gears yet.
     }
-    
+        
     bool ParametricSpurGearPart::snapTo()
     {
         assert (_machine);
-        AxisList axes = _machine->axes();
+        AxisList axes = _machine->axes(this);
+
         for (AxisList::const_iterator it = axes.begin(); it != axes.end(); ++it)
         {
-            Compatibility compat = (*it)->isCompatible(std::set<const MachineNode*>(), this);
-            if (compat == CanSnapTo || compat == Conflict)
-                return snapTo(*it);
+            const AxisDistance& dist = (*it);
+            Compatibility compat = dist.axis->isCompatible(std::set<const MachineNode*>(), this);
+            if (compat==Compatible || compat == CanSnapTo || compat == Conflict)
+            {
+                return snapTo(dist.axis);
+            }
         }
         return false;
     }
@@ -154,7 +159,7 @@ namespace LibCogmatix
         if (!master)
             return RotaryAxis::snapTo(masterNode);
         Compatibility compat = masterNode->isCompatible(std::set<const MachineNode*>(), this);
-        if (compat == CanSnapTo || compat == Conflict)
+        if (compat == Compatible || compat == CanSnapTo || compat == Conflict)
         {
             Vec axisOwn = worldAxis();
             Vec axisOther = master->worldAxis();
@@ -184,6 +189,7 @@ namespace LibCogmatix
             
             Vec newPosOwn = worldPosition() + vecDist * (distance - (rPitch1+rPitch2));
             setOrigin (newPosOwn * MI);
+            reset();
            
             // now deal with angles. But first convert orientation vector to local XY coordinates
             osg::Quat masterAttitude = master->getAttitude().inverse();
@@ -194,7 +200,6 @@ namespace LibCogmatix
             osg::Quat qRot;
             qRot.makeRotate (angleSlave, _axisVector);
             _attitude = _attitude * qRot;
-            reset();
             return true;
         }
         return false;

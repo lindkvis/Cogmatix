@@ -55,18 +55,18 @@ namespace LibCogmatix
         {
             chain.insert(this);
             AxisList axes = machine->axes();
-            foreach (Axis* slave, axes)
+            foreach (AxisDistance slave, axes)
             {
-                if (bOK && slave)
+                if (bOK && slave.axis)
                 {
-                    Compatibility compat = isCompatible(chain, slave);
+                    Compatibility compat = isCompatible(chain, slave.axis);
                     switch (compat)
                     {
                         case Compatible:
-                            bOK = slave->move(delta, chain, this, blocked);
+                            bOK = slave.axis->move(delta, chain, this, blocked);
                             break;
                         case OnAxis:
-                            bOK = slave->move(delta, chain, this, blocked);
+                            bOK = slave.axis->move(delta, chain, this, blocked);
                             break;
                         case Conflict:
                             bOK = false;
@@ -154,7 +154,7 @@ namespace LibCogmatix
             Vec posOwn = worldPosition();
             Vec posOther = master->worldPosition();
             double n1val = posOwn * axisOwn;
-            double n2val = posOwn * axisOther;
+            double n2val = posOther * axisOther;
             
             // Position vectors
             posOwn -= axisOwn * n1val;

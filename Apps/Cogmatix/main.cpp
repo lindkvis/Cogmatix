@@ -27,7 +27,12 @@
 #include <osg/Texture2D>
 #include <osgWidget/Util>
 #include <osgWidget/WindowManager>
+#include <osg/Material>
 #include <osgGA/StateSetManipulator>
+#include <osgShadow/ShadowedScene>
+#include <osgShadow/ShadowVolume>
+#include <osgShadow/ShadowTexture>
+#include <osgShadow/ShadowMap>
 
 #include "OsgPlugins.h"
 #include "LibCogmatix/Factory.h"
@@ -62,11 +67,91 @@ bool loadShaderSource(osg::Shader* obj, const std::string& fileName )
 	}
 }
 
+osg::Node* createBase(const osg::Vec3& center,float radius)
+{
+#define numTilesX 100
+#define numTilesZ 100
+    
+    float width = 2*radius;
+    float height = 2*radius;
+    
+    osg::Vec3 v000(center - osg::Vec3(width*0.5f,0.0f, height*0.5f));
+    osg::Vec3 dx(osg::Vec3(width/((float)numTilesX),0.0,0.0f));
+    osg::Vec3 dz(osg::Vec3(0.0f,0.0f, height/((float)numTilesZ)));
+    
+    // fill in vertices for grid, note numTilesX+1 * numTilesY+1...
+    osg::Vec3Array* coords = new osg::Vec3Array;
+    int iz;
+    for(iz=0;iz<=numTilesZ;++iz)
+    {
+        for(int ix=0;ix<=numTilesX;++ix)
+        {
+            coords->push_back(v000+dx*(float)ix+dz*(float)iz);
+        }
+    }
+    
+    //Just two colours - black and white.
+    osg::Vec4Array* colors = new osg::Vec4Array;
+    colors->push_back(osg::Vec4(1.0f,1.0f,1.0f,1.0f)); // white
+    colors->push_back(osg::Vec4(0.9f,0.9f,0.9f,1.0f)); // black
+    int numColors=colors->size();
+    
+    
+    int numIndicesPerRow=numTilesX+1;
+    int numIndicesPerColumn=numTilesZ+1;
+  
+    osg::UIntArray* coordIndices = new osg::UIntArray; // assumes we are using less than 256 points...
+    osg::UIntArray* colorIndices = new osg::UIntArray;
+    
+    for(iz=0;iz<numTilesZ;++iz)
+    {
+        for(int ix=0;ix<numTilesX;++ix)
+        {
+            // four vertices per quad.
+            coordIndices->push_back(ix    +(iz+1)*numIndicesPerRow);
+            coordIndices->push_back(ix    +iz*numIndicesPerRow);
+            coordIndices->push_back((ix+1)+iz*numIndicesPerRow);
+            coordIndices->push_back((ix+1)+(iz+1)*numIndicesPerRow);
+            
+            // one color per quad
+            colorIndices->push_back((ix+iz)%numColors);
+        }
+    }
+    
+    
+    // set up a single normal
+    osg::Vec3Array* normals = new osg::Vec3Array;
+    normals->push_back(osg::Vec3(0.0f,-1.0f,0.0f));
+    
+    
+    osg::Geometry* geom = new osg::Geometry;
+    geom->setVertexArray(coords);
+    geom->setVertexIndices(coordIndices);
+    
+    geom->setColorArray(colors);
+    geom->setColorIndices(colorIndices);
+    geom->setColorBinding(osg::Geometry::BIND_PER_PRIMITIVE);
+    
+    geom->setNormalArray(normals);
+    geom->setNormalBinding(osg::Geometry::BIND_OVERALL);
+    
+    geom->addPrimitiveSet(new osg::DrawArrays(osg::PrimitiveSet::QUADS,0,coordIndices->size()));
+    
+    osg::Geode* geode = new osg::Geode;
+    geode->addDrawable(geom);
+    
+    return geode;
+}
+
+
 const unsigned int MASK_2D = 0xF0000000;
 
 int main( int argc, char **argv )
 {
-
+    const int ReceivesShadowTraversalMask = 0x1;
+    
+    const int CastsShadowTraversalMask = 0x2;
+    
 	osgViewer::Viewer viewer;
     osgDB::setLibraryFilePathList("."); 
     
@@ -78,7 +163,7 @@ int main( int argc, char **argv )
 		0 //osgWidget::WindowManager::WM_PICK_DEBUG
 		);
 	osg::Camera* camera = wm->createParentOrthoCamera();
-	viewer.getCamera()->setClearColor(osg::Vec4(0.7,0.7,0.8,0.5));
+	viewer.getCamera()->setClearColor(osg::Vec4(0.85,0.85,0.9,1.0));
 
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
 	//LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
@@ -97,6 +182,13 @@ int main( int argc, char **argv )
 	gear3->snapTo(gear2);
 	gear4->snapTo(gear3);
     gear5->snapTo(gear4);
+    
+    gear->setNodeMask(CastsShadowTraversalMask);
+    gear2->setNodeMask(CastsShadowTraversalMask);
+    gear3->setNodeMask(CastsShadowTraversalMask);
+    gear4->setNodeMask(CastsShadowTraversalMask);
+    gear5->setNodeMask(CastsShadowTraversalMask);
+
 	//ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
 	//ParametricSpurGearPart::Ptr gear6 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 0., 1.), Vec(10.5, -6., 10.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
@@ -107,18 +199,23 @@ int main( int argc, char **argv )
 	machine->addChild(gear3);
 	machine->addChild(gear4);
 	machine->addChild(gear5);
-	//machine->addChild(gear6);
-	Clock::get()->add(motor);
+    
+    osg::ref_ptr<osg::TessellationHints> hints = new osg::TessellationHints;
+    hints->setDetailRatio(2.0f);
 
-	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.9, 0.9, 1., 1.));
-	machine->addChild(lightBlue);
-	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.9, 0.9, 1.));
-	machine->addChild(lightRed);
+    osg::ref_ptr<osg::Node> plane_geode = createBase(Vec(0., 8., 0.), 100);
+	plane_geode->setNodeMask(ReceivesShadowTraversalMask);
+    //osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
+    
+    //planeState->setTextureAttributeAndModes( 0, new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg")), osg::StateAttribute::ON);    
+    
+    //machine->addChild(gear6);
+	Clock::get()->add(motor);
 
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
-	osg::Image* image = osgDB::readImageFile("skymap.jpg");
+	/*osg::Image* image = osgDB::readImageFile("skymap.jpg");
 	if (image)
 	{
 		osg::Texture2D* texture = new osg::Texture2D;
@@ -132,6 +229,7 @@ int main( int argc, char **argv )
 
 		//geode->setStateSet(stateset);
 	}
+*/
     motor->start();
 
 
@@ -145,9 +243,25 @@ int main( int argc, char **argv )
 	loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
 	loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
 	*/
-	osg::Group* world = new osg::Group();
+    osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
+    world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
+    world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
+    
+    osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
+    world->setShadowTechnique(sm.get());    
+    int mapres = 1024;
+    sm->setTextureSize(osg::Vec2s(mapres,mapres));
+    
+    //osg::ref_ptr<osg::Group> world = new osg::Group;
 	world->addChild(machine);
 	world->addChild(camera);
+    world->addChild(plane_geode);
+    
+    Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -10., 10.), Vec4(0.6, 0.6, 1., 1.));
+	world->addChild(lightBlue);
+	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.6, 0.6, 1.));
+    machine->addChild(lightRed);
+    
 	viewer.setSceneData(world);
 
 	Vec vecGear2 = gear2->worldPosition();
@@ -160,7 +274,7 @@ int main( int argc, char **argv )
 	// add the handler for doing the picking
 	viewer.addEventHandler(new EventHandler(&viewer, wm, machine));
 	viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
-	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
+    //	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
 	viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
 	viewer.addEventHandler(new osgViewer::StatsHandler());
 	viewer.addEventHandler(new osgViewer::WindowSizeHandler());

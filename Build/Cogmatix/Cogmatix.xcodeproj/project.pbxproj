@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A701A9F51544220B00CDD7FE /* paper_tile.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = A701A9F41544220B00CDD7FE /* paper_tile.jpg */; };
 		A75E8A0E14F9340600806EC3 /* skymap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = A75E8A0D14F9340600806EC3 /* skymap.jpg */; };
 		A75E8A1614F934F500806EC3 /* reflect.rgb in CopyFiles */ = {isa = PBXBuildFile; fileRef = A75E8A1414F934F500806EC3 /* reflect.rgb */; };
+		A77039A4154434C0005BD331 /* libosgShadow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A77039A3154434C0005BD331 /* libosgShadow.dylib */; };
+		A77B44E81544357F0092AD25 /* libosgShadow.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A77B44E71544357F0092AD25 /* libosgShadow.dylib */; };
 		A78F2F67151DCB580099A3ED /* osgdb_bmp.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A78F2F60151DCB580099A3ED /* osgdb_bmp.so */; };
 		A78F2F68151DCB580099A3ED /* osgdb_freetype.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A78F2F61151DCB580099A3ED /* osgdb_freetype.so */; };
 		A78F2F69151DCB580099A3ED /* osgdb_glsl.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A78F2F62151DCB580099A3ED /* osgdb_glsl.so */; };
@@ -54,6 +57,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				A77B44E81544357F0092AD25 /* libosgShadow.dylib in CopyFiles */,
+				A701A9F51544220B00CDD7FE /* paper_tile.jpg in CopyFiles */,
 				A78F2F6F151DCC2B0099A3ED /* osgdb_ive.so in CopyFiles */,
 				A78F2F67151DCB580099A3ED /* osgdb_bmp.so in CopyFiles */,
 				A78F2F68151DCB580099A3ED /* osgdb_freetype.so in CopyFiles */,
@@ -85,8 +90,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A701A9F41544220B00CDD7FE /* paper_tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = paper_tile.jpg; path = ../../Apps/Cogmatix/paper_tile.jpg; sourceTree = "<group>"; };
 		A75E8A0D14F9340600806EC3 /* skymap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = skymap.jpg; path = ../../3rdParty/OpenSceneGraph/data/Images/skymap.jpg; sourceTree = "<group>"; };
 		A75E8A1414F934F500806EC3 /* reflect.rgb */ = {isa = PBXFileReference; lastKnownFileType = file; name = reflect.rgb; path = ../../3rdParty/OpenSceneGraph/data/Images/reflect.rgb; sourceTree = "<group>"; };
+		A77039A3154434C0005BD331 /* libosgShadow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgShadow.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgShadow.dylib; sourceTree = "<group>"; };
+		A77B44E71544357F0092AD25 /* libosgShadow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgShadow.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgShadow.dylib; sourceTree = "<group>"; };
 		A78F2F60151DCB580099A3ED /* osgdb_bmp.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_bmp.so; path = "../../3rdParty/OpenSceneGraph/osx/lib/osgPlugins-3.0.1/osgdb_bmp.so"; sourceTree = "<group>"; };
 		A78F2F61151DCB580099A3ED /* osgdb_freetype.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_freetype.so; path = "../../3rdParty/OpenSceneGraph/osx/lib/osgPlugins-3.0.1/osgdb_freetype.so"; sourceTree = "<group>"; };
 		A78F2F62151DCB580099A3ED /* osgdb_glsl.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = osgdb_glsl.so; path = "../../3rdParty/OpenSceneGraph/osx/lib/osgPlugins-3.0.1/osgdb_glsl.so"; sourceTree = "<group>"; };
@@ -125,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77039A4154434C0005BD331 /* libosgShadow.dylib in Frameworks */,
 				A7E3D895151F36AF00831F63 /* libosgUtil.dylib in Frameworks */,
 				A7F06BB2150227CD005A185F /* libosgViewer.dylib in Frameworks */,
 				A7F06BB3150227CD005A185F /* libosgWidget.dylib in Frameworks */,
@@ -154,6 +163,8 @@
 		A7A0646514F9113000A8CA2B = {
 			isa = PBXGroup;
 			children = (
+				A77B44E71544357F0092AD25 /* libosgShadow.dylib */,
+				A701A9F41544220B00CDD7FE /* paper_tile.jpg */,
 				A75E8A1814F9350900806EC3 /* Images */,
 				A7A0647D14F911A800A8CA2B /* Dependencies */,
 				A7A0647314F9113000A8CA2B /* Cogmatix */,
@@ -186,6 +197,7 @@
 		A7A0647D14F911A800A8CA2B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				A77039A3154434C0005BD331 /* libosgShadow.dylib */,
 				A78F2F6E151DCC2B0099A3ED /* osgdb_ive.so */,
 				A78F2F60151DCB580099A3ED /* osgdb_bmp.so */,
 				A78F2F61151DCB580099A3ED /* osgdb_freetype.so */,

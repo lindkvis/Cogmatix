@@ -11,10 +11,17 @@
 
 namespace LibCogmatix
 {
-    AxisList Machine::axes()
+    AxisList Machine::axes(Axis* master)
     { 
         AxisList nodes;
-        findDescendantsOfType<Axis> (dynamic_cast<osg::Node*> (this), nodes);
+        std::list<Axis*> axes;
+        findDescendantsOfType<Axis> (dynamic_cast<osg::Node*> (this), axes);
+        // insert into ordered set
+        foreach (Axis* axis, axes)
+        {
+            if (axis != master)
+                nodes.insert (AxisDistance(axis, master));
+        }
         return nodes;
     }
 }

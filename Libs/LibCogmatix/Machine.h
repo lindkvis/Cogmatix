@@ -6,12 +6,14 @@
 #include <osgFX/Outline>
 #include <boost/serialization/vector.hpp>
 #include <Boost/serialization/shared_ptr.hpp>
+#include <set>
 #include "Node.h"
 
 namespace LibCogmatix
 {
     class Axis;
-    typedef std::list<Axis*> AxisList;
+    class AxisDistance;
+    typedef std::multiset<AxisDistance> AxisList;
 
 	class Machine : public TMachineNode<osg::MatrixTransform>	
 	{
@@ -19,7 +21,7 @@ namespace LibCogmatix
     public:
 		typedef osg::ref_ptr<Machine> Ptr;
 		typedef osg::ref_ptr<const Machine> CPtr;
-		AxisList axes();
+		AxisList axes(Axis* master=nullptr);
     factory_protected:
 		Machine(NodeID ID, CoString name) : TMachineNode<osg::MatrixTransform>(ID, name) {}
         Machine(const Machine& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY) 

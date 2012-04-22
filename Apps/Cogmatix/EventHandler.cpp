@@ -94,7 +94,8 @@ void EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
         const osg::NodePath& nodePath = intersection.nodePath;
         osg::Node* node = (nodePath.size()>=2)?nodePath[nodePath.size()-2] : nullptr;
         osg::Group* parent = (nodePath.size()>=3)?dynamic_cast<osg::Group*>(nodePath[nodePath.size()-3]) : nullptr;
-        toggleSelection(view, node, parent);
+        if (dynamic_cast<LibCogmatix::MachineNode*>(node))
+            toggleSelection(view, node, parent);
     }
     else 
     {

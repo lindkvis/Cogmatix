@@ -10,7 +10,7 @@ namespace LibCogmatix
 		light->setLightNum(s_nextLightNumber++);
 		light->setDiffuse(colour);
 		light->setSpecular(Vec4(1.f, 1.f, 1.f, 1.f));
-		light->setAmbient(Vec4(0.1f, 0.1f, 0.1f, 1.0f));
+		light->setAmbient(Vec4(0.3f, 0.3f, 0.3f, 1.0f));
 		light->setPosition(Vec4(position[0], position[1], position[2], 1.));
 		setLight(light);
 		On();

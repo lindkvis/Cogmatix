@@ -81,7 +81,7 @@ namespace LibCogmatix
         // Get the world bounding sphere of the spur gear
         osg::BoundingSphere worldBound() const;
         
-        virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
+        virtual MachineNode::Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
         bool moveOthers (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
 	private:
 	};
@@ -94,7 +94,7 @@ namespace LibCogmatix
 		virtual bool moveTo(float newValue);
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked);
         
-        virtual Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
+        virtual MachineNode::Compatibility isCompatible(const std::set<const MachineNode*>& chain, const MachineNode* slave) const;
 
         double diameter() const { return _axisDiameter; }
         double length() const { return _axisLength; }
@@ -137,4 +137,15 @@ namespace LibCogmatix
         LinearAxis() : Axis() {}
 	private:
 	};
+
+    struct AxisDistance
+    {
+        Axis* axis;
+        double distance;
+        AxisDistance(Axis* ax, Axis* master) : axis(ax)
+        {
+            distance = (master && ax) ? (axis->worldPosition() - master->worldPosition()).length() : 0.;
+        }
+        bool operator< (const AxisDistance& axd) const { return distance < axd.distance; }
+    };
 }

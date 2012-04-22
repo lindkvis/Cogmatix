@@ -62,40 +62,78 @@ using namespace osgViewer;
 	
     _viewer = new osgViewer::Viewer();
     
-    Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
-	LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
-
-	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear1", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear2", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear3", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear4", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
-	ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear5", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0, 12.5), 20, 1.0, 0.5, 0.3, 0.);
+  	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
+	//LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	//LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
+	//LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
+	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
+	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
+	//CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 1.0, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
+	ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0, 12.5), 20, 1.0, 0.5, 0.3, 0.);
     
+	gear2->snapTo(gear);
+	gear3->snapTo(gear2);
 	gear4->snapTo(gear3);
     gear5->snapTo(gear4);
-
+	//ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
+	//ParametricSpurGearPart::Ptr gear6 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 0., 1.), Vec(10.5, -6., 10.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
 	bool bFastPaths = gear->gear()->areFastPathsUsed();
-	Motor::Ptr motor = Factory::get()->CreateMotor(20);
+	BoxMotor::Ptr motor = Factory::get()->CreateBoxMotor(20, Vec(0., 1., 0.), Vec(0., 5., 0.), Vec(5., 5., 5.), 1.0, 7.5);
 	machine->addChild(motor);
-	motor->addChild(gear);
+    machine->addChild(gear);
 	machine->addChild(gear2);
 	machine->addChild(gear3);
 	machine->addChild(gear4);
 	machine->addChild(gear5);
-    
+	//machine->addChild(gear6);
 	Clock::get()->add(motor);
     
-	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.5, 0.5, 1., 1.));
+	Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -20., 10.), Vec4(0.9, 0.9, 1., 1.));
 	machine->addChild(lightBlue);
-	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.5, 0.5, 1.));
+	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.9, 0.9, 1.));
 	machine->addChild(lightRed);
- 
-    motor->start();
     
+	osg::StateSet* gearState = machine->getOrCreateStateSet();
+    
+	// add a reflection map to the teapot.     
+	osg::Image* image = osgDB::readImageFile("skymap.jpg");
+	if (image)
+	{
+		osg::Texture2D* texture = new osg::Texture2D;
+		texture->setImage(image);
+        
+		osg::TexGen* texgen = new osg::TexGen;
+		texgen->setMode(osg::TexGen::SPHERE_MAP);
+        
+		gearState->setTextureAttributeAndModes(0,texture,osg::StateAttribute::ON);
+		gearState->setTextureAttributeAndModes(0,texgen,osg::StateAttribute::ON);
+        
+		//geode->setStateSet(stateset);
+	}
+    // motor->start();
+    
+    
+    /*	osg::Program* brickProgramObject = new osg::Program;
+     osg::Shader* brickVertexObject = 
+     new osg::Shader( osg::Shader::VERTEX );
+     osg::Shader* brickFragmentObject = 
+     new osg::Shader( osg::Shader::FRAGMENT );
+     brickProgramObject->addShader( brickFragmentObject );
+     brickProgramObject->addShader( brickVertexObject );
+     loadShaderSource( brickVertexObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.vert" );
+     loadShaderSource( brickFragmentObject, "D:/Cogmotion/3rdParty/OpenSceneGraph/data/shaders/brick.frag" );
+     */
     osg::Group* world = new osg::Group();
-	world->addChild(machine);
+    world->addChild(machine);
+    //	world->addChild(camera);
+    
+	unsigned int clearMask = _viewer->getCamera()->getClearMask();
+	_viewer->getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
+	_viewer->getCamera()->setClearStencil(0);
 
     if(graphicsContext)
 	{
