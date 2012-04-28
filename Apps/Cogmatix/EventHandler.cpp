@@ -6,13 +6,17 @@
 #include <osgFX/Scribe>
 
 #include <osgWidget/Label>
-
+#include <algorithm>
 #include "LibCogmatix/Action.h"
 
 using namespace Cogmatix;
+using namespace LibCogmatix;
 
 bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
 {
+    osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
+    if (!view)
+        return false;
     osg::Camera* camera = _viewer->getCamera();
     osg::Matrix viewMatrix = camera->getViewMatrix();
     osg::Matrix projMatrix = camera->getProjectionMatrix();
@@ -30,7 +34,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     {
         case(osgGA::GUIEventAdapter::PUSH):
         {
-            if (!_selection.empty())
+            if (_selection.valid())
             {
                 _dragging=DragInitiated;
                 _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
@@ -40,10 +44,10 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
         }
         case(osgGA::GUIEventAdapter::DRAG):
         { 
-            if (_dragging == DragInitiated || _dragging == Dragging)
+            if (_selection.valid() && (_dragging == DragInitiated || _dragging == Dragging))
             {
                 _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
-                //if (fabs(dx) > 1.0e-2 && fabs(dy) > 1.0e-2)
+                if (pick(view, ea, false) == _selection.get())
                 {
                     moveSelection (newPosition - _oldPosition);
                     _dragging=Dragging;
@@ -56,13 +60,12 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
         {
             if (_dragging != Dragging && fabs(dx) < 1.0e-2 && fabs(dy) < 1.0e-2)
             {
-                osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
-                if (view) pick(view,ea);
+                pick(view,ea, true);
                 return true;
             }
-            else if (_dragging == Dragging && !_selection.empty())
+            else if (_dragging == Dragging && _selection.valid())
             {
-                LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.front().get());
+                LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
                 if (mnode)
                     mnode->snapTo();
                 return true;
@@ -78,7 +81,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     return false;
 }
 
-void EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
+osg::Node* EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea, bool bSelect)
 {
     osgUtil::LineSegmentIntersector::Intersections intersections;
     float x = ea.getX();
@@ -95,18 +98,22 @@ void EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea)
         osg::Node* node = (nodePath.size()>=2)?nodePath[nodePath.size()-2] : nullptr;
         osg::Group* parent = (nodePath.size()>=3)?dynamic_cast<osg::Group*>(nodePath[nodePath.size()-3]) : nullptr;
         if (dynamic_cast<LibCogmatix::MachineNode*>(node))
-            toggleSelection(view, node, parent);
-    }
-    else 
-    {
-        while (!_selection.empty())
         {
-            osg::Node* sel = _selection.front();    
-            if (sel && sel->getNumParents() > 0)
-                toggleSelection(view, sel, sel->getParent(0));  
+            if (bSelect)
+                toggleSelection(view, node, parent);
+            return node;
         }
     }
-  }
+
+    // no hit
+    if (_selection.valid() && bSelect)
+    {
+        osg::Node* sel = _selection.get();    
+        if (sel && sel->getNumParents() > 0)
+            toggleSelection(view, sel, sel->getParent(0));  
+    }
+    return nullptr;
+}
 
 void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent)
 {
@@ -117,7 +124,12 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
         osgFX::Scribe* scribe = new osgFX::Scribe();
         scribe->addChild(node);
         parent->replaceChild(node,scribe);
-        _selection.push_back(node);
+        if (_selection.valid()) // remove existing selection
+        {
+            osg::Node* sel = _selection.get();
+            toggleSelection(view, sel, sel->getParent(0));
+        }
+        _selection = node;
         addedToSelection(node);
     }
     else
@@ -130,11 +142,8 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
         {
             (*itr)->replaceChild(parentAsScribe,node);
         }
-        std::list<osg::ref_ptr<osg::Node> >::iterator it = std::find(allof(_selection), node);
-        if (it != _selection.end()) {
-            _selection.erase(it);
-            removedFromSelection(node);
-        }
+        _selection = nullptr;
+        removedFromSelection(node);
     }
 }
 
@@ -145,21 +154,16 @@ void removeLabels(osgWidget::Window* window)
     }
 }
 
-void createLabels(osgWidget::Window* window, const std::list<osg::ref_ptr<osg::Node> >& selection)
+void createLabels(osgWidget::Window* window, const osg::observer_ptr<osg::Node> selection)
 {
     std::set<Action> actions;
     
-    for (std::list<osg::ref_ptr<osg::Node> >::const_iterator itr = selection.begin();
-         itr != selection.end();
-         ++itr)
-    {
-        const LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(itr->get());
-        if (!node)
-            continue;
+    const LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(selection.get());
+    if (!node)
+        return;
         
-        LibCogmatix::Actions nodeActions = node->validActions();
-        actions.insert(nodeActions.begin(), nodeActions.end());
-    }
+    LibCogmatix::Actions nodeActions = node->validActions();
+    actions.insert(nodeActions.begin(), nodeActions.end());
     
     for (std::set<Action>::iterator itr = actions.begin();
          itr != actions.end();
@@ -191,9 +195,9 @@ void EventHandler::removedFromSelection(osg::Node* node)
 
 void EventHandler::moveSelection(Vec worldShift)
 {
-    foreach (osg::Node* node, _selection)
+    if (_selection.valid())
     {
-        LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(node);
+        LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
         if (mnode)
         {
             double axialMove = mnode->worldAxis() * worldShift;
@@ -207,3 +211,26 @@ void EventHandler::moveSelection(Vec worldShift)
     }
 }
 
+void EventHandler::snapToLimit()
+{
+    Vec center = _cameraManipulator->getCenter();
+    osg::Quat quat = _cameraManipulator->getRotation();
+    double a, b, c;
+    Vec i (1., 0., 0.), j(0., 1., 0.), k(0., 0., 1.);
+    getEulerFromQuat(quat, a, b, c);
+    center[0] = between (-50.f, 50.f, center[0]);
+    center[1] = between (-30.f, -10.f, center[1]);
+    center[2] = between (-50.f, 50.f, center[2]);
+    double distance = between(5., 200., _cameraManipulator->getDistance());
+    _cameraManipulator->setDistance(distance);
+    _cameraManipulator->setCenter(center);
+   
+    //a = between(-PI, PI, a);
+    //b = between(-PI, PI, b);
+    // c = between(-PI, PI, c);
+    
+    quat = osg::Quat(a, i, b, j, c, k);
+    
+    //_cameraManipulator->setRotation(quat);
+    std::cout << center[0] << std::endl;
+}

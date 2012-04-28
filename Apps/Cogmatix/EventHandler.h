@@ -17,6 +17,7 @@
 #include <osgWidget/Label>
 
 #include "LibCogmatix/Machine.h"
+#include "LibCogmatix/Units.h"
 
 using namespace LibCogmatix;
 
@@ -39,7 +40,7 @@ namespace Cogmatix
         float _mx, _my;
         Vec _oldPosition;
 		void toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
-        std::list<osg::ref_ptr<osg::Node> > _selection;
+        osg::observer_ptr<osg::Node> _selection;
         
         osgWidget::Window* _labelWindow;
         
@@ -53,6 +54,7 @@ namespace Cogmatix
             : _viewer(viewer), _wm(wm), _machine(machine), _mx(0.), _my(0.), _dragging(NotDragging) 
         {
             _cameraManipulator = new osgGA::TrackballManipulator();
+            _cameraManipulator->setHomePosition(Vec(0., -100, 0.), Vec(0., 0., 0.), Vec(0., 0., 1.), false);
             _viewer->setCameraManipulator(_cameraManipulator);    
             _labelWindow = new osgWidget::Box("", osgWidget::Box::VERTICAL);
             wm->addChild(_labelWindow);
@@ -61,8 +63,10 @@ namespace Cogmatix
 		~EventHandler() {}
 
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);
-		virtual void pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea);
+		virtual osg::Node* pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea, bool bSelect);
         void moveSelection(Vec shift);
+        
+        void snapToLimit();
         
 	};
 }

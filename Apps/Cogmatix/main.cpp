@@ -33,6 +33,7 @@
 #include <osgShadow/ShadowVolume>
 #include <osgShadow/ShadowTexture>
 #include <osgShadow/ShadowMap>
+#include <osgShadow/SoftShadowMap>
 
 #include "OsgPlugins.h"
 #include "LibCogmatix/Factory.h"
@@ -69,8 +70,8 @@ bool loadShaderSource(osg::Shader* obj, const std::string& fileName )
 
 osg::Node* createBase(const osg::Vec3& center,float radius)
 {
-#define numTilesX 100
-#define numTilesZ 100
+#define numTilesX 10
+#define numTilesZ 10
     
     float width = 2*radius;
     float height = 2*radius;
@@ -79,21 +80,26 @@ osg::Node* createBase(const osg::Vec3& center,float radius)
     osg::Vec3 dx(osg::Vec3(width/((float)numTilesX),0.0,0.0f));
     osg::Vec3 dz(osg::Vec3(0.0f,0.0f, height/((float)numTilesZ)));
     
+    osg::Vec2 tdx = osg::Vec2(1.f, 0.f);
+    osg::Vec2 tdy = osg::Vec2(0.f, 1.f);
+    
     // fill in vertices for grid, note numTilesX+1 * numTilesY+1...
-    osg::Vec3Array* coords = new osg::Vec3Array;
+    osg::ref_ptr<osg::Vec3Array> coords = new osg::Vec3Array;
+    osg::ref_ptr<osg::Vec2Array> texcoords = new osg::Vec2Array;
     int iz;
     for(iz=0;iz<=numTilesZ;++iz)
     {
         for(int ix=0;ix<=numTilesX;++ix)
         {
             coords->push_back(v000+dx*(float)ix+dz*(float)iz);
+            texcoords->push_back(tdx*(float)ix+tdy*(float)iz);
         }
     }
     
     //Just two colours - black and white.
     osg::Vec4Array* colors = new osg::Vec4Array;
     colors->push_back(osg::Vec4(1.0f,1.0f,1.0f,1.0f)); // white
-    colors->push_back(osg::Vec4(0.9f,0.9f,0.9f,1.0f)); // black
+    colors->push_back(osg::Vec4(1.f,1.f,1.f,1.0f)); // grey
     int numColors=colors->size();
     
     
@@ -102,16 +108,27 @@ osg::Node* createBase(const osg::Vec3& center,float radius)
   
     osg::UIntArray* coordIndices = new osg::UIntArray; // assumes we are using less than 256 points...
     osg::UIntArray* colorIndices = new osg::UIntArray;
-    
+    osg::ref_ptr<osg::Vec2Array> texpoints = new osg::Vec2Array;
     for(iz=0;iz<numTilesZ;++iz)
     {
         for(int ix=0;ix<numTilesX;++ix)
         {
             // four vertices per quad.
-            coordIndices->push_back(ix    +(iz+1)*numIndicesPerRow);
-            coordIndices->push_back(ix    +iz*numIndicesPerRow);
+            coordIndices->push_back(ix+iz*numIndicesPerRow);
+            osg::Vec2 v = (*texcoords)[coordIndices->back()];
+            texpoints->push_back(v);
+            
             coordIndices->push_back((ix+1)+iz*numIndicesPerRow);
+            v = (*texcoords)[coordIndices->back()];
+            texpoints->push_back((*texcoords)[coordIndices->back()]);
+            
             coordIndices->push_back((ix+1)+(iz+1)*numIndicesPerRow);
+            v = (*texcoords)[coordIndices->back()];
+            texpoints->push_back((*texcoords)[coordIndices->back()]);
+            
+            coordIndices->push_back(ix+(iz+1)*numIndicesPerRow);
+            v = (*texcoords)[coordIndices->back()];
+            texpoints->push_back((*texcoords)[coordIndices->back()]);
             
             // one color per quad
             colorIndices->push_back((ix+iz)%numColors);
@@ -127,7 +144,7 @@ osg::Node* createBase(const osg::Vec3& center,float radius)
     osg::Geometry* geom = new osg::Geometry;
     geom->setVertexArray(coords);
     geom->setVertexIndices(coordIndices);
-    
+    geom->setTexCoordArray(0, texpoints);
     geom->setColorArray(colors);
     geom->setColorIndices(colorIndices);
     geom->setColorBinding(osg::Geometry::BIND_PER_PRIMITIVE);
@@ -157,21 +174,15 @@ int main( int argc, char **argv )
     
 	osgWidget::WindowManager* wm = new osgWidget::WindowManager(
 		&viewer,
-		1280.0f,
 		1024.0f,
+		768.0f,
 		MASK_2D,
 		0 //osgWidget::WindowManager::WM_PICK_DEBUG
 		);
 	osg::Camera* camera = wm->createParentOrthoCamera();
-	viewer.getCamera()->setClearColor(osg::Vec4(0.85,0.85,0.9,1.0));
-
+	viewer.getCamera()->setClearColor(osg::Vec4(0.0,0.0,0.0,1.0));
 	Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
-	//LinearAxis::Ptr axisLinear = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	//LinearAxis::Ptr axisLinear2 = Factory::get()->CreateLinearAxis(Vec(1., 0., 0.), Vec(0., 0., 0.), 0., 0., 100.);
-	//LinearAxis::Ptr axisLinear3 = Factory::get()->CreateLinearAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., 0., 100.);
-	//RotaryAxis::Ptr axisRotary = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
-	//RotaryAxis::Ptr axisRotary2 = Factory::get()->CreateRotaryAxis(Vec(0., 0., 1.), Vec(0., 0., 0.), 0., -10000000., 10000000.);
-	//CompositePart::Ptr part = Factory::get()->CreateCompositePart("Test part", "D:\\Cogmotion\\3rdParty\\OpenSceneGraph\\data\\dumptruck.osg");
+
 	ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 1.0, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
 	ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
@@ -205,17 +216,21 @@ int main( int argc, char **argv )
 
     osg::ref_ptr<osg::Node> plane_geode = createBase(Vec(0., 8., 0.), 100);
 	plane_geode->setNodeMask(ReceivesShadowTraversalMask);
-    //osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
+    osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
     
-    //planeState->setTextureAttributeAndModes( 0, new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg")), osg::StateAttribute::ON);    
-    
+    osg::ref_ptr<osg::Texture2D> planeTex = new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg"));
+    //    planeTex->setFilter(osg::Texture::MIN_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+    //    planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+    planeTex->setWrap(osg::Texture::WRAP_S,osg::Texture::REPEAT);    
+    planeTex->setWrap(osg::Texture::WRAP_T,osg::Texture::REPEAT);    
+    planeState->setTextureAttributeAndModes( 0, planeTex , osg::StateAttribute::ON);    
     //machine->addChild(gear6);
 	Clock::get()->add(motor);
 
 	osg::StateSet* gearState = machine->getOrCreateStateSet();
 
 	// add a reflection map to the teapot.     
-	/*osg::Image* image = osgDB::readImageFile("skymap.jpg");
+	/* osg::Image* image = osgDB::readImageFile("skymap.jpg");
 	if (image)
 	{
 		osg::Texture2D* texture = new osg::Texture2D;
@@ -228,8 +243,8 @@ int main( int argc, char **argv )
 		gearState->setTextureAttributeAndModes(0,texgen,osg::StateAttribute::ON);
 
 		//geode->setStateSet(stateset);
-	}
-*/
+	}*/
+
     motor->start();
 
 
@@ -249,20 +264,22 @@ int main( int argc, char **argv )
     
     osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
     world->setShadowTechnique(sm.get());    
-    int mapres = 1024;
-    sm->setTextureSize(osg::Vec2s(mapres,mapres));
+    int mapresx = 1024, mapresy=768;
+    sm->setTextureSize(osg::Vec2s(mapresx,mapresy));
+    sm->setPolygonOffset(osg::Vec2(-2, -2));
     
-    //osg::ref_ptr<osg::Group> world = new osg::Group;
+    osg::ref_ptr<osg::Group> root = new osg::Group;
+    root->addChild(world);
 	world->addChild(machine);
-	world->addChild(camera);
+	root->addChild(camera);
     world->addChild(plane_geode);
     
-    Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(20., -10., 10.), Vec4(0.6, 0.6, 1., 1.));
+    Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(30., -200., 30.), Vec4(0.95, 0.95, 1., 1.));
 	world->addChild(lightBlue);
-	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.6, 0.6, 1.));
-    machine->addChild(lightRed);
+    //	Light::Ptr lightRed = Factory::get()->CreateLight(machine.get(), Vec(-50., -10., 30.), Vec4(1., 0.6, 0.6, 1.));
+    //    machine->addChild(lightRed);
     
-	viewer.setSceneData(world);
+	viewer.setSceneData(root);
 
 	Vec vecGear2 = gear2->worldPosition();
 	Vec vecGear1 = gear->worldPosition();
@@ -271,8 +288,9 @@ int main( int argc, char **argv )
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
 	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
 	viewer.getCamera()->setClearStencil(0);
+    osg::ref_ptr<EventHandler> handler = new EventHandler(&viewer, wm, machine);
 	// add the handler for doing the picking
-	viewer.addEventHandler(new EventHandler(&viewer, wm, machine));
+	viewer.addEventHandler(handler);
 	viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
     //	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
 	viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
@@ -300,6 +318,7 @@ int main( int argc, char **argv )
 	{
 		Clock::get()->tick();
         viewer.frame(Clock::get()->elapsed());
+        handler->snapToLimit();
         /*
         if (Clock::get()->elapsed() > 10.)
             gear4->perform("remove", ActionArgs());

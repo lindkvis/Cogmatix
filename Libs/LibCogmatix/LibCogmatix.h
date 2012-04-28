@@ -48,4 +48,12 @@ namespace LibCogmatix
 #define PNULL(type) osg::ref_ptr<type> ()
 
 	osg::BoundingSphere transformBoundingSphere( const osg::Matrixf& m, const osg::BoundingSphere& sphere );
+    
+    void getEulerFromQuat(osg::Quat q, double& a, double& b, double& c); 
+    
+    template<class T>
+    T between (const T& minT, const T& maxT, const T& x)
+    {
+        return std::min (maxT, std::max(minT, x));
+    }
 }
