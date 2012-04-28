@@ -5,8 +5,8 @@
 #include <osg/Transform>
 #include <osgFX/Scribe>
 
-#include <osgWidget/Label>
 #include <algorithm>
+#include "ActionButton.h"
 #include "LibCogmatix/Action.h"
 
 using namespace Cogmatix;
@@ -154,8 +154,11 @@ void removeLabels(osgWidget::Window* window)
     }
 }
 
-void createLabels(osgWidget::Window* window, const osg::observer_ptr<osg::Node> selection)
+void createLabels(EventHandler* handler, osgWidget::Window* window, const osg::observer_ptr<osg::Node> selection)
 {
+    if (!selection.valid())
+        return;
+    
     std::set<Action> actions;
     
     const LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(selection.get());
@@ -170,27 +173,21 @@ void createLabels(osgWidget::Window* window, const osg::observer_ptr<osg::Node> 
          ++itr)
     {
         LibCogmatix::Action action = *itr;
-        osgWidget::Label* label = new osgWidget::Label("", action.name);
-        label->setFont("fonts/Vera.ttf");
-        label->setFontSize(10);
-        label->setColor(0.8f, 0.2f, 0.2f, 0.8f);
-        label->setCanFill(true);
-        label->setShadow(0.1f);
-        label->addSize(20.0f, 20.0f);
-        window->addWidget(label);
+        ActionButton* button = new ActionButton(handler, action.name);
+        window->addWidget(button);
     }
 }
                   
 void EventHandler::addedToSelection(osg::Node* node)
 {
     removeLabels(_labelWindow);
-    createLabels(_labelWindow, _selection);
+    createLabels(this, _labelWindow, _selection);
 }
 
 void EventHandler::removedFromSelection(osg::Node* node)
 {
     removeLabels(_labelWindow);
-    createLabels(_labelWindow, _selection);
+    createLabels(this, _labelWindow, _selection);
 }
 
 void EventHandler::moveSelection(Vec worldShift)
@@ -209,6 +206,23 @@ void EventHandler::moveSelection(Vec worldShift)
             mnode->setOrigin (origin * gearMatrixInv);
         }
     }
+}
+
+void EventHandler::dispatchAction(CoString action)
+{
+    if (!_selection.valid())
+        return;
+
+    LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
+    if (!node)
+        return;
+    
+    ActionArgs args;
+    node->perform(action, args);
+    
+    // XXX don't do this, we're removing a label that is in the middle of dispatching an event
+    removeLabels(_labelWindow);
+    createLabels(this, _labelWindow, _selection);
 }
 
 void EventHandler::snapToLimit()

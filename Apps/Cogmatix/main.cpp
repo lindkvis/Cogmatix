@@ -288,16 +288,17 @@ int main( int argc, char **argv )
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
 	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
 	viewer.getCamera()->setClearStencil(0);
-    osg::ref_ptr<EventHandler> handler = new EventHandler(&viewer, wm, machine);
-	// add the handler for doing the picking
-	viewer.addEventHandler(handler);
-	viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
-    //	viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
-	viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
-	viewer.addEventHandler(new osgViewer::StatsHandler());
-	viewer.addEventHandler(new osgViewer::WindowSizeHandler());
-	viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
 
+    viewer.addEventHandler(new osgWidget::MouseHandler(wm));
+    viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
+    viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
+    viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
+    viewer.addEventHandler(new osgViewer::StatsHandler());
+    viewer.addEventHandler(new osgViewer::WindowSizeHandler());
+    viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
+
+    osg::ref_ptr<EventHandler> handler = new EventHandler(&viewer, wm, machine);
+    viewer.addEventHandler(handler);
     
     viewer.setUpViewInWindow(
         50,

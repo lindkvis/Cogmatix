@@ -49,6 +49,7 @@
 		A7F06BD31502329C005A185F /* libosgSim.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD21502329C005A185F /* libosgSim.dylib */; };
 		A7F06BD5150232D8005A185F /* libosgTerrain.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD4150232D8005A185F /* libosgTerrain.dylib */; };
 		A7F06BD715023307005A185F /* libosgVolume.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD615023307005A185F /* libosgVolume.dylib */; };
+		D7D0FD2A154C2C75007AF534 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7D0FD29154C2C75007AF534 /* Button.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -129,6 +130,9 @@
 		A7F06BD21502329C005A185F /* libosgSim.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgSim.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgSim.dylib; sourceTree = "<group>"; };
 		A7F06BD4150232D8005A185F /* libosgTerrain.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgTerrain.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgTerrain.dylib; sourceTree = "<group>"; };
 		A7F06BD615023307005A185F /* libosgVolume.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgVolume.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgVolume.dylib; sourceTree = "<group>"; };
+		D7D0FD27154C2C09007AF534 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Button.h; sourceTree = "<group>"; };
+		D7D0FD29154C2C75007AF534 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		D7E9C886154C437700F222F2 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionButton.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +198,9 @@
 				A7A0648414F911D300A8CA2B /* stdafx.h */,
 				A7A0647614F9113000A8CA2B /* Cogmatix.1 */,
 				A7F06BC115022A4F005A185F /* OsgPlugins.h */,
+				D7D0FD27154C2C09007AF534 /* Button.h */,
+				D7D0FD29154C2C75007AF534 /* Button.cpp */,
+				D7E9C886154C437700F222F2 /* ActionButton.h */,
 			);
 			path = Cogmatix;
 			sourceTree = "<group>";
@@ -282,6 +289,7 @@
 				A7A0648514F911E900A8CA2B /* main.cpp in Sources */,
 				A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */,
 				A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */,
+				D7D0FD2A154C2C75007AF534 /* Button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
