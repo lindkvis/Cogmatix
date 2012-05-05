@@ -14,7 +14,7 @@
 #include "Button.h"
 #include "EventHandler.h"
 
-namespace Cogmatix
+namespace LibCogmatix
 {
     class ActionButton : public Button
     {

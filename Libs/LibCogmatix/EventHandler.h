@@ -21,9 +21,7 @@
 #include "LibCogmatix/Machine.h"
 #include "LibCogmatix/Units.h"
 
-using namespace LibCogmatix;
-
-namespace Cogmatix
+namespace LibCogmatix
 {
 	class EventHandler : public osgGA::GUIEventHandler 
 	{

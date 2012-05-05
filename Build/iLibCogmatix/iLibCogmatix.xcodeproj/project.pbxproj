@@ -16,6 +16,11 @@
 		A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */; };
 		A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08B14FFD4A400AD1189 /* libosgDB.a */; };
 		A716D09414FFD4A400AD1189 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08C14FFD4A400AD1189 /* libosgFX.a */; };
+		A73307481555434600FB37D2 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307431555434600FB37D2 /* ActionButton.h */; };
+		A73307491555434600FB37D2 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73307441555434600FB37D2 /* Button.cpp */; };
+		A733074A1555434600FB37D2 /* Button.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307451555434600FB37D2 /* Button.h */; };
+		A733074B1555434600FB37D2 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73307461555434600FB37D2 /* EventHandler.cpp */; };
+		A733074C1555434600FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307471555434600FB37D2 /* EventHandler.h */; };
 		A7C8B9191500D309006E679B /* Axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8F81500D00E006E679B /* Axis.cpp */; };
 		A7C8B91A1500D309006E679B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FA1500D00E006E679B /* Clock.cpp */; };
 		A7C8B91B1500D309006E679B /* CogException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FC1500D00E006E679B /* CogException.cpp */; };
@@ -60,6 +65,11 @@
 		A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_osg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_osg.a"; sourceTree = "<group>"; };
 		A716D08B14FFD4A400AD1189 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
 		A716D08C14FFD4A400AD1189 /* libosgFX.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgFX.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgFX.a"; sourceTree = "<group>"; };
+		A73307431555434600FB37D2 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionButton.h; path = ../../../Libs/LibCogmatix/ActionButton.h; sourceTree = "<group>"; };
+		A73307441555434600FB37D2 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = ../../../Libs/LibCogmatix/Button.cpp; sourceTree = "<group>"; };
+		A73307451555434600FB37D2 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = ../../../Libs/LibCogmatix/Button.h; sourceTree = "<group>"; };
+		A73307461555434600FB37D2 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = ../../../Libs/LibCogmatix/EventHandler.cpp; sourceTree = "<group>"; };
+		A73307471555434600FB37D2 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../../Libs/LibCogmatix/EventHandler.h; sourceTree = "<group>"; };
 		A7C8B8F81500D00E006E679B /* Axis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Axis.cpp; path = ../../../Libs/LibCogmatix/Axis.cpp; sourceTree = "<group>"; };
 		A7C8B8F91500D00E006E679B /* Axis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Axis.h; path = ../../../Libs/LibCogmatix/Axis.h; sourceTree = "<group>"; };
 		A7C8B8FA1500D00E006E679B /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Clock.cpp; path = ../../../Libs/LibCogmatix/Clock.cpp; sourceTree = "<group>"; };
@@ -155,6 +165,11 @@
 		A716D04314FFD3AA00AD1189 /* iLibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
+				A73307431555434600FB37D2 /* ActionButton.h */,
+				A73307441555434600FB37D2 /* Button.cpp */,
+				A73307451555434600FB37D2 /* Button.h */,
+				A73307461555434600FB37D2 /* EventHandler.cpp */,
+				A73307471555434600FB37D2 /* EventHandler.h */,
 				A7E8E97B1514866D00BF25A3 /* Action.h */,
 				A7E8E97C1514866D00BF25A3 /* Actions.strings */,
 				A7C8B8F81500D00E006E679B /* Axis.cpp */,
@@ -219,6 +234,9 @@
 				A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */,
 				A7C8B9301500D393006E679B /* GearPart.h in Headers */,
 				A7C8B9321500D393006E679B /* Units.h in Headers */,
+				A73307481555434600FB37D2 /* ActionButton.h in Headers */,
+				A733074A1555434600FB37D2 /* Button.h in Headers */,
+				A733074C1555434600FB37D2 /* EventHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +304,8 @@
 				A7C8B9231500D309006E679B /* GearPart.cpp in Sources */,
 				A7C8B9241500D309006E679B /* stdafx.cpp in Sources */,
 				A7E8E9801514866D00BF25A3 /* LibCogmatix.cpp in Sources */,
+				A73307491555434600FB37D2 /* Button.cpp in Sources */,
+				A733074B1555434600FB37D2 /* EventHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

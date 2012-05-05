@@ -54,6 +54,10 @@ namespace LibCogmatix
 #define PCAST(type, object) osg::dynamic_pointer_cast<type>(object)
 #define PNULL(type) osg::ref_ptr<type> ()
 
+    osg::ref_ptr<Machine> createTestMachine(osg::Group* root);
+    osg::ref_ptr<osg::Geode> createBase(const osg::Vec3f& center,float radius);
+    
+    bool loadShaderSource(osg::Shader* obj, const std::string& fileName );
 	osg::BoundingSphere transformBoundingSphere( const osg::Matrixf& m, const osg::BoundingSphere& sphere );
     
     void getEulerFromQuat(osg::Quat q, double& a, double& b, double& c); 
@@ -62,9 +66,5 @@ namespace LibCogmatix
     T between (const T& minT, const T& maxT, const T& x)
     {
         return std::min (maxT, std::max(minT, x));
-    }
-    
-    osg::Node* createBase(const osg::Vec3f& center,float radius);
-    
-    osg::ref_ptr<Machine> createTestMachine(osg::Group* root);
+    }    
 }

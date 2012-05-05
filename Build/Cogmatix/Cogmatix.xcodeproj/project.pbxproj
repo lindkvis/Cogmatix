@@ -23,7 +23,6 @@
 		A78F2F6F151DCC2B0099A3ED /* osgdb_ive.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = A78F2F6E151DCC2B0099A3ED /* osgdb_ive.so */; };
 		A7A0647714F9113000A8CA2B /* Cogmatix.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7A0647614F9113000A8CA2B /* Cogmatix.1 */; };
 		A7A0648514F911E900A8CA2B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648014F911D300A8CA2B /* main.cpp */; };
-		A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648114F911D300A8CA2B /* EventHandler.cpp */; };
 		A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A0648314F911D300A8CA2B /* stdafx.cpp */; };
 		A7E3D895151F36AF00831F63 /* libosgUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7F06BAB150227B2005A185F /* libosgUtil.dylib */; };
 		A7F06B9515022680005A185F /* LibCogmatix.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A0647E14F911BC00A8CA2B /* LibCogmatix.dylib */; };
@@ -49,7 +48,6 @@
 		A7F06BD31502329C005A185F /* libosgSim.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD21502329C005A185F /* libosgSim.dylib */; };
 		A7F06BD5150232D8005A185F /* libosgTerrain.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD4150232D8005A185F /* libosgTerrain.dylib */; };
 		A7F06BD715023307005A185F /* libosgVolume.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A7F06BD615023307005A185F /* libosgVolume.dylib */; };
-		D7D0FD2A154C2C75007AF534 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D7D0FD29154C2C75007AF534 /* Button.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -287,9 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7A0648514F911E900A8CA2B /* main.cpp in Sources */,
-				A7A0648614F911EB00A8CA2B /* EventHandler.cpp in Sources */,
 				A7A0648714F911ED00A8CA2B /* stdafx.cpp in Sources */,
-				D7D0FD2A154C2C75007AF534 /* Button.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

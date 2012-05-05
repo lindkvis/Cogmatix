@@ -18,47 +18,22 @@
 
 #include "stdafx.h"
 
+#include <iostream>
+
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
 #include <osgViewer/Viewer>
-#include <osg/PolygonMode>
-#include <iostream>
-#include <osg/TexGen>
-#include <osg/Texture2D>
-#include <osgWidget/Util>
 #include <osgWidget/WindowManager>
-#include <osg/Material>
 #include <osgGA/StateSetManipulator>
 
 #include "OsgPlugins.h"
 #include "LibCogmatix/Machine.h"
 #include "LibCogmatix/Clock.h"
-#include "EventHandler.h"
+#include "LibCogmatix/EventHandler.h"
 
 
 
 using namespace LibCogmatix;
-using namespace Cogmatix;
-
-bool loadShaderSource(osg::Shader* obj, const std::string& fileName )
-{
-	std::string fqFileName = osgDB::findDataFile(fileName);
-	if( fileName.length() == 0 )
-	{
-		std::cout << "File \"" << fileName << "\" not found." << std::endl;
-		return false;
-	}
-	bool success = obj->loadShaderSourceFromFile( fileName.c_str());
-	if ( !success  )
-	{
-		std::cout << "Couldn't load file: " << fileName << std::endl;
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
 
 const unsigned int MASK_2D = 0xF0000000;
 
@@ -83,7 +58,7 @@ int main( int argc, char **argv )
     osg::ref_ptr<osg::Group> root = new osg::Group;
 	root->addChild(camera);        
     LibCogmatix::Machine::Ptr machine = createTestMachine(root);
-    osg::ref_ptr<EventHandler> handler = new EventHandler(&viewer, wm, machine);
+    osg::ref_ptr<LibCogmatix::EventHandler> handler = new LibCogmatix::EventHandler(&viewer, wm, machine);
 	viewer.setSceneData(root);
 
 	unsigned int clearMask = viewer.getCamera()->getClearMask();
@@ -108,7 +83,6 @@ int main( int argc, char **argv )
 	wm->resizeAllWindows();
 
 	viewer.realize();
-	//Clock::get()->start();
 
     // testing
     bool addedNewGear=false;
@@ -119,27 +93,7 @@ int main( int argc, char **argv )
 		Clock::get()->tick();
         viewer.frame(Clock::get()->elapsed());
         handler->snapToLimit();
-        /*
-        if (Clock::get()->elapsed() > 10.)
-            gear4->perform("remove", ActionArgs());
-        if (Clock::get()->elapsed() > 5.2 && !addedNewGear)
-        {
-            gear5->perform("copy", ActionArgs());
-            addedNewGear=true;
-        }        
-        if (Clock::get()->elapsed() > 2.5 && !bStopped)
-        {
-            motor->perform("stop", ActionArgs());
-            bStopped=true;
-        }
-        if (Clock::get()->elapsed() > 7.5 && !bStarted)
-        {
-            motor->perform("start", ActionArgs());
-            bStarted=true;
-        }*/
-            
 	}
-
 
 	return 0;
 }

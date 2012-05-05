@@ -10,7 +10,7 @@
 
 #include "osgWidget/Label"
 
-namespace Cogmatix
+namespace LibCogmatix
 {
     using namespace osgWidget;
     

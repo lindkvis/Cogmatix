@@ -9,7 +9,6 @@
 #include "ActionButton.h"
 #include "LibCogmatix/Action.h"
 
-using namespace Cogmatix;
 using namespace LibCogmatix;
 
 bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)

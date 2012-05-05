@@ -12,6 +12,11 @@
 		A7255BAB15022563001C41B2 /* libosgDB.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA715022563001C41B2 /* libosgDB.dylib */; };
 		A7255BAC15022563001C41B2 /* libosgUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA815022563001C41B2 /* libosgUtil.dylib */; };
 		A73307371555418400FB37D2 /* libosgShadow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A73307361555418400FB37D2 /* libosgShadow.dylib */; };
+		A733073E1555430B00FB37D2 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307391555430B00FB37D2 /* ActionButton.h */; };
+		A733073F1555430B00FB37D2 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A733073A1555430B00FB37D2 /* Button.cpp */; };
+		A73307401555430B00FB37D2 /* Button.h in Headers */ = {isa = PBXBuildFile; fileRef = A733073B1555430B00FB37D2 /* Button.h */; };
+		A73307411555430B00FB37D2 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A733073C1555430B00FB37D2 /* EventHandler.cpp */; };
+		A73307421555430B00FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A733073D1555430B00FB37D2 /* EventHandler.h */; };
 		A797656815397DBC00259AD0 /* GearPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A797656715397DBC00259AD0 /* GearPart.cpp */; };
 		A797656A15397DCF00259AD0 /* GearPart.h in Headers */ = {isa = PBXBuildFile; fileRef = A797656915397DCF00259AD0 /* GearPart.h */; };
 		A7A0619414F9015C00A8CA2B /* LibCogmatix.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A0619314F9015C00A8CA2B /* LibCogmatix.h */; };
@@ -37,6 +42,10 @@
 		A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7A061B514F9017900A8CA2B /* stdafx.cpp */; };
 		A7A061C514F9017900A8CA2B /* stdafx.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B614F9017900A8CA2B /* stdafx.h */; };
 		A7A061C614F9017900A8CA2B /* Units.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A061B714F9017900A8CA2B /* Units.h */; };
+		A7B71731155543DA003E0D27 /* libosgViewer.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7172F155543DA003E0D27 /* libosgViewer.dylib */; };
+		A7B71732155543DA003E0D27 /* libosgWidget.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B71730155543DA003E0D27 /* libosgWidget.dylib */; };
+		A7B7173615554401003E0D27 /* libosgFX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7173415554401003E0D27 /* libosgFX.dylib */; };
+		A7B7173715554401003E0D27 /* libosgGA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B7173515554401003E0D27 /* libosgGA.dylib */; };
 		A7CE6D89150E201300BC6194 /* Action.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CE6D85150E201300BC6194 /* Action.h */; };
 		A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */; };
 		A7E8E97A1514861100BF25A3 /* Machine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7E8E9791514861100BF25A3 /* Machine.cpp */; };
@@ -48,6 +57,11 @@
 		A7255BA715022563001C41B2 /* libosgDB.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgDB.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgDB.dylib; sourceTree = "<group>"; };
 		A7255BA815022563001C41B2 /* libosgUtil.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgUtil.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgUtil.dylib; sourceTree = "<group>"; };
 		A73307361555418400FB37D2 /* libosgShadow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgShadow.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgShadow.dylib; sourceTree = "<group>"; };
+		A73307391555430B00FB37D2 /* ActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionButton.h; path = ../../../Libs/LibCogmatix/ActionButton.h; sourceTree = "<group>"; };
+		A733073A1555430B00FB37D2 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Button.cpp; path = ../../../Libs/LibCogmatix/Button.cpp; sourceTree = "<group>"; };
+		A733073B1555430B00FB37D2 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = ../../../Libs/LibCogmatix/Button.h; sourceTree = "<group>"; };
+		A733073C1555430B00FB37D2 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = ../../../Libs/LibCogmatix/EventHandler.cpp; sourceTree = "<group>"; };
+		A733073D1555430B00FB37D2 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../../Libs/LibCogmatix/EventHandler.h; sourceTree = "<group>"; };
 		A797656715397DBC00259AD0 /* GearPart.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GearPart.cpp; path = ../../../Libs/LibCogmatix/GearPart.cpp; sourceTree = "<group>"; };
 		A797656915397DCF00259AD0 /* GearPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GearPart.h; path = ../../../Libs/LibCogmatix/GearPart.h; sourceTree = "<group>"; };
 		A7A0618314F8FF4400A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = LibCogmatix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +91,10 @@
 		A7A061B514F9017900A8CA2B /* stdafx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stdafx.cpp; path = ../../../Libs/LibCogmatix/stdafx.cpp; sourceTree = "<group>"; };
 		A7A061B614F9017900A8CA2B /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../../Libs/LibCogmatix/stdafx.h; sourceTree = "<group>"; };
 		A7A061B714F9017900A8CA2B /* Units.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Units.h; path = ../../../Libs/LibCogmatix/Units.h; sourceTree = "<group>"; };
+		A7B7172F155543DA003E0D27 /* libosgViewer.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgViewer.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgViewer.dylib; sourceTree = "<group>"; };
+		A7B71730155543DA003E0D27 /* libosgWidget.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgWidget.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgWidget.dylib; sourceTree = "<group>"; };
+		A7B7173415554401003E0D27 /* libosgFX.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgFX.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgFX.dylib; sourceTree = "<group>"; };
+		A7B7173515554401003E0D27 /* libosgGA.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgGA.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgGA.dylib; sourceTree = "<group>"; };
 		A7CE6D85150E201300BC6194 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = ../../../Libs/LibCogmatix/Action.h; sourceTree = "<group>"; };
 		A7CE6D86150E201300BC6194 /* Actions.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Actions.strings; path = ../../../Libs/LibCogmatix/Actions.strings; sourceTree = "<group>"; };
 		A7CE6D87150E201300BC6194 /* LibCogmatix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LibCogmatix.cpp; path = ../../../Libs/LibCogmatix/LibCogmatix.cpp; sourceTree = "<group>"; };
@@ -88,6 +106,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7B7173615554401003E0D27 /* libosgFX.dylib in Frameworks */,
+				A7B7173715554401003E0D27 /* libosgGA.dylib in Frameworks */,
+				A7B71731155543DA003E0D27 /* libosgViewer.dylib in Frameworks */,
+				A7B71732155543DA003E0D27 /* libosgWidget.dylib in Frameworks */,
 				A73307371555418400FB37D2 /* libosgShadow.dylib in Frameworks */,
 				A7255BA915022563001C41B2 /* libOpenThreads.dylib in Frameworks */,
 				A7255BAA15022563001C41B2 /* libosg.dylib in Frameworks */,
@@ -102,7 +124,6 @@
 		A7A0617814F8FF4400A8CA2B = {
 			isa = PBXGroup;
 			children = (
-				A73307361555418400FB37D2 /* libosgShadow.dylib */,
 				A7A063F914F9036000A8CA2B /* Dependencies */,
 				A7A0618514F8FF4400A8CA2B /* LibCogmatix */,
 				A7A0618414F8FF4400A8CA2B /* Products */,
@@ -120,6 +141,11 @@
 		A7A0618514F8FF4400A8CA2B /* LibCogmatix */ = {
 			isa = PBXGroup;
 			children = (
+				A73307391555430B00FB37D2 /* ActionButton.h */,
+				A733073A1555430B00FB37D2 /* Button.cpp */,
+				A733073B1555430B00FB37D2 /* Button.h */,
+				A733073C1555430B00FB37D2 /* EventHandler.cpp */,
+				A733073D1555430B00FB37D2 /* EventHandler.h */,
 				A7CE6D85150E201300BC6194 /* Action.h */,
 				A7A0619614F9016900A8CA2B /* Axis.h */,
 				A7A0619514F9016900A8CA2B /* Axis.cpp */,
@@ -167,6 +193,11 @@
 		A7A063F914F9036000A8CA2B /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				A73307361555418400FB37D2 /* libosgShadow.dylib */,
+				A7B7173415554401003E0D27 /* libosgFX.dylib */,
+				A7B7173515554401003E0D27 /* libosgGA.dylib */,
+				A7B7172F155543DA003E0D27 /* libosgViewer.dylib */,
+				A7B71730155543DA003E0D27 /* libosgWidget.dylib */,
 				A7255BA515022563001C41B2 /* libOpenThreads.dylib */,
 				A7255BA615022563001C41B2 /* libosg.dylib */,
 				A7255BA715022563001C41B2 /* libosgDB.dylib */,
@@ -197,6 +228,9 @@
 				A7A061C614F9017900A8CA2B /* Units.h in Headers */,
 				A7CE6D89150E201300BC6194 /* Action.h in Headers */,
 				A797656A15397DCF00259AD0 /* GearPart.h in Headers */,
+				A733073E1555430B00FB37D2 /* ActionButton.h in Headers */,
+				A73307401555430B00FB37D2 /* Button.h in Headers */,
+				A73307421555430B00FB37D2 /* EventHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +298,8 @@
 				A7A061C414F9017900A8CA2B /* stdafx.cpp in Sources */,
 				A7CE6D8A150E201300BC6194 /* LibCogmatix.cpp in Sources */,
 				A7E8E97A1514861100BF25A3 /* Machine.cpp in Sources */,
+				A733073F1555430B00FB37D2 /* Button.cpp in Sources */,
+				A73307411555430B00FB37D2 /* EventHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

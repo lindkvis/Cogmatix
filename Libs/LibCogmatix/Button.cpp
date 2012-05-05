@@ -10,7 +10,7 @@
 #include "Button.h"
 
 using namespace osgWidget;
-using namespace Cogmatix;
+using namespace LibCogmatix;
 
 const Color background = Color(0.8f, 0.2f, 0.2f, 1.0f);
 const Color highlight  = Color(0.8f, 0.8f, 0.8f, 1.0f);
