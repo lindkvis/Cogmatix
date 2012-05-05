@@ -121,7 +121,7 @@ void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::
     if (!parentAsScribe)
     {
         // node not already picked, so highlight it with an osgFX::Scribe
-        osgFX::Scribe* scribe = new osgFX::Scribe();
+        osg::ref_ptr<osgFX::Scribe> scribe = new osgFX::Scribe();
         scribe->addChild(node);
         parent->replaceChild(node,scribe);
         if (_selection.valid()) // remove existing selection

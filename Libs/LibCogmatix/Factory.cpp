@@ -24,7 +24,8 @@ namespace LibCogmatix
     {
         osg::Node* node = dynamic_cast<osg::Node*>(getNode(ID));
         if (!node) return false;
-        foreach (osg::Group* parent, node->getParents())
+        osg::Node::ParentList parents = node->getParents();
+        foreach (osg::Group* parent, parents)
         {
             parent->removeChild(node);
         }

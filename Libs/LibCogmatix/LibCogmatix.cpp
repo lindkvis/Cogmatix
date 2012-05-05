@@ -13,8 +13,77 @@
 #include <osg/Geometry>
 #include <osg/Geode>
 
+#include <osgGA/StateSetManipulator>
+#include <osgShadow/ShadowedScene>
+#include <osgShadow/ShadowVolume>
+#include <osgShadow/ShadowTexture>
+#include <osgShadow/ShadowMap>
+#include <osgShadow/SoftShadowMap>
+#include <osgDB/ReadFile>
+#include <osgDB/FileUtils>
+
+#include "Factory.h"
+#include "Clock.h"
+#include "Light.h"
+#include "Node.h"
+#include "GearPart.h"
+
 namespace LibCogmatix 
 {
+    Machine::Ptr createTestMachine(osg::Group* root)
+    {
+        
+        Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
+        BoxMotor::Ptr motor = Factory::get()->CreateBoxMotor(20, Vec(0., 1., 0.), Vec(0., 5., 0.), Vec(5., 5., 5.), 1.0, 7.5);
+        machine->addChild(motor);
+        
+        ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 0., 0.), 40, 1.5, 1.0, 0.3, 0.);
+        ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 0., 0.),10, 1.0, 0.5, 0.3, 0.);
+        ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 0.), 10, 1.0, 0.5, 0.3, 0.);
+        ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0., 5.1), 24, 1.0, 0.5, 0.3, 0.);
+        ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 0, 11.7), 20, 1.0, 0.5, 0.3, 0.);
+        
+        //ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
+        //ParametricSpurGearPart::Ptr gear6 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 0., 1.), Vec(10.5, -6., 10.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
+        machine->addChild(gear);
+        machine->addChild(gear2);
+        machine->addChild(gear3);
+        machine->addChild(gear4);
+        machine->addChild(gear5);
+        osg::ref_ptr<osg::Node> plane_geode = createBase(Vec(0., 8., 0.), 100);
+        plane_geode->setNodeMask(ReceivesShadowTraversalMask);
+        osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
+        
+        osg::ref_ptr<osg::Texture2D> planeTex = new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg"));
+        //    planeTex->setFilter(osg::Texture::MIN_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+        //    planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+        planeTex->setWrap(osg::Texture::WRAP_S,osg::Texture::REPEAT);    
+        planeTex->setWrap(osg::Texture::WRAP_T,osg::Texture::REPEAT);    
+        planeState->setTextureAttributeAndModes( 0, planeTex , osg::StateAttribute::ON);    
+        //machine->addChild(gear6);
+        Clock::get()->add(motor);
+        
+        osg::StateSet* gearState = machine->getOrCreateStateSet();
+        motor->start();
+        osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
+        world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
+        world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
+        
+        osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
+        world->setShadowTechnique(sm.get());    
+        int mapresx = 1024, mapresy=768;
+        sm->setTextureSize(osg::Vec2s(mapresx,mapresy));
+        sm->setPolygonOffset(osg::Vec2(-2, -2));
+        
+        root->addChild(world);
+        world->addChild(machine);
+        world->addChild(plane_geode);
+        
+        Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(30., -200., 30.), Vec4(0.95, 0.95, 1., 1.));
+        world->addChild(lightBlue);
+        return machine;
+    }
+    
     osg::BoundingSphere transformBoundingSphere( const osg::Matrixf& m, const osg::BoundingSphere& sphere )
     {
         osg::BoundingSphere::vec_type xdash = sphere._center;

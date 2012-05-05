@@ -11,6 +11,7 @@
 		A7255BAA15022563001C41B2 /* libosg.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA615022563001C41B2 /* libosg.dylib */; };
 		A7255BAB15022563001C41B2 /* libosgDB.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA715022563001C41B2 /* libosgDB.dylib */; };
 		A7255BAC15022563001C41B2 /* libosgUtil.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A7255BA815022563001C41B2 /* libosgUtil.dylib */; };
+		A73307371555418400FB37D2 /* libosgShadow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A73307361555418400FB37D2 /* libosgShadow.dylib */; };
 		A797656815397DBC00259AD0 /* GearPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A797656715397DBC00259AD0 /* GearPart.cpp */; };
 		A797656A15397DCF00259AD0 /* GearPart.h in Headers */ = {isa = PBXBuildFile; fileRef = A797656915397DCF00259AD0 /* GearPart.h */; };
 		A7A0619414F9015C00A8CA2B /* LibCogmatix.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A0619314F9015C00A8CA2B /* LibCogmatix.h */; };
@@ -46,6 +47,7 @@
 		A7255BA615022563001C41B2 /* libosg.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosg.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosg.dylib; sourceTree = "<group>"; };
 		A7255BA715022563001C41B2 /* libosgDB.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgDB.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgDB.dylib; sourceTree = "<group>"; };
 		A7255BA815022563001C41B2 /* libosgUtil.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgUtil.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgUtil.dylib; sourceTree = "<group>"; };
+		A73307361555418400FB37D2 /* libosgShadow.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libosgShadow.dylib; path = ../../3rdParty/OpenSceneGraph/osx/lib/libosgShadow.dylib; sourceTree = "<group>"; };
 		A797656715397DBC00259AD0 /* GearPart.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = GearPart.cpp; path = ../../../Libs/LibCogmatix/GearPart.cpp; sourceTree = "<group>"; };
 		A797656915397DCF00259AD0 /* GearPart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GearPart.h; path = ../../../Libs/LibCogmatix/GearPart.h; sourceTree = "<group>"; };
 		A7A0618314F8FF4400A8CA2B /* LibCogmatix.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = LibCogmatix.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A73307371555418400FB37D2 /* libosgShadow.dylib in Frameworks */,
 				A7255BA915022563001C41B2 /* libOpenThreads.dylib in Frameworks */,
 				A7255BAA15022563001C41B2 /* libosg.dylib in Frameworks */,
 				A7255BAB15022563001C41B2 /* libosgDB.dylib in Frameworks */,
@@ -99,6 +102,7 @@
 		A7A0617814F8FF4400A8CA2B = {
 			isa = PBXGroup;
 			children = (
+				A73307361555418400FB37D2 /* libosgShadow.dylib */,
 				A7A063F914F9036000A8CA2B /* Dependencies */,
 				A7A0618514F8FF4400A8CA2B /* LibCogmatix */,
 				A7A0618414F8FF4400A8CA2B /* Products */,

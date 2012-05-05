@@ -10,6 +10,7 @@
 #include <osg/Vec3d>
 #include <osg/Matrixf>
 #include <osg/BoundingSphere>
+#include <osg/Group>
 #include <Boost/foreach.hpp>
 
 #ifdef __APPLE__
@@ -29,6 +30,12 @@ private:
 
 namespace LibCogmatix
 {
+    class Machine;
+    
+    // Shadow masks
+    const int ReceivesShadowTraversalMask = 0x1;
+    const int CastsShadowTraversalMask = 0x2;
+
 	// Standard typedefs
 	typedef osg::Vec3f Vec;
 	typedef osg::Vec4f Vec4;
@@ -58,4 +65,6 @@ namespace LibCogmatix
     }
     
     osg::Node* createBase(const osg::Vec3f& center,float radius);
+    
+    osg::ref_ptr<Machine> createTestMachine(osg::Group* root);
 }

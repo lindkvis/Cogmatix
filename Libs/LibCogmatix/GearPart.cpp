@@ -40,11 +40,13 @@ namespace LibCogmatix
     
     void ParametricSpurGearPart::init(const ParametricSpurGear::GearParameters& params)
     {
+        setNodeMask(CastsShadowTraversalMask);
         ParametricSpurGear::Ptr pChild = ParametricSpurGear::Create (params);
         // Create the child
         _geode->addDrawable(pChild);
         // Make sure we transform the gear to be perfectly aligned with the axis.
         reset();
+        snapTo();
         assert (gear());
     }
     
