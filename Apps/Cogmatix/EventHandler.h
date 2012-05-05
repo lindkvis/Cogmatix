@@ -2,6 +2,8 @@
 * GUI picking handler *
 */
 
+#pragma once
+
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
 #include <osgViewer/Viewer>
@@ -46,9 +48,6 @@ namespace Cogmatix
         
         void addedToSelection(osg::Node* node);
         void removedFromSelection(osg::Node* node);
-        
-//		void addToSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
-//		void clearSelection(osgViewer::View* view);
 	public: 
 		EventHandler(osgViewer::Viewer* viewer, osgWidget::WindowManager* wm, Machine::Ptr machine) 
             : _viewer(viewer), _wm(wm), _machine(machine), _mx(0.), _my(0.), _dragging(NotDragging) 
@@ -65,8 +64,8 @@ namespace Cogmatix
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);
 		virtual osg::Node* pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea, bool bSelect);
         void moveSelection(Vec shift);
+        void dispatchAction(CoString action);
         
         void snapToLimit();
-        
 	};
 }
