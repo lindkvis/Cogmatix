@@ -157,7 +157,6 @@
 			children = (
 				A7E8E97B1514866D00BF25A3 /* Action.h */,
 				A7E8E97C1514866D00BF25A3 /* Actions.strings */,
-				A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */,
 				A7C8B8F81500D00E006E679B /* Axis.cpp */,
 				A7C8B8F91500D00E006E679B /* Axis.h */,
 				A7C8B8FA1500D00E006E679B /* Clock.cpp */,
@@ -169,6 +168,7 @@
 				A7C8B9001500D00E006E679B /* Factory.cpp */,
 				A7C8B9011500D00E006E679B /* Factory.h */,
 				A7C8B9021500D00E006E679B /* LibCogmatix.h */,
+				A7E8E97D1514866D00BF25A3 /* LibCogmatix.cpp */,
 				A7C8B9071500D00E006E679B /* Light.cpp */,
 				A7C8B9081500D00E006E679B /* Light.h */,
 				A7C8B9091500D00E006E679B /* Machine.cpp */,
@@ -314,10 +314,11 @@
 					"\"$(SRCROOT)/../../3rdParty\"",
 					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -336,10 +337,11 @@
 					"\"$(SRCROOT)/../../3rdParty\"",
 					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -21,11 +21,16 @@
 #include <osgWidget/Util>
 #include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
-
+#include <osg/Material>
+#include <osgGA/StateSetManipulator>
+#include <osgShadow/ShadowedScene>
+#include <osgShadow/ShadowVolume>
+#include <osgShadow/ShadowTexture>
+#include <osgShadow/ShadowMap>
 #include "LibCogmatix/Factory.h"
 #include "LibCogmatix/Clock.h"
 #include "LibCogmatix/Light.h"
-#include "LibCogmatix/Part.h"
+#include "LibCogmatix/GearPart.h"
 
 using namespace LibCogmatix;
 using namespace osgViewer;
@@ -52,7 +57,7 @@ using namespace osgViewer;
 	//traits->stencil = 8;
 	traits->windowDecoration = false;
 	traits->doubleBuffer = true;
-	traits->sharedContext = 0;
+	traits->sharedContext = nullptr;
 	traits->setInheritedWindowPixelFormat = true;
 	
 	traits->inheritedWindowData = windata;
@@ -114,7 +119,7 @@ using namespace osgViewer;
         
 		//geode->setStateSet(stateset);
 	}
-    // motor->start();
+    motor->start();
     
     
     /*	osg::Program* brickProgramObject = new osg::Program;

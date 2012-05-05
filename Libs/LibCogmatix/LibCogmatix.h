@@ -56,4 +56,6 @@ namespace LibCogmatix
     {
         return std::min (maxT, std::max(minT, x));
     }
+    
+    osg::Node* createBase(const osg::Vec3f& center,float radius);
 }

@@ -19,6 +19,7 @@
 		A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A716D07514FFD43D00AD1189 /* Shader.vsh */; };
 		A716D07914FFD43D00AD1189 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D07814FFD43D00AD1189 /* ViewController.mm */; };
 		A716D09614FFD58F00AD1189 /* libiLibCogmatix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */; };
+		A77B4C3C15506E6E001467FD /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B4C3B15506E6E001467FD /* libosgShadow.a */; };
 		A7C3BBBB1500EE3700A27D73 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB61500EE3700A27D73 /* libosg.a */; };
 		A7C3BBBC1500EE3700A27D73 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB71500EE3700A27D73 /* libosgDB.a */; };
 		A7C3BBBD1500EE3700A27D73 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB81500EE3700A27D73 /* libosgGA.a */; };
@@ -58,6 +59,7 @@
 		A716D07714FFD43D00AD1189 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A716D07814FFD43D00AD1189 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiLibCogmatix.a; path = "../iLibCogmatix/build/Release-iphoneos/libiLibCogmatix.a"; sourceTree = "<group>"; };
+		A77B4C3B15506E6E001467FD /* libosgShadow.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = libosgShadow.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgShadow.a"; sourceTree = "<group>"; };
 		A7C3BBB61500EE3700A27D73 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
 		A7C3BBB71500EE3700A27D73 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
 		A7C3BBB81500EE3700A27D73 /* libosgGA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgGA.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgGA.a"; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A77B4C3C15506E6E001467FD /* libosgShadow.a in Frameworks */,
 				A7F607AB1505165300CBEAF3 /* libosgText.a in Frameworks */,
 				A7F607AC1505165300CBEAF3 /* libosgVolume.a in Frameworks */,
 				A7C3BBCE1500FE5E00A27D73 /* libOpenThreads.a in Frameworks */,
@@ -116,6 +119,7 @@
 		A716D04E14FFD43D00AD1189 = {
 			isa = PBXGroup;
 			children = (
+				A77B4C3B15506E6E001467FD /* libosgShadow.a */,
 				A716D06714FFD43D00AD1189 /* iCogmatix */,
 				A716D05C14FFD43D00AD1189 /* Frameworks */,
 				A716D05A14FFD43D00AD1189 /* Products */,
@@ -286,6 +290,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaute Lindkvist (2776NQZF83)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -304,7 +309,8 @@
 					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				PROVISIONING_PROFILE = "CED8BD69-29B8-46B4-B7E3-312374187B86";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -316,6 +322,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Gaute Lindkvist (2776NQZF83)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -327,8 +334,9 @@
 					"\"$(CONFIGURATION_BUILD_DIR)/usr/local/include\"",
 					"\"$(SRCROOT)/../../3rdParty\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "CED8BD69-29B8-46B4-B7E3-312374187B86";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
