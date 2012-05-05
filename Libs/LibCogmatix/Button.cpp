@@ -12,18 +12,19 @@
 using namespace osgWidget;
 using namespace LibCogmatix;
 
-const Color background = Color(0.8f, 0.2f, 0.2f, 1.0f);
+const Color background = Color(0.4f, 0.4f, 0.4f, 0.3f);
 const Color highlight  = Color(0.8f, 0.8f, 0.8f, 1.0f);
 
 Button::Button(const std::string& name, const std::string& label) :
     Label(name, label)
 {
-    setFont("fonts/Vera.ttf");
-    setFontSize(10);
+    getText()->setBackdropImplementation(osgText::Text::POLYGON_OFFSET);
+    setFont("Vera.ttf");
+    setFontSize(15);
     setColor(background);
     setCanFill(true);
-    setShadow(0.1f);
-    addSize(20.0f, 20.0f);
+    //    setShadow(0.1f);
+    addSize(200.0f, 100.0f);
     setEventMask(EVENT_MASK_MOUSE_CLICK |
                  EVENT_MASK_MOUSE_MOVE |
                  EVENT_MASK_MOUSE_DRAG);
@@ -43,11 +44,13 @@ bool Button::mouseLeave(double, double, const WindowManager*)
 
 bool Button::mousePush(double, double, const WindowManager*)
 {
+    setColor(highlight);
     return true;
 }
 
 bool Button::mouseRelease(double, double, const WindowManager*)
 {
+    setColor(background);
     return true;
 }
 

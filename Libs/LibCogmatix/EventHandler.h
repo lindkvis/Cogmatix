@@ -9,6 +9,10 @@
 #include <osgViewer/Viewer>
 #include <osgViewer/ViewerEventHandlers>
 #include <osgGA/TrackballManipulator>
+#ifdef TARGET_OS_IPHONE
+#include <osgViewer/GraphicsWindowIOS>
+#include <osgGA/MultiTouchTrackballManipulator>
+#endif
 #include <osg/PolygonMode>
 #include <iostream>
 #include <osg/TexGen>
@@ -50,7 +54,11 @@ namespace LibCogmatix
 		EventHandler(osgViewer::Viewer* viewer, osgWidget::WindowManager* wm, Machine::Ptr machine) 
             : _viewer(viewer), _wm(wm), _machine(machine), _mx(0.), _my(0.), _dragging(NotDragging) 
         {
+#ifdef TARGET_OS_IPHONE
+            _cameraManipulator = new osgGA::MultiTouchTrackballManipulator();
+#else
             _cameraManipulator = new osgGA::TrackballManipulator();
+#endif
             _cameraManipulator->setHomePosition(Vec(0., -100, 0.), Vec(0., 0., 0.), Vec(0., 0., 1.), false);
             _viewer->setCameraManipulator(_cameraManipulator);    
             _labelWindow = new osgWidget::Box("", osgWidget::Box::VERTICAL);

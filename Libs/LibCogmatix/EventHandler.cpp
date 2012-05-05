@@ -25,8 +25,8 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     osg::Matrix MV2W = osg::Matrix::inverse(MW2V);
     Vec newPosition = Vec(ea.getX(), ea.getY(), 0.) * MV2W;
     
-    float dx = ea.getX() - _mx;
-    float dy = ea.getY() - _my;
+    float dx = float(ea.getX() - _mx) / ea.getXmax();
+    float dy = float(ea.getY() - _my) / ea.getYmax();
     _mx = ea.getX();
     _my = ea.getY();
     switch(ea.getEventType())
@@ -57,7 +57,8 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
         }
         case(osgGA::GUIEventAdapter::RELEASE):
         {
-            if (_dragging != Dragging && fabs(dx) < 1.0e-2 && fabs(dy) < 1.0e-2)
+            
+            if (_dragging != Dragging && fabs(dx) < 5.0e-2 && fabs(dy) < 5.0e-2)
             {
                 pick(view,ea, true);
                 return true;

@@ -31,26 +31,24 @@
 #include "LibCogmatix/Clock.h"
 #include "LibCogmatix/EventHandler.h"
 
-
-
 using namespace LibCogmatix;
-
-const unsigned int MASK_2D = 0xF0000000;
 
 int main( int argc, char **argv )
 {    
-	osgViewer::Viewer viewer;
+    const unsigned int MASK_2D = 0xF0000000;
+	osgViewer::Viewer* _viewer = new osgViewer::Viewer();
+    
     osgDB::setLibraryFilePathList("."); 
     
 	osgWidget::WindowManager* wm = new osgWidget::WindowManager(
-		&viewer,
+		_viewer,
 		1024.0f,
 		768.0f,
 		MASK_2D,
 		0 //osgWidget::WindowManager::WM_PICK_DEBUG
 		);
 	osg::Camera* camera = wm->createParentOrthoCamera();
-	viewer.getCamera()->setClearColor(osg::Vec4(0.0,0.0,0.0,1.0));
+	_viewer->getCamera()->setClearColor(osg::Vec4(0.0,0.0,0.0,1.0));
     
     //osg::ref_ptr<osg::TessellationHints> hints = new osg::TessellationHints;
     //hints->setDetailRatio(2.0f);
@@ -58,40 +56,37 @@ int main( int argc, char **argv )
     osg::ref_ptr<osg::Group> root = new osg::Group;
 	root->addChild(camera);        
     LibCogmatix::Machine::Ptr machine = createTestMachine(root);
-    osg::ref_ptr<LibCogmatix::EventHandler> handler = new LibCogmatix::EventHandler(&viewer, wm, machine);
-	viewer.setSceneData(root);
+    osg::ref_ptr<LibCogmatix::EventHandler> handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
+	_viewer->setSceneData(root);
 
-	unsigned int clearMask = viewer.getCamera()->getClearMask();
-	viewer.getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
-	viewer.getCamera()->setClearStencil(0);
+	unsigned int clearMask = _viewer->getCamera()->getClearMask();
+	_viewer->getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
+	_viewer->getCamera()->setClearStencil(0);
 
-    viewer.addEventHandler(new osgWidget::MouseHandler(wm));
-    viewer.addEventHandler(new osgWidget::KeyboardHandler(wm));
-    viewer.addEventHandler(new osgWidget::ResizeHandler(wm, camera));
-    viewer.addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
-    viewer.addEventHandler(new osgViewer::StatsHandler());
-    viewer.addEventHandler(new osgViewer::WindowSizeHandler());
-    viewer.addEventHandler(new osgGA::StateSetManipulator(viewer.getCamera()->getOrCreateStateSet()));
-    viewer.addEventHandler(handler);
+    _viewer->addEventHandler(new osgWidget::MouseHandler(wm));
+    _viewer->addEventHandler(new osgWidget::KeyboardHandler(wm));
+    _viewer->addEventHandler(new osgWidget::ResizeHandler(wm, camera));
+    _viewer->addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
+    _viewer->addEventHandler(new osgViewer::StatsHandler());
+    _viewer->addEventHandler(new osgViewer::WindowSizeHandler());
+    _viewer->addEventHandler(new osgGA::StateSetManipulator(_viewer->getCamera()->getOrCreateStateSet()));
+    _viewer->addEventHandler(handler);
     
-    viewer.setUpViewInWindow(
-        50,
-        50,
+    _viewer->setUpViewInWindow(
+        0,
+        0,
         static_cast<int>(wm->getWidth()),
         static_cast<int>(wm->getHeight())
     );
 	wm->resizeAllWindows();
 
-	viewer.realize();
+	_viewer->realize();
 
     // testing
-    bool addedNewGear=false;
-    bool bStopped=false;
-    bool bStarted=false;
-	while (!viewer.done())
+	while (!_viewer->done())
 	{
 		Clock::get()->tick();
-        viewer.frame(Clock::get()->elapsed());
+        _viewer->frame(Clock::get()->elapsed());
         handler->snapToLimit();
 	}
 

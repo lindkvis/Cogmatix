@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A707808715554FF000A26183 /* libosgAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808115554FF000A26183 /* libosgAnimation.a */; };
+		A707808815554FF000A26183 /* libosgdb_freetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808215554FF000A26183 /* libosgdb_freetype.a */; };
+		A707808915554FF000A26183 /* libosgParticle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808315554FF000A26183 /* libosgParticle.a */; };
+		A707808A15554FF000A26183 /* libosgPresentation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808415554FF000A26183 /* libosgPresentation.a */; };
+		A707808B15554FF000A26183 /* libosgSim.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808515554FF000A26183 /* libosgSim.a */; };
+		A707808C15554FF000A26183 /* libosgTerrain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707808615554FF000A26183 /* libosgTerrain.a */; };
+		A709AAC81555665800533ACF /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A709AAC61555665300533ACF /* arial.ttf */; };
+		A709AACC155567FD00533ACF /* Vera.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A709AAC91555668A00533ACF /* Vera.ttf */; };
 		A716D05E14FFD43D00AD1189 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D05D14FFD43D00AD1189 /* UIKit.framework */; };
 		A716D06014FFD43D00AD1189 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D05F14FFD43D00AD1189 /* Foundation.framework */; };
 		A716D06214FFD43D00AD1189 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D06114FFD43D00AD1189 /* CoreGraphics.framework */; };
@@ -19,6 +27,7 @@
 		A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A716D07514FFD43D00AD1189 /* Shader.vsh */; };
 		A716D07914FFD43D00AD1189 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A716D07814FFD43D00AD1189 /* ViewController.mm */; };
 		A716D09614FFD58F00AD1189 /* libiLibCogmatix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */; };
+		A726C64315555BB600A52837 /* paper_tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A726C64215555BB600A52837 /* paper_tile.jpg */; };
 		A77B4C3C15506E6E001467FD /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B4C3B15506E6E001467FD /* libosgShadow.a */; };
 		A7C3BBBB1500EE3700A27D73 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB61500EE3700A27D73 /* libosg.a */; };
 		A7C3BBBC1500EE3700A27D73 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB71500EE3700A27D73 /* libosgDB.a */; };
@@ -42,6 +51,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A707808115554FF000A26183 /* libosgAnimation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgAnimation.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgAnimation.a"; sourceTree = "<group>"; };
+		A707808215554FF000A26183 /* libosgdb_freetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_freetype.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgdb_freetype.a"; sourceTree = "<group>"; };
+		A707808315554FF000A26183 /* libosgParticle.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgParticle.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgParticle.a"; sourceTree = "<group>"; };
+		A707808415554FF000A26183 /* libosgPresentation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgPresentation.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgPresentation.a"; sourceTree = "<group>"; };
+		A707808515554FF000A26183 /* libosgSim.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgSim.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgSim.a"; sourceTree = "<group>"; };
+		A707808615554FF000A26183 /* libosgTerrain.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgTerrain.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgTerrain.a"; sourceTree = "<group>"; };
+		A709AAC61555665300533ACF /* arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = arial.ttf; path = ../../../3rdParty/OpenSceneGraph/data/fonts/arial.ttf; sourceTree = "<group>"; };
+		A709AAC91555668A00533ACF /* Vera.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Vera.ttf; path = ../../../3rdParty/OpenSceneGraph/data/fonts/Vera.ttf; sourceTree = "<group>"; };
+		A709AAD01555685200533ACF /* OsgPlugins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OsgPlugins.h; path = ../../../Apps/Cogmatix/OsgPlugins.h; sourceTree = "<group>"; };
 		A716D05914FFD43D00AD1189 /* iCogmatix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCogmatix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A716D05D14FFD43D00AD1189 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A716D05F14FFD43D00AD1189 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -59,6 +77,7 @@
 		A716D07714FFD43D00AD1189 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A716D07814FFD43D00AD1189 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiLibCogmatix.a; path = "../iLibCogmatix/build/Release-iphoneos/libiLibCogmatix.a"; sourceTree = "<group>"; };
+		A726C64215555BB600A52837 /* paper_tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = paper_tile.jpg; path = ../../../Apps/Cogmatix/paper_tile.jpg; sourceTree = "<group>"; };
 		A77B4C3B15506E6E001467FD /* libosgShadow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgShadow.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgShadow.a"; sourceTree = "<group>"; };
 		A7C3BBB61500EE3700A27D73 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
 		A7C3BBB71500EE3700A27D73 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
@@ -86,6 +105,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A716D06614FFD43D00AD1189 /* OpenGLES.framework in Frameworks */,
+				A707808715554FF000A26183 /* libosgAnimation.a in Frameworks */,
+				A707808815554FF000A26183 /* libosgdb_freetype.a in Frameworks */,
+				A707808915554FF000A26183 /* libosgParticle.a in Frameworks */,
+				A707808A15554FF000A26183 /* libosgPresentation.a in Frameworks */,
+				A707808B15554FF000A26183 /* libosgSim.a in Frameworks */,
+				A707808C15554FF000A26183 /* libosgTerrain.a in Frameworks */,
 				A77B4C3C15506E6E001467FD /* libosgShadow.a in Frameworks */,
 				A7F607AB1505165300CBEAF3 /* libosgText.a in Frameworks */,
 				A7F607AC1505165300CBEAF3 /* libosgVolume.a in Frameworks */,
@@ -109,7 +135,6 @@
 				A716D06014FFD43D00AD1189 /* Foundation.framework in Frameworks */,
 				A716D06214FFD43D00AD1189 /* CoreGraphics.framework in Frameworks */,
 				A716D06414FFD43D00AD1189 /* GLKit.framework in Frameworks */,
-				A716D06614FFD43D00AD1189 /* OpenGLES.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +161,12 @@
 		A716D05C14FFD43D00AD1189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A707808115554FF000A26183 /* libosgAnimation.a */,
+				A707808215554FF000A26183 /* libosgdb_freetype.a */,
+				A707808315554FF000A26183 /* libosgParticle.a */,
+				A707808415554FF000A26183 /* libosgPresentation.a */,
+				A707808515554FF000A26183 /* libosgSim.a */,
+				A707808615554FF000A26183 /* libosgTerrain.a */,
 				A77B4C3B15506E6E001467FD /* libosgShadow.a */,
 				A7F607A91505165300CBEAF3 /* libosgText.a */,
 				A7F607AA1505165300CBEAF3 /* libosgVolume.a */,
@@ -183,6 +214,10 @@
 		A716D06814FFD43D00AD1189 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A709AAD01555685200533ACF /* OsgPlugins.h */,
+				A709AAC91555668A00533ACF /* Vera.ttf */,
+				A709AAC61555665300533ACF /* arial.ttf */,
+				A726C64215555BB600A52837 /* paper_tile.jpg */,
 				A716D06914FFD43D00AD1189 /* iCogmatix-Info.plist */,
 				A716D06A14FFD43D00AD1189 /* InfoPlist.strings */,
 				A716D06D14FFD43D00AD1189 /* main.m */,
@@ -242,11 +277,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A709AACC155567FD00533ACF /* Vera.ttf in Resources */,
+				A709AAC81555665800533ACF /* arial.ttf in Resources */,
 				A716D06C14FFD43D00AD1189 /* InfoPlist.strings in Resources */,
 				A716D07414FFD43D00AD1189 /* Shader.fsh in Resources */,
 				A716D07614FFD43D00AD1189 /* Shader.vsh in Resources */,
 				A7F6AB5815012C4A00515F77 /* MainView_iPad.xib in Resources */,
 				A7E8E99E15148E2E00BF25A3 /* MainWindow_iPad.xib in Resources */,
+				A726C64315555BB600A52837 /* paper_tile.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +351,7 @@
 				PROVISIONING_PROFILE = "CED8BD69-29B8-46B4-B7E3-312374187B86";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -339,7 +377,7 @@
 				PROVISIONING_PROFILE = "CED8BD69-29B8-46B4-B7E3-312374187B86";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -352,6 +390,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -364,6 +403,7 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

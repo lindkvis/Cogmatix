@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A707807F15554FBE00A26183 /* libosgVolume.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A707807E15554FBE00A26183 /* libosgVolume.a */; };
+		A709AACE1555683A00533ACF /* libosgdb_freetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A709AACD1555683A00533ACF /* libosgdb_freetype.a */; };
 		A716D04214FFD3AA00AD1189 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D04114FFD3AA00AD1189 /* Foundation.framework */; };
 		A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08514FFD4A400AD1189 /* libOpenThreads.a */; };
 		A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08614FFD4A400AD1189 /* libosg.a */; };
@@ -16,11 +18,13 @@
 		A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */; };
 		A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08B14FFD4A400AD1189 /* libosgDB.a */; };
 		A716D09414FFD4A400AD1189 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08C14FFD4A400AD1189 /* libosgFX.a */; };
-		A73307481555434600FB37D2 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307431555434600FB37D2 /* ActionButton.h */; };
+		A73307481555434600FB37D2 /* ActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307431555434600FB37D2 /* ActionButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A73307491555434600FB37D2 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73307441555434600FB37D2 /* Button.cpp */; };
-		A733074A1555434600FB37D2 /* Button.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307451555434600FB37D2 /* Button.h */; };
+		A733074A1555434600FB37D2 /* Button.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307451555434600FB37D2 /* Button.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A733074B1555434600FB37D2 /* EventHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73307461555434600FB37D2 /* EventHandler.cpp */; };
-		A733074C1555434600FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307471555434600FB37D2 /* EventHandler.h */; };
+		A733074C1555434600FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307471555434600FB37D2 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A742832215554E45002ABC10 /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832115554E45002ABC10 /* libosgShadow.a */; };
+		A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832415554EB8002ABC10 /* libosgGA.a */; };
 		A7C8B9191500D309006E679B /* Axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8F81500D00E006E679B /* Axis.cpp */; };
 		A7C8B91A1500D309006E679B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FA1500D00E006E679B /* Clock.cpp */; };
 		A7C8B91B1500D309006E679B /* CogException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FC1500D00E006E679B /* CogException.cpp */; };
@@ -54,6 +58,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A707807E15554FBE00A26183 /* libosgVolume.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgVolume.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgVolume.a"; sourceTree = "<group>"; };
+		A709AACD1555683A00533ACF /* libosgdb_freetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_freetype.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgdb_freetype.a"; sourceTree = "<group>"; };
 		A716D03E14FFD3AA00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libiLibCogmatix.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A716D04114FFD3AA00AD1189 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A716D04514FFD3AA00AD1189 /* iLibCogmatix-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iLibCogmatix-Prefix.pch"; sourceTree = "<group>"; };
@@ -70,6 +76,8 @@
 		A73307451555434600FB37D2 /* Button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Button.h; path = ../../../Libs/LibCogmatix/Button.h; sourceTree = "<group>"; };
 		A73307461555434600FB37D2 /* EventHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EventHandler.cpp; path = ../../../Libs/LibCogmatix/EventHandler.cpp; sourceTree = "<group>"; };
 		A73307471555434600FB37D2 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../../Libs/LibCogmatix/EventHandler.h; sourceTree = "<group>"; };
+		A742832115554E45002ABC10 /* libosgShadow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgShadow.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgShadow.a"; sourceTree = "<group>"; };
+		A742832415554EB8002ABC10 /* libosgGA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgGA.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgGA.a"; sourceTree = "<group>"; };
 		A7C8B8F81500D00E006E679B /* Axis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Axis.cpp; path = ../../../Libs/LibCogmatix/Axis.cpp; sourceTree = "<group>"; };
 		A7C8B8F91500D00E006E679B /* Axis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Axis.h; path = ../../../Libs/LibCogmatix/Axis.h; sourceTree = "<group>"; };
 		A7C8B8FA1500D00E006E679B /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Clock.cpp; path = ../../../Libs/LibCogmatix/Clock.cpp; sourceTree = "<group>"; };
@@ -109,6 +117,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A709AACE1555683A00533ACF /* libosgdb_freetype.a in Frameworks */,
+				A707807F15554FBE00A26183 /* libosgVolume.a in Frameworks */,
+				A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */,
+				A742832215554E45002ABC10 /* libosgShadow.a in Frameworks */,
 				A7C8B9381500D4D3006E679B /* OpenGLES.framework in Frameworks */,
 				A7C8B9361500D487006E679B /* ImageIO.framework in Frameworks */,
 				A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */,
@@ -146,6 +158,10 @@
 		A716D04014FFD3AA00AD1189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A709AACD1555683A00533ACF /* libosgdb_freetype.a */,
+				A707807E15554FBE00A26183 /* libosgVolume.a */,
+				A742832415554EB8002ABC10 /* libosgGA.a */,
+				A742832115554E45002ABC10 /* libosgShadow.a */,
 				A7C8B9371500D4D3006E679B /* OpenGLES.framework */,
 				A7C8B9331500D487006E679B /* GLKit.framework */,
 				A7C8B9341500D487006E679B /* ImageIO.framework */,
@@ -221,6 +237,9 @@
 			files = (
 				A7C8B9311500D393006E679B /* stdafx.h in Headers */,
 				A7E8E97F1514866D00BF25A3 /* Action.h in Headers */,
+				A73307481555434600FB37D2 /* ActionButton.h in Headers */,
+				A733074A1555434600FB37D2 /* Button.h in Headers */,
+				A733074C1555434600FB37D2 /* EventHandler.h in Headers */,
 				A7C8B9251500D393006E679B /* Axis.h in Headers */,
 				A7C8B9261500D393006E679B /* Clock.h in Headers */,
 				A7C8B9271500D393006E679B /* CogException.h in Headers */,
@@ -234,9 +253,6 @@
 				A7C8B92F1500D393006E679B /* ParametricSpurGear.h in Headers */,
 				A7C8B9301500D393006E679B /* GearPart.h in Headers */,
 				A7C8B9321500D393006E679B /* Units.h in Headers */,
-				A73307481555434600FB37D2 /* ActionButton.h in Headers */,
-				A733074A1555434600FB37D2 /* Button.h in Headers */,
-				A733074C1555434600FB37D2 /* EventHandler.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +352,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -359,6 +377,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = "-DTARGET_OS_IPHONE";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PUBLIC_HEADERS_FOLDER_PATH = /usr/local/include/LibCogmatix;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -372,6 +392,10 @@
 				DSTROOT = /tmp/iLibCogmatix.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iLibCogmatix/iLibCogmatix-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/Cogmatix/Build/Products/Debug-iphoneos\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -384,6 +408,10 @@
 				DSTROOT = /tmp/iLibCogmatix.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iLibCogmatix/iLibCogmatix-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../DerivedData/Cogmatix/Build/Products/Debug-iphoneos\"",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

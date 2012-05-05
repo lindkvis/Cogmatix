@@ -10,11 +10,11 @@
 #include <osgViewer/GraphicsWindow>
 #include <osgDB/Registry>
 
-//USE_OSGPLUGIN(obj)
+USE_OSGPLUGIN(obj)
 //USE_OSGPLUGIN(ive)
-//USE_OSGPLUGIN(osg)
+USE_OSGPLUGIN(osg)
 //USE_OSGPLUGIN(rgb)
 //USE_OSGPLUGIN(glsl)
 //USE_OSGPLUGIN(bmp)
-//USE_OSGPLUGIN(imageio)
-//USE_OSGPLUGIN(freetype)
+USE_OSGPLUGIN(imageio)
+USE_OSGPLUGIN(freetype)

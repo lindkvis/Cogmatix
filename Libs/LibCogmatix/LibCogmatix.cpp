@@ -18,7 +18,6 @@
 #include <osgShadow/ShadowVolume>
 #include <osgShadow/ShadowTexture>
 #include <osgShadow/ShadowMap>
-#include <osgShadow/SoftShadowMap>
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
 
@@ -65,15 +64,20 @@ namespace LibCogmatix
         
         osg::StateSet* gearState = machine->getOrCreateStateSet();
         motor->start();
-        osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
-        world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
-        world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
+        osg::ref_ptr<osg::Group> world = new osg::Group;
+        //        osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
+        //        world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
+        //        world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
         
-        osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;
-        world->setShadowTechnique(sm.get());    
+#ifdef TARGET_OS_IPHONE
+        osg::ref_ptr<osgShadow::ShadowTexture> sm = new osgShadow::ShadowTexture;
+#else
+        osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;  
         int mapresx = 1024, mapresy=768;
         sm->setTextureSize(osg::Vec2s(mapresx,mapresy));
-        sm->setPolygonOffset(osg::Vec2(-2, -2));
+       // sm->setPolygonOffset(osg::Vec2(-2, -2));
+#endif
+        // world->setShadowTechnique(sm.get());    
         
         root->addChild(world);
         world->addChild(machine);
