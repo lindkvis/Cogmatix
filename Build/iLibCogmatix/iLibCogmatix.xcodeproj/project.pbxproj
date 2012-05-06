@@ -142,7 +142,6 @@
 		A716D03314FFD3AA00AD1189 = {
 			isa = PBXGroup;
 			children = (
-				A78E09FD155686A600E1CB8E /* libosgdb_ive.a */,
 				A716D04314FFD3AA00AD1189 /* iLibCogmatix */,
 				A716D04014FFD3AA00AD1189 /* Frameworks */,
 				A716D03F14FFD3AA00AD1189 /* Products */,
@@ -160,6 +159,7 @@
 		A716D04014FFD3AA00AD1189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A78E09FD155686A600E1CB8E /* libosgdb_ive.a */,
 				A709AACD1555683A00533ACF /* libosgdb_freetype.a */,
 				A707807E15554FBE00A26183 /* libosgVolume.a */,
 				A742832415554EB8002ABC10 /* libosgGA.a */,

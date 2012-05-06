@@ -12,19 +12,24 @@
 using namespace osgWidget;
 using namespace LibCogmatix;
 
-const Color background = Color(0.4f, 0.4f, 0.4f, 0.3f);
-const Color highlight  = Color(0.8f, 0.8f, 0.8f, 1.0f);
+const Color background = Color(0.4f, 0.4f, 0.6f, 0.3f);
+const Color highlight  = Color(0.6f, 0.6f, 0.8f, 0.7f);
 
 Button::Button(const std::string& name, const std::string& label) :
     Label(name, label)
 {
     getText()->setBackdropImplementation(osgText::Text::POLYGON_OFFSET);
     setFont("Vera.ttf");
-    setFontSize(15);
+#ifdef TARGET_OS_IPHONE
+    setFontSize(40);
+    addSize(200.0f, 100.0f);
+#else
+    setFontSize(20);
+    addSize(100.0f, 50.0f);
+#endif
     setColor(background);
     setCanFill(true);
-    //    setShadow(0.1f);
-    addSize(200.0f, 100.0f);
+    setShadow(0.1f);
     setEventMask(EVENT_MASK_MOUSE_CLICK |
                  EVENT_MASK_MOUSE_MOVE |
                  EVENT_MASK_MOUSE_DRAG);
