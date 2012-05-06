@@ -13,7 +13,6 @@
 		A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08514FFD4A400AD1189 /* libOpenThreads.a */; };
 		A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08614FFD4A400AD1189 /* libosg.a */; };
 		A716D08F14FFD4A400AD1189 /* libosgdb_imageio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08714FFD4A400AD1189 /* libosgdb_imageio.a */; };
-		A716D09014FFD4A400AD1189 /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08814FFD4A400AD1189 /* libosgdb_ive.a */; };
 		A716D09114FFD4A400AD1189 /* libosgdb_obj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08914FFD4A400AD1189 /* libosgdb_obj.a */; };
 		A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08A14FFD4A400AD1189 /* libosgdb_osg.a */; };
 		A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D08B14FFD4A400AD1189 /* libosgDB.a */; };
@@ -25,6 +24,7 @@
 		A733074C1555434600FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307471555434600FB37D2 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A742832215554E45002ABC10 /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832115554E45002ABC10 /* libosgShadow.a */; };
 		A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832415554EB8002ABC10 /* libosgGA.a */; };
+		A78E09FE155686A600E1CB8E /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78E09FD155686A600E1CB8E /* libosgdb_ive.a */; };
 		A7C8B9191500D309006E679B /* Axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8F81500D00E006E679B /* Axis.cpp */; };
 		A7C8B91A1500D309006E679B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FA1500D00E006E679B /* Clock.cpp */; };
 		A7C8B91B1500D309006E679B /* CogException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FC1500D00E006E679B /* CogException.cpp */; };
@@ -78,6 +78,7 @@
 		A73307471555434600FB37D2 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventHandler.h; path = ../../../Libs/LibCogmatix/EventHandler.h; sourceTree = "<group>"; };
 		A742832115554E45002ABC10 /* libosgShadow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgShadow.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgShadow.a"; sourceTree = "<group>"; };
 		A742832415554EB8002ABC10 /* libosgGA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgGA.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgGA.a"; sourceTree = "<group>"; };
+		A78E09FD155686A600E1CB8E /* libosgdb_ive.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgdb_ive.a; path = "../DerivedData/Cogmatix/Build/Products/Debug-iphoneos/libosgdb_ive.a"; sourceTree = "<group>"; };
 		A7C8B8F81500D00E006E679B /* Axis.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Axis.cpp; path = ../../../Libs/LibCogmatix/Axis.cpp; sourceTree = "<group>"; };
 		A7C8B8F91500D00E006E679B /* Axis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Axis.h; path = ../../../Libs/LibCogmatix/Axis.h; sourceTree = "<group>"; };
 		A7C8B8FA1500D00E006E679B /* Clock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Clock.cpp; path = ../../../Libs/LibCogmatix/Clock.cpp; sourceTree = "<group>"; };
@@ -117,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78E09FE155686A600E1CB8E /* libosgdb_ive.a in Frameworks */,
 				A709AACE1555683A00533ACF /* libosgdb_freetype.a in Frameworks */,
 				A707807F15554FBE00A26183 /* libosgVolume.a in Frameworks */,
 				A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */,
@@ -126,7 +128,6 @@
 				A716D08D14FFD4A400AD1189 /* libOpenThreads.a in Frameworks */,
 				A716D08E14FFD4A400AD1189 /* libosg.a in Frameworks */,
 				A716D08F14FFD4A400AD1189 /* libosgdb_imageio.a in Frameworks */,
-				A716D09014FFD4A400AD1189 /* libosgdb_ive.a in Frameworks */,
 				A716D09114FFD4A400AD1189 /* libosgdb_obj.a in Frameworks */,
 				A716D09214FFD4A400AD1189 /* libosgdb_osg.a in Frameworks */,
 				A716D09314FFD4A400AD1189 /* libosgDB.a in Frameworks */,
@@ -141,6 +142,7 @@
 		A716D03314FFD3AA00AD1189 = {
 			isa = PBXGroup;
 			children = (
+				A78E09FD155686A600E1CB8E /* libosgdb_ive.a */,
 				A716D04314FFD3AA00AD1189 /* iLibCogmatix */,
 				A716D04014FFD3AA00AD1189 /* Frameworks */,
 				A716D03F14FFD3AA00AD1189 /* Products */,

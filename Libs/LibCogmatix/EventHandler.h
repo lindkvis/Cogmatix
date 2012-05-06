@@ -22,8 +22,8 @@
 #include <osgWidget/WindowManager>
 #include <osgWidget/Label>
 
-#include "LibCogmatix/Machine.h"
-#include "LibCogmatix/Units.h"
+#include "Machine.h"
+#include "Units.h"
 
 namespace LibCogmatix
 {

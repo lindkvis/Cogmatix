@@ -7,7 +7,7 @@
 
 #include <algorithm>
 #include "ActionButton.h"
-#include "LibCogmatix/Action.h"
+#include "Action.h"
 
 using namespace LibCogmatix;
 

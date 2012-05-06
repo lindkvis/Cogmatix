@@ -108,9 +108,9 @@ using namespace osgViewer;
 	Clock::get()->start();
     
     // get the created view
-	osgViewer::GraphicsWindowIOS* window_ios = dynamic_cast<osgViewer::GraphicsWindowIOS*>(graphicsContext.get());
+    //	osgViewer::GraphicsWindowIOS* window_ios = dynamic_cast<osgViewer::GraphicsWindowIOS*>(graphicsContext.get());
 	
-	NSLog(@"view: %@ bound: %@", window_ios->getView() , [window_ios->getView() bounds]);
+    //	NSLog(@"view: %@ bound: %@", window_ios->getView() , [window_ios->getView() bounds]);
     _viewer->frame(Clock::get()->elapsed());
 }
 

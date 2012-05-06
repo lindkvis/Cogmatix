@@ -38,7 +38,6 @@
 		A7C3BBC51500FDDB00A27D73 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC31500FDDA00A27D73 /* QuartzCore.framework */; };
 		A7C3BBCE1500FE5E00A27D73 /* libOpenThreads.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC61500FE5D00A27D73 /* libOpenThreads.a */; };
 		A7C3BBCF1500FE5E00A27D73 /* libosgdb_imageio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC71500FE5D00A27D73 /* libosgdb_imageio.a */; };
-		A7C3BBD01500FE5E00A27D73 /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC81500FE5E00A27D73 /* libosgdb_ive.a */; };
 		A7C3BBD11500FE5E00A27D73 /* libosgdb_obj.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBC91500FE5E00A27D73 /* libosgdb_obj.a */; };
 		A7C3BBD21500FE5E00A27D73 /* libosgdb_osg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCA1500FE5E00A27D73 /* libosgdb_osg.a */; };
 		A7C3BBD31500FE5E00A27D73 /* libosgFX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBCB1500FE5E00A27D73 /* libosgFX.a */; };
@@ -117,7 +116,6 @@
 				A7F607AC1505165300CBEAF3 /* libosgVolume.a in Frameworks */,
 				A7C3BBCE1500FE5E00A27D73 /* libOpenThreads.a in Frameworks */,
 				A7C3BBCF1500FE5E00A27D73 /* libosgdb_imageio.a in Frameworks */,
-				A7C3BBD01500FE5E00A27D73 /* libosgdb_ive.a in Frameworks */,
 				A7C3BBD11500FE5E00A27D73 /* libosgdb_obj.a in Frameworks */,
 				A7C3BBD21500FE5E00A27D73 /* libosgdb_osg.a in Frameworks */,
 				A7C3BBD31500FE5E00A27D73 /* libosgFX.a in Frameworks */,
