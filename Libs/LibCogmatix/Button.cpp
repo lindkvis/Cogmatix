@@ -21,7 +21,7 @@ Button::Button(const std::string& name, const std::string& label) :
     getText()->setBackdropImplementation(osgText::Text::POLYGON_OFFSET);
     setFont("Vera.ttf");
 #ifdef TARGET_OS_IPHONE
-    setFontSize(40);
+    setFontSize(20);
     addSize(200.0f, 100.0f);
 #else
     setFontSize(20);
@@ -29,7 +29,7 @@ Button::Button(const std::string& name, const std::string& label) :
 #endif
     setColor(background);
     setCanFill(true);
-    setShadow(0.1f);
+    //    setShadow(0.1f);
     setEventMask(EVENT_MASK_MOUSE_CLICK |
                  EVENT_MASK_MOUSE_MOVE |
                  EVENT_MASK_MOUSE_DRAG);

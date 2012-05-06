@@ -55,24 +55,34 @@ namespace LibCogmatix
         osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
         
         osg::ref_ptr<osg::Texture2D> planeTex = new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg"));
-        //    planeTex->setFilter(osg::Texture::MIN_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
-        //    planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+        //planeTex->setFilter(osg::Texture::MIN_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+        //planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
         planeTex->setWrap(osg::Texture::WRAP_S,osg::Texture::REPEAT);    
         planeTex->setWrap(osg::Texture::WRAP_T,osg::Texture::REPEAT);    
         planeState->setTextureAttributeAndModes( 0, planeTex , osg::StateAttribute::ON);    
         //machine->addChild(gear6);
         Clock::get()->add(motor);
         
-        osg::StateSet* gearState = machine->getOrCreateStateSet();
+        //        osg::StateSet* gearState = machine->getOrCreateStateSet();
         motor->start();
         
-        osg::Group* world = createShadowedScene(machine, plane_geode, Vec(30., -200., 30.), 10., 0);
-        //osg::ref_ptr<osg::Group> world = new osg::Group;
-      /*  osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
+        osg::ref_ptr<osg::Group> world = createShadowedScene(machine, plane_geode, Vec(30., -200., 30.));
+           
+       
+        root->addChild(world);
+            
+        return machine;
+    }
+    
+    osg::ref_ptr<osg::Group> createShadowedScene(Machine::Ptr machine,osg::Node* shadowed, const Vec& lightPosition)
+    {   
+        //#ifdef TARGET_OS_IPHONE
+        //        osg::ref_ptr<osg::Group> world = new osg::Group;  
+        //#else
+        osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
         world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
         world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
-        
-        //#ifdef TARGET_OS_IPHONE
+    
         //        osg::ref_ptr<osgShadow::ShadowTexture> sm = new osgShadow::ShadowTexture;
         //#else
         osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;  
@@ -81,143 +91,14 @@ namespace LibCogmatix
         sm->setTextureSize(osg::Vec2s(mapresx,mapresy));
         sm->setPolygonOffset(osg::Vec2(-2, -2));
         
-       //#endif
-        world->setShadowTechnique(sm);    
-        
-       
-        root->addChild(world);
-        //        world->addChild(machine);
-        //        world->addChild(plane_geode);
-        */
-        //   Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), Vec(30., -200., 30.), Vec4(0.95, 0.95, 1., 1.));
-        //        world->addChild(lightBlue);
-        return machine;
-    }
-    
-    osg::Group* createShadowedScene(osg::Node* shadower,osg::Node* shadowed,const osg::Vec3& lightPosition,float radius,unsigned int unit)
-    {
-        osg::Group* group = new osg::Group;
-        
-        // add light source
-        {
-            osg::LightSource* lightSource = new osg::LightSource;
-            lightSource->getLight()->setPosition(osg::Vec4(lightPosition,1.0f));
-            lightSource->getLight()->setLightNum(0);
-            
-            group->addChild(lightSource);
-            
-            osg::Geode* lightgeode = new osg::Geode;
-            lightgeode->getOrCreateStateSet()->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
-            lightgeode->addDrawable(new osg::ShapeDrawable(new osg::Sphere(lightPosition,radius)));
-            group->addChild(lightgeode);
-        }
-        
-        osg::Vec4 ambientLightColor(0.2,0.2f,0.2f,1.0f);
-        
-        // add the shadower and shadowed.
-        group->addChild(shadower);
-        group->addChild(shadowed);
-        
-        
-        unsigned int tex_width = 512;
-        unsigned int tex_height = 512;
-        
-        osg::Texture2D* texture = new osg::Texture2D;
-        texture->setTextureSize(tex_width, tex_height);
-        texture->setInternalFormat(GL_RGB);
-        texture->setFilter(osg::Texture2D::MIN_FILTER,osg::Texture2D::LINEAR);
-        texture->setFilter(osg::Texture2D::MAG_FILTER,osg::Texture2D::LINEAR);
-        texture->setWrap(osg::Texture2D::WRAP_S,osg::Texture2D::CLAMP_TO_BORDER);
-        texture->setWrap(osg::Texture2D::WRAP_T,osg::Texture2D::CLAMP_TO_BORDER);
-        texture->setBorderColor(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-        
-        // set up the render to texture camera.
-        {
-            
-            // create the camera
-            osg::Camera* camera = new osg::Camera;
-            
-            camera->setClearColor(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
-            
-            // set viewport
-            camera->setViewport(0,0,tex_width,tex_height);
-            
-            // set the camera to render before the main camera.
-            camera->setRenderOrder(osg::Camera::PRE_RENDER);
-            
-            // tell the camera to use OpenGL frame buffer object where supported.
-            camera->setRenderTargetImplementation(osg::Camera::FRAME_BUFFER_OBJECT);
-            
-            // attach the texture and use it as the color buffer.
-            camera->attach(osg::Camera::COLOR_BUFFER, texture);
-            
-            // add subgraph to render
-            camera->addChild(shadower);
-            
-            osg::StateSet* stateset = camera->getOrCreateStateSet();
-            
-            // make the material black for a shadow.
-            osg::Material* material = new osg::Material;
-            material->setAmbient(osg::Material::FRONT_AND_BACK,osg::Vec4(0.0f,0.0f,0.0f,1.0f));
-            material->setDiffuse(osg::Material::FRONT_AND_BACK,osg::Vec4(0.0f,0.0f,0.0f,1.0f));
-            material->setEmission(osg::Material::FRONT_AND_BACK,ambientLightColor);
-            material->setShininess(osg::Material::FRONT_AND_BACK,0.0f);
-            stateset->setAttribute(material,osg::StateAttribute::OVERRIDE);
-            
-            group->addChild(camera);
-            
-            // create the texgen node to project the tex coords onto the subgraph
-            osg::TexGenNode* texgenNode = new osg::TexGenNode;
-            texgenNode->setTextureUnit(unit);
-            group->addChild(texgenNode);
-            
-            // set an update callback to keep moving the camera and tex gen in the right direction.
-            //            group->setUpdateCallback(new UpdateCameraAndTexGenCallback(lightPosition, camera, texgenNode));
-        }
-        
-        // set the shadowed subgraph so that it uses the texture and tex gen settings.    
-        {
-            osg::StateSet* stateset = shadowed->getOrCreateStateSet();
-            stateset->setTextureAttributeAndModes(unit,texture,osg::StateAttribute::ON);
-            stateset->setTextureMode(unit,GL_TEXTURE_GEN_S,osg::StateAttribute::ON);
-            stateset->setTextureMode(unit,GL_TEXTURE_GEN_T,osg::StateAttribute::ON);
-            stateset->setTextureMode(unit,GL_TEXTURE_GEN_R,osg::StateAttribute::ON);
-            stateset->setTextureMode(unit,GL_TEXTURE_GEN_Q,osg::StateAttribute::ON);
-        }
-        
-        
-        // set hud to render shadow texture, just for interest
-        {
-            osg::Geode* geode = new osg::Geode;
-            osg::Geometry* geom = osg::createTexturedQuadGeometry(osg::Vec3(0,0,0),osg::Vec3(100.0,0.0,0.0),osg::Vec3(0.0,100.0,0.0));
-            geom->getOrCreateStateSet()->setTextureAttributeAndModes(0,texture,osg::StateAttribute::ON);
-            geom->getOrCreateStateSet()->setMode(GL_LIGHTING,osg::StateAttribute::OFF);
-            geode->addDrawable(geom);
-            
-            osg::Camera* camera = new osg::Camera;
-            
-            // set the projection matrix
-            camera->setProjectionMatrix(osg::Matrix::ortho2D(0,100,0,100));
-            
-            // set the view matrix    
-            camera->setReferenceFrame(osg::Transform::ABSOLUTE_RF);
-            camera->setViewMatrix(osg::Matrix::identity());
-            
-            camera->setViewport(50,50,100,100);
-            
-            // only clear the depth buffer
-            camera->setClearMask(GL_DEPTH_BUFFER_BIT);
-            
-            // draw subgraph after main camera view.
-            camera->setRenderOrder(osg::Camera::POST_RENDER);
-            
-            camera->addChild(geode);
-            
-            group->addChild(camera);
-            
-        }
-        
-        return group;
+        //#endif
+        world->setShadowTechnique(sm);
+        //#endif
+        Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), lightPosition, Vec4(0.95, 0.95, 1., 1.));
+        world->addChild(lightBlue);
+        world->addChild(machine);
+        world->addChild(shadowed);
+        return world;
     }
 
     

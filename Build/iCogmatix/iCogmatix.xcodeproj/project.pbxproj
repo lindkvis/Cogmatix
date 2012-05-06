@@ -29,6 +29,7 @@
 		A716D09614FFD58F00AD1189 /* libiLibCogmatix.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */; };
 		A726C64315555BB600A52837 /* paper_tile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A726C64215555BB600A52837 /* paper_tile.jpg */; };
 		A77B4C3C15506E6E001467FD /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A77B4C3B15506E6E001467FD /* libosgShadow.a */; };
+		A78F85931556A6EE0066E149 /* freetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78F85921556A6EE0066E149 /* freetype.a */; };
 		A7C3BBBB1500EE3700A27D73 /* libosg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB61500EE3700A27D73 /* libosg.a */; };
 		A7C3BBBC1500EE3700A27D73 /* libosgDB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB71500EE3700A27D73 /* libosgDB.a */; };
 		A7C3BBBD1500EE3700A27D73 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7C3BBB81500EE3700A27D73 /* libosgGA.a */; };
@@ -78,6 +79,7 @@
 		A716D09514FFD58F00AD1189 /* libiLibCogmatix.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libiLibCogmatix.a; path = "../iLibCogmatix/build/Release-iphoneos/libiLibCogmatix.a"; sourceTree = "<group>"; };
 		A726C64215555BB600A52837 /* paper_tile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = paper_tile.jpg; path = ../../../Apps/Cogmatix/paper_tile.jpg; sourceTree = "<group>"; };
 		A77B4C3B15506E6E001467FD /* libosgShadow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgShadow.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgShadow.a"; sourceTree = "<group>"; };
+		A78F85921556A6EE0066E149 /* freetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = freetype.a; path = ../../../osg/IPhone_Project/3rdParty/lib/freetype.a; sourceTree = "<group>"; };
 		A7C3BBB61500EE3700A27D73 /* libosg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosg.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosg.a"; sourceTree = "<group>"; };
 		A7C3BBB71500EE3700A27D73 /* libosgDB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgDB.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgDB.a"; sourceTree = "<group>"; };
 		A7C3BBB81500EE3700A27D73 /* libosgGA.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libosgGA.a; path = "../../../OSG/IPhone_Project/build/Release-iphoneos/libosgGA.a"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78F85931556A6EE0066E149 /* freetype.a in Frameworks */,
 				A716D06614FFD43D00AD1189 /* OpenGLES.framework in Frameworks */,
 				A707808715554FF000A26183 /* libosgAnimation.a in Frameworks */,
 				A707808815554FF000A26183 /* libosgdb_freetype.a in Frameworks */,
@@ -159,6 +162,7 @@
 		A716D05C14FFD43D00AD1189 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A78F85921556A6EE0066E149 /* freetype.a */,
 				A707808115554FF000A26183 /* libosgAnimation.a */,
 				A707808215554FF000A26183 /* libosgdb_freetype.a */,
 				A707808315554FF000A26183 /* libosgParticle.a */,
@@ -387,6 +391,10 @@
 				GCC_PREFIX_HEADER = "iCogmatix/iCogmatix-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../osg/IPhone_Project/3rdParty/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
@@ -400,6 +408,10 @@
 				GCC_PREFIX_HEADER = "iCogmatix/iCogmatix-Prefix.pch";
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				INFOPLIST_FILE = "iCogmatix/iCogmatix-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../../../osg/IPhone_Project/3rdParty/lib\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
