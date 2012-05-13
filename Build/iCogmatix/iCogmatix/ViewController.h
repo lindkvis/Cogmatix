@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #include <osgViewer/Viewer>
+#include "LibCogmatix/EventHandler.h"
 
 @protocol ViewControllerDelegate;
 
@@ -17,6 +18,7 @@
 	id <ViewControllerDelegate> delegate;
     
     osg::ref_ptr<osgViewer::Viewer> _viewer;
+    osg::ref_ptr<LibCogmatix::EventHandler> _handler;
 	CADisplayLink* _displayLink;
 }
 

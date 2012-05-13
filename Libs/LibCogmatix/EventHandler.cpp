@@ -11,10 +11,13 @@
 
 using namespace LibCogmatix;
 
-bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa)
+bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* o, osg::NodeVisitor* n)
 {
     osgViewer::View* view = dynamic_cast<osgViewer::View*>(&aa);
     if (!view)
+        return false;
+    
+    if (_mouseHandler->handle(ea,aa, o, n))
         return false;
     osg::Camera* camera = _viewer->getCamera();
     osg::Matrix viewMatrix = camera->getViewMatrix();
@@ -27,13 +30,15 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     
     float dx = float(ea.getX() - _mx) / ea.getXmax();
     float dy = float(ea.getY() - _my) / ea.getYmax();
+    
+    Vec worldShift = newPosition - _oldPosition; //Vec (ea.getX() - _mx, ea.getY() - _my, 0.) * MV2W;
     _mx = ea.getX();
     _my = ea.getY();
     switch(ea.getEventType())
     {
         case(osgGA::GUIEventAdapter::PUSH):
         {
-            if (_selection.valid())
+            if (_selection.valid() && pick(view, ea, false) == _selection.get())
             {
                 _dragging=DragInitiated;
                 _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
@@ -46,11 +51,8 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             if (_selection.valid() && (_dragging == DragInitiated || _dragging == Dragging))
             {
                 _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
-                if (pick(view, ea, false) == _selection.get())
-                {
-                    moveSelection (newPosition - _oldPosition);
-                    _dragging=Dragging;
-                }
+                moveSelection (worldShift);
+                _dragging=Dragging;
                 return true;
             }	
             break;
@@ -60,8 +62,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             
             if (_dragging != Dragging && fabs(dx) < 5.0e-2 && fabs(dy) < 5.0e-2)
             {
-                pick(view,ea, true);
-                return true;
+                return pick(view,ea, true) != nullptr;
             }
             else if (_dragging == Dragging && _selection.valid())
             {
@@ -78,6 +79,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             break;
     }
     _oldPosition = newPosition;
+   
     return false;
 }
 
@@ -94,7 +96,7 @@ osg::Node* EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapte
     if (ray->containsIntersections())
     {
         const osgUtil::LineSegmentIntersector::Intersection& intersection = ray->getFirstIntersection();
-        const osg::NodePath& nodePath = intersection.nodePath;
+        const osg::NodePath& nodePath = intersection.nodePath; 
         osg::Node* node = (nodePath.size()>=2)?nodePath[nodePath.size()-2] : nullptr;
         osg::Group* parent = (nodePath.size()>=3)?dynamic_cast<osg::Group*>(nodePath[nodePath.size()-3]) : nullptr;
         if (dynamic_cast<LibCogmatix::MachineNode*>(node))

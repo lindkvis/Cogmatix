@@ -18,18 +18,19 @@ const Color highlight  = Color(0.6f, 0.6f, 0.8f, 0.7f);
 Button::Button(const std::string& name, const std::string& label) :
     Label(name, label)
 {
-    getText()->setBackdropImplementation(osgText::Text::POLYGON_OFFSET);
+    //getText()->setBackdropImplementation(osgText::Text::POLYGON_OFFSET);
     setFont("Vera.ttf");
 #ifdef TARGET_OS_IPHONE
     setFontSize(20);
     addSize(200.0f, 100.0f);
 #else
-    setFontSize(20);
-    addSize(100.0f, 50.0f);
+    setFontSize(10);
+    addSize(20.0f, 10.0f);
+    setShadow(0.1f);
 #endif
     setColor(background);
     setCanFill(true);
-    //    setShadow(0.1f);
+   
     setEventMask(EVENT_MASK_MOUSE_CLICK |
                  EVENT_MASK_MOUSE_MOVE |
                  EVENT_MASK_MOUSE_DRAG);

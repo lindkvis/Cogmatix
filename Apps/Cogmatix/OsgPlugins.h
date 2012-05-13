@@ -10,6 +10,7 @@
 #include <osgViewer/GraphicsWindow>
 #include <osgDB/Registry>
 
+#ifdef TARGET_OS_IPHONE
 //USE_OSGPLUGIN(obj)
 //USE_OSGPLUGIN(ive)
 //USE_OSGPLUGIN(osg)
@@ -18,3 +19,4 @@
 //USE_OSGPLUGIN(bmp)
 USE_OSGPLUGIN(imageio)
 USE_OSGPLUGIN(freetype)
+#endif

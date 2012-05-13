@@ -19,6 +19,7 @@
 #include <osgShadow/ShadowVolume>
 #include <osgShadow/ShadowTexture>
 #include <osgShadow/ShadowMap>
+#include <osgShadow/SoftShadowMap>
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
 
@@ -50,20 +51,20 @@ namespace LibCogmatix
         machine->addChild(gear3);
         machine->addChild(gear4);
         machine->addChild(gear5);
+       
         osg::ref_ptr<osg::Node> plane_geode = createBase(Vec(0., 8., 0.), 100);
-        plane_geode->setNodeMask(ReceivesShadowTraversalMask);
         osg::StateSet* planeState = plane_geode->getOrCreateStateSet();
         
         osg::ref_ptr<osg::Texture2D> planeTex = new osg::Texture2D(osgDB::readImageFile("paper_tile.jpg"));
         //planeTex->setFilter(osg::Texture::MIN_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
-        //planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
+        //        planeTex->setFilter(osg::Texture::MAG_FILTER,osg::Texture::NEAREST_MIPMAP_NEAREST);
         planeTex->setWrap(osg::Texture::WRAP_S,osg::Texture::REPEAT);    
         planeTex->setWrap(osg::Texture::WRAP_T,osg::Texture::REPEAT);    
         planeState->setTextureAttributeAndModes( 0, planeTex , osg::StateAttribute::ON);    
         //machine->addChild(gear6);
         Clock::get()->add(motor);
         
-        //        osg::StateSet* gearState = machine->getOrCreateStateSet();
+        osg::StateSet* gearState = machine->getOrCreateStateSet();
         motor->start();
         
         osg::ref_ptr<osg::Group> world = createShadowedScene(machine, plane_geode, Vec(30., -200., 30.));
@@ -74,30 +75,34 @@ namespace LibCogmatix
         return machine;
     }
     
-    osg::ref_ptr<osg::Group> createShadowedScene(Machine::Ptr machine,osg::Node* shadowed, const Vec& lightPosition)
+    osg::ref_ptr<osg::Group> createShadowedScene(Machine::Ptr machine,osg::ref_ptr<osg::Node> shadowed, const Vec& lightPosition)
     {   
-        //#ifdef TARGET_OS_IPHONE
-        //        osg::ref_ptr<osg::Group> world = new osg::Group;  
-        //#else
+#ifdef TARGET_OS_IPHONE
+        osg::ref_ptr<osg::Group> world = new osg::Group;  
+#else
         osg::ref_ptr<osgShadow::ShadowedScene> world = new osgShadow::ShadowedScene;
         world->setReceivesShadowTraversalMask(ReceivesShadowTraversalMask);
         world->setCastsShadowTraversalMask(CastsShadowTraversalMask);
     
-        //        osg::ref_ptr<osgShadow::ShadowTexture> sm = new osgShadow::ShadowTexture;
-        //#else
-        osg::ref_ptr<osgShadow::ShadowMap> sm = new osgShadow::ShadowMap;  
-        //#endif
+        osg::ref_ptr<osgShadow::SoftShadowMap> sm = new osgShadow::SoftShadowMap;  
         int mapresx = 1024, mapresy=1024;
         sm->setTextureSize(osg::Vec2s(mapresx,mapresy));
         sm->setPolygonOffset(osg::Vec2(-2, -2));
         
-        //#endif
         world->setShadowTechnique(sm);
-        //#endif
+#endif
         Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), lightPosition, Vec4(0.95, 0.95, 1., 1.));
         world->addChild(lightBlue);
-        world->addChild(machine);
-        world->addChild(shadowed);
+        if (machine)
+        {
+            world->addChild(machine);
+            machine->setNodeMask(CastsShadowTraversalMask);
+        }
+        if (shadowed)
+        {
+            world->addChild(shadowed);
+            shadowed->setNodeMask(ReceivesShadowTraversalMask);
+        }
         return world;
     }
 

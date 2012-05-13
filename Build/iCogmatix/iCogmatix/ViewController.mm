@@ -17,7 +17,6 @@
 #include "OsgPlugins.h"
 #include "LibCogmatix/Machine.h"
 #include "LibCogmatix/Clock.h"
-#include "LibCogmatix/EventHandler.h"
 
 using namespace LibCogmatix;
 using namespace osgViewer;
@@ -32,7 +31,7 @@ using namespace osgViewer;
 	unsigned int w = lFrame.size.width*2;
 	unsigned int h = lFrame.size.height*2;
 	
-	osg::ref_ptr<osg::Referenced> windata = new osgViewer::GraphicsWindowIOS::WindowData(self.view, osgViewer::GraphicsWindowIOS::WindowData::IGNORE_ORIENTATION);
+	osg::ref_ptr<osg::Referenced> windata = new osgViewer::GraphicsWindowIOS::WindowData(self.view, osgViewer::GraphicsWindowIOS::WindowData::ALL_ORIENTATIONS);
 	
 	// Setup the traits parameters
 	traits->x = 0;
@@ -40,9 +39,9 @@ using namespace osgViewer;
 	traits->width = w;
 	traits->height = h - traits->y;
 	traits->depth = 16; //keep memory down, default is currently 24
-	//traits->alpha = 8;
-	//traits->stencil = 8;
-	traits->windowDecoration = true;
+                        //traits->alpha = 8;
+    // traits->stencil = 8;
+	traits->windowDecoration = false;
 	traits->doubleBuffer = true;
 	traits->sharedContext = nullptr;
 	traits->setInheritedWindowPixelFormat = true;
@@ -63,7 +62,7 @@ using namespace osgViewer;
                                                                 w,
                                                                 h,
                                                                 MASK_2D,
-                                                                0 //osgWidget::WindowManager::WM_PICK_DEBUG
+                                                                osgWidget::WindowManager::WM_PICK_DEBUG
                                                                 );
 	osg::Camera* camera = wm->createParentOrthoCamera();
 	_viewer->getCamera()->setClearColor(osg::Vec4(0.0,0.0,0.0,1.0));
@@ -74,21 +73,15 @@ using namespace osgViewer;
     osg::ref_ptr<osg::Group> root = new osg::Group;
 	root->addChild(camera);        
     LibCogmatix::Machine::Ptr machine = createTestMachine(root);
-    osg::ref_ptr<LibCogmatix::EventHandler> handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
+    _handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
 	_viewer->setSceneData(root);
     
 	unsigned int clearMask = _viewer->getCamera()->getClearMask();
 	_viewer->getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
 	_viewer->getCamera()->setClearStencil(0);
     
-    //_viewer->addEventHandler(new osgWidget::MouseHandler(wm));
-    //_viewer->addEventHandler(new osgWidget::KeyboardHandler(wm));
-    //_viewer->addEventHandler(new osgWidget::ResizeHandler(wm, camera));
-    //_viewer->addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
-    //_viewer->addEventHandler(new osgViewer::StatsHandler());
-    //_viewer->addEventHandler(new osgViewer::WindowSizeHandler());
     _viewer->addEventHandler(new osgGA::StateSetManipulator(_viewer->getCamera()->getOrCreateStateSet()));
-    _viewer->addEventHandler(handler);
+    _viewer->addEventHandler(_handler);
     
     _viewer->setUpViewInWindow(
                              0,
@@ -103,6 +96,9 @@ using namespace osgViewer;
 		_viewer->getCamera()->setGraphicsContext(graphicsContext);
 		_viewer->getCamera()->setViewport(new osg::Viewport(0, 0, traits->width, traits->height));
 	}
+    
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object: nil];
 	
     _viewer->realize();
 	Clock::get()->start();
@@ -145,6 +141,7 @@ using namespace osgViewer;
 - (void)updateScene: (CADisplayLink *)sender {
     Clock::get()->tick();
     _viewer->frame(Clock::get()->elapsed());
+    _handler->snapToLimit();
 }
 
 - (IBAction)done:(id)sender {
@@ -172,14 +169,46 @@ using namespace osgViewer;
 }
 
 
-/*
  // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
- // Return YES for supported orientations
- return (interfaceOrientation == UIInterfaceOrientationPortrait);
- }
- */
+ - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+{
+    // Return YES for supported orientations
+    return (interfaceOrientation == UIInterfaceOrientationPortrait
+            || interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown
+            || interfaceOrientation == UIInterfaceOrientationLandscapeLeft
+            || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+}
 
+UIDeviceOrientation currentOrientation;
+
+- (void)orientationChangedMethod
+{
+    CGRect lFrame = [self.view bounds];
+	unsigned int w = lFrame.size.width*2;
+	unsigned int h = lFrame.size.height*2;
+    //  if (UIDeviceOrientationIsPortrait(currentOrientation))
+    //  _viewer->getCamera()->setViewport(new osg::Viewport(0, 0, w, h));
+    // else
+    //  _viewer->getCamera()->setViewport(new osg::Viewport(0, 0, h, w));
+}
+
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
+    //Obtaining the current device orientation
+    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+    
+    if (orientation == UIDeviceOrientationFaceUp || 
+        orientation == UIDeviceOrientationFaceDown || 
+        orientation == UIDeviceOrientationUnknown || 
+        currentOrientation == orientation) 
+    {
+        return;
+    }
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(relayoutLayers) object:nil];
+    //Responding only to changes in landscape or portrait
+    currentOrientation = orientation;
+    
+    [self performSelector:@selector(orientationChangedMethod) withObject:nil afterDelay:0];
+}
 
 - (void)dealloc {
 	

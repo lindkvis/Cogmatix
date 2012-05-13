@@ -40,6 +40,7 @@ namespace LibCogmatix
         osg::ref_ptr<osgGA::TrackballManipulator> _cameraManipulator;
         osgViewer::Viewer* _viewer;
 		osgWidget::WindowManager* _wm;
+        osgWidget::MouseHandler* _mouseHandler;
 		Machine::Ptr _machine;
         float _mx, _my;
         Vec _oldPosition;
@@ -59,6 +60,8 @@ namespace LibCogmatix
 #else
             _cameraManipulator = new osgGA::TrackballManipulator();
 #endif
+            _mouseHandler = new osgWidget::MouseHandler(_wm);
+            _viewer->addEventHandler(_mouseHandler);
             _cameraManipulator->setHomePosition(Vec(0., -100, 0.), Vec(0., 0., 0.), Vec(0., 0., 1.), false);
             _viewer->setCameraManipulator(_cameraManipulator);    
             _labelWindow = new osgWidget::Box("", osgWidget::Box::VERTICAL);
@@ -67,7 +70,7 @@ namespace LibCogmatix
         }
 		~EventHandler() {}
 
-		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa);
+		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* o, osg::NodeVisitor* n);
 		virtual osg::Node* pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea, bool bSelect);
         void moveSelection(Vec shift);
         void dispatchAction(CoString action);

@@ -57,7 +57,7 @@ namespace LibCogmatix
     osg::ref_ptr<Machine> createTestMachine(osg::Group* root);
     osg::ref_ptr<osg::Geode> createBase(const osg::Vec3f& center,float radius);
     
-    osg::ref_ptr<osg::Group> createShadowedScene(osg::ref_ptr<Machine> machine,osg::Node* shadowed,const osg::Vec3& lightPosition);
+    osg::ref_ptr<osg::Group> createShadowedScene(osg::ref_ptr<Machine> machine,osg::ref_ptr<osg::Node> shadowed,const osg::Vec3& lightPosition);
     bool loadShaderSource(osg::Shader* obj, const std::string& fileName );
 	osg::BoundingSphere transformBoundingSphere( const osg::Matrixf& m, const osg::BoundingSphere& sphere );
     

@@ -56,7 +56,7 @@ namespace LibCogmatix
         
 		virtual ~Axis() {};
 
-		void reset ()
+		virtual void reset ()
 		{
 			_attitude.makeRotate (Vec(0., 0., 1.), _axisVector);
 			_position = _origin;
@@ -66,7 +66,7 @@ namespace LibCogmatix
 		virtual bool move (float delta, std::set<const MachineNode*>& chain, const MachineNode* master, bool blocked)=0;
   		// Get methods
 		virtual Vec origin() const { return _origin; }
-		virtual void setOrigin (Vec origin) { _origin = origin; reset(); }
+		virtual void setOrigin (Vec origin) { _origin = _position = origin; reset(); }
 		const Vec& vector() const { return _axisVector; }
 		float value() const { return _value; }
         float valueInitial() const { return _valueInitial; }
@@ -99,6 +99,16 @@ namespace LibCogmatix
         double diameter() const { return _axisDiameter; }
         double length() const { return _axisLength; }
         virtual bool snapTo (const MachineNode* master);
+        
+        virtual void reset ()
+		{
+            double oldValue = _value; _value = 0.;
+			_attitude.makeRotate (Vec(0., 0., 1.), _axisVector);
+            //_attitude = osg::Quat (_value, _axisVector) * _attitude;
+			_position = _origin;
+            moveTo (oldValue);
+            dirtyBound();
+		}
         
 	factory_protected:
 		RotaryAxis(NodeID ID, const Vec& axisVector, const Vec& origin, double axisDiameter, double axisLength, float valueInitial, float min, float max) 
