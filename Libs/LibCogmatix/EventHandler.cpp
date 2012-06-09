@@ -17,8 +17,6 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     if (!view)
         return false;
     
-    if (_mouseHandler->handle(ea,aa, o, n))
-        return false;
     osg::Camera* camera = _viewer->getCamera();
     osg::Matrix viewMatrix = camera->getViewMatrix();
     osg::Matrix projMatrix = camera->getProjectionMatrix();
@@ -60,7 +58,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
         case(osgGA::GUIEventAdapter::RELEASE):
         {
             
-            if (_dragging != Dragging && fabs(dx) < 5.0e-2 && fabs(dy) < 5.0e-2)
+            if (_dragging != Dragging && fabs(dx) < 5.0e-1 && fabs(dy) < 5.0e-1)
             {
                 return pick(view,ea, true) != nullptr;
             }
@@ -89,6 +87,17 @@ osg::Node* EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapte
     float x = ea.getX();
     float y = ea.getY();
 
+    osgWidget::WidgetList widgets;
+    if (bSelect && _wm->pickAtXY(x, y, widgets))
+    {
+        LibCogmatix::ActionButton* button = dynamic_cast<LibCogmatix::ActionButton*>(widgets.front().get());
+        if (button)
+        {
+            dispatchAction(button->action());            
+            return nullptr;
+        }
+    }
+    
     osg::ref_ptr<osgUtil::LineSegmentIntersector> ray = new osgUtil::LineSegmentIntersector(osgUtil::Intersector::PROJECTION, ea.getXnormalized(), ea.getYnormalized());
     osgUtil::IntersectionVisitor visitor(ray);
     _viewer->getCamera()->accept(visitor);

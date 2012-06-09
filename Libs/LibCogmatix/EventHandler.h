@@ -40,7 +40,6 @@ namespace LibCogmatix
         osg::ref_ptr<osgGA::TrackballManipulator> _cameraManipulator;
         osgViewer::Viewer* _viewer;
 		osgWidget::WindowManager* _wm;
-        osgWidget::MouseHandler* _mouseHandler;
 		Machine::Ptr _machine;
         float _mx, _my;
         Vec _oldPosition;
@@ -60,8 +59,6 @@ namespace LibCogmatix
 #else
             _cameraManipulator = new osgGA::TrackballManipulator();
 #endif
-            _mouseHandler = new osgWidget::MouseHandler(_wm);
-            _viewer->addEventHandler(_mouseHandler);
             _cameraManipulator->setHomePosition(Vec(0., -100, 0.), Vec(0., 0., 0.), Vec(0., 0., 1.), false);
             _viewer->setCameraManipulator(_cameraManipulator);    
             _labelWindow = new osgWidget::Box("", osgWidget::Box::VERTICAL);

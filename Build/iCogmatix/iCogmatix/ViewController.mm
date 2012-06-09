@@ -73,14 +73,19 @@ using namespace osgViewer;
     osg::ref_ptr<osg::Group> root = new osg::Group;
 	root->addChild(camera);        
     LibCogmatix::Machine::Ptr machine = createTestMachine(root);
-    _handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
-	_viewer->setSceneData(root);
     
 	unsigned int clearMask = _viewer->getCamera()->getClearMask();
 	_viewer->getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
 	_viewer->getCamera()->setClearStencil(0);
     
+    _viewer->addEventHandler(new osgWidget::ResizeHandler(wm, camera));
+    _viewer->addEventHandler(new osgWidget::CameraSwitchHandler(wm, camera));
+    _viewer->addEventHandler(new osgViewer::StatsHandler());
+    _viewer->addEventHandler(new osgViewer::WindowSizeHandler());
+    
     _viewer->addEventHandler(new osgGA::StateSetManipulator(_viewer->getCamera()->getOrCreateStateSet()));
+    
+    _handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
     _viewer->addEventHandler(_handler);
     
     _viewer->setUpViewInWindow(
@@ -89,6 +94,7 @@ using namespace osgViewer;
                              w,
                              h
                              );
+    _viewer->setSceneData(root);
 	wm->resizeAllWindows();
     
     if(graphicsContext)

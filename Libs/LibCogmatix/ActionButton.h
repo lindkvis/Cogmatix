@@ -32,7 +32,7 @@ namespace LibCogmatix
             _handler->dispatchAction(_action);
             return true;
         }
-        
+        CoString action() const { return _action; }
     protected:
         osg::ref_ptr<EventHandler> _handler;
         std::string _action;
