@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A701A9F51544220B00CDD7FE /* paper_tile.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = A701A9F41544220B00CDD7FE /* paper_tile.jpg */; };
+		A7044F151584A9CD00F563B1 /* libosgShadow.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = A77039A3154434C0005BD331 /* libosgShadow.dylib */; };
 		A75E8A0E14F9340600806EC3 /* skymap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = A75E8A0D14F9340600806EC3 /* skymap.jpg */; };
 		A75E8A1614F934F500806EC3 /* reflect.rgb in CopyFiles */ = {isa = PBXBuildFile; fileRef = A75E8A1414F934F500806EC3 /* reflect.rgb */; };
 		A77039A4154434C0005BD331 /* libosgShadow.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A77039A3154434C0005BD331 /* libosgShadow.dylib */; };
@@ -56,6 +57,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				A7044F151584A9CD00F563B1 /* libosgShadow.dylib in CopyFiles */,
 				A775DB55154BDB9C009C7EC0 /* rusty_metal.jpg in CopyFiles */,
 				A701A9F51544220B00CDD7FE /* paper_tile.jpg in CopyFiles */,
 				A78F2F6F151DCC2B0099A3ED /* osgdb_ive.so in CopyFiles */,

@@ -17,23 +17,15 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
     if (!view)
         return false;
     
-    osg::Camera* camera = _viewer->getCamera();
-    osg::Matrix viewMatrix = camera->getViewMatrix();
-    osg::Matrix projMatrix = camera->getProjectionMatrix();
-    osg::Matrix winMatrix =  camera->getViewport()->computeWindowMatrix();
-
-    osg::Matrix MW2V (viewMatrix * projMatrix * winMatrix);
-    osg::Matrix MV2W = osg::Matrix::inverse(MW2V);
-    Vec newPosition = Vec(ea.getX(), ea.getY(), 0.) * MV2W;
+    Vec newPosition = Vec(ea.getX(), ea.getY(), 0.);
     
     float dx = float(ea.getX() - _mx) / ea.getXmax();
-    float dy = float(ea.getY() - _my) / ea.getYmax();
+    float dy = float(ea.getY() - _my) / ea.getYmax(); 
     
-    Vec worldShift = newPosition - _oldPosition; //Vec (ea.getX() - _mx, ea.getY() - _my, 0.) * MV2W;
     _mx = ea.getX();
     _my = ea.getY();
     switch(ea.getEventType())
-    {
+    { 
         case(osgGA::GUIEventAdapter::PUSH):
         {
             if (_selection.valid() && pick(view, ea, false) == _selection.get())
@@ -49,7 +41,7 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
             if (_selection.valid() && (_dragging == DragInitiated || _dragging == Dragging))
             {
                 _cameraManipulator->setIgnoreHandledEventsMask(osgGA::GUIEventAdapter::DRAG);
-                moveSelection (worldShift);
+                moveSelection (newPosition);
                 _dragging=Dragging;
                 return true;
             }	
@@ -201,20 +193,29 @@ void EventHandler::removedFromSelection(osg::Node* node)
     createLabels(this, _labelWindow, _selection);
 }
 
-void EventHandler::moveSelection(Vec worldShift)
+void EventHandler::moveSelection(Vec screenPos)
 {
     if (_selection.valid())
     {
         LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
         if (mnode)
         {
-            double axialMove = mnode->worldAxis() * worldShift;
-            Vec planeShift = worldShift - mnode->worldAxis() * axialMove;
-            osg::Matrixd gearMatrix = mnode->worldMatrix();
-            Vec origin = mnode->origin() * gearMatrix;
-            origin += planeShift;
+            osg::Camera* camera = _viewer->getCamera();
+
+            osg::Matrix gearMatrix = mnode->worldMatrix();
+
+            osg::Matrix viewMatrix = camera->getViewMatrix();
+            osg::Matrix projMatrix = camera->getProjectionMatrix();
+            osg::Matrix winMatrix =  camera->getViewport()->computeWindowMatrix();
+            
+            osg::Matrix MW2V (viewMatrix * projMatrix * winMatrix);
+            osg::Matrix MV2W = osg::Matrix::inverse(MW2V);
+            
+            Vec oldScreenPos = mnode->origin() * gearMatrix * MW2V;
+            Vec newScreenPos = Vec (screenPos[0], screenPos[1], oldScreenPos[2]);
+            
             osg::Matrixd gearMatrixInv = osg::Matrixd::inverse(gearMatrix);
-            mnode->setOrigin (origin * gearMatrixInv);
+            mnode->setOrigin (newScreenPos * MV2W * gearMatrixInv);
         }
     }
 }
