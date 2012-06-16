@@ -28,7 +28,7 @@ public:
 factory_protected:
 	ParametricSpurGearPart(NodeID ID, CoString name, Machine* machine,
 			const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
-			double axisDiameter, double module, double helix, double pitch_angle);
+			double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour);
     ParametricSpurGearPart(const ParametricSpurGearPart& copyFrom, const osg::CopyOp& copyop=osg::CopyOp::SHALLOW_COPY);    
     ParametricSpurGearPart() : RotaryAxis() {}
 	~ParametricSpurGearPart();

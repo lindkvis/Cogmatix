@@ -21,6 +21,7 @@
 #include <osgWidget/ViewerEventHandlers>
 #include <osgWidget/WindowManager>
 #include <osgWidget/Label>
+#include <queue>
 
 #include "Machine.h"
 #include "Units.h"
@@ -45,14 +46,18 @@ namespace LibCogmatix
         Vec _oldPosition;
 		void toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent);
         osg::observer_ptr<osg::Node> _selection;
+        typedef std::pair<std::string, osg::observer_ptr<osg::Node> >ActionPair;
+        std::queue<ActionPair> _actionQueue;
+        bool _bClean;
         
         osgWidget::Window* _labelWindow;
         
-        void addedToSelection(osg::Node* node);
-        void removedFromSelection(osg::Node* node);
+        void addToSelection(osg::Node* node);
+        void removeFromSelection(osg::observer_ptr<osg::Node> node);
+        void dispatchAction(ActionPair action);  
 	public: 
 		EventHandler(osgViewer::Viewer* viewer, osgWidget::WindowManager* wm, Machine::Ptr machine) 
-            : _viewer(viewer), _wm(wm), _machine(machine), _mx(0.), _my(0.), _dragging(NotDragging) 
+            : _viewer(viewer), _wm(wm), _machine(machine), _mx(0.), _my(0.), _dragging(NotDragging), _bClean(false) 
         {
 #ifdef TARGET_OS_IPHONE
             _cameraManipulator = new osgGA::MultiTouchTrackballManipulator();
@@ -70,8 +75,9 @@ namespace LibCogmatix
 		bool handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapter& aa, osg::Object* o, osg::NodeVisitor* n);
 		virtual osg::Node* pick(osgViewer::View* view, const osgGA::GUIEventAdapter& ea, bool bSelect);
         void moveSelection(Vec shift);
-        void dispatchAction(CoString action);
-        
+ 
+        void queueAction(CoString action);
+        void performActions();
         void snapToLimit();
 	};
 }

@@ -54,13 +54,14 @@ int main( int argc, char **argv )
     //hints->setDetailRatio(2.0f);
 
     osg::ref_ptr<osg::Group> root = new osg::Group;
-	root->addChild(camera);        
+   	root->addChild(camera);     
     LibCogmatix::Machine::Ptr machine = createTestMachine(root);
     osg::ref_ptr<LibCogmatix::EventHandler> handler = new LibCogmatix::EventHandler(_viewer, wm, machine);
 	_viewer->setSceneData(root);
 
+    osg::DisplaySettings::instance()->setMinimumNumStencilBits(1);
 	unsigned int clearMask = _viewer->getCamera()->getClearMask();
-	_viewer->getCamera()->setClearMask(clearMask | GL_STENCIL_BUFFER_BIT);
+	_viewer->getCamera()->setClearMask(clearMask | GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT|GL_STENCIL_BUFFER_BIT);
 	_viewer->getCamera()->setClearStencil(0);
 
     _viewer->addEventHandler(new osgWidget::MouseHandler(wm));
@@ -85,9 +86,12 @@ int main( int argc, char **argv )
     // testing
 	while (!_viewer->done())
 	{
+       	_viewer->getCamera()->setClearStencil(0);
+        handler->performActions();
+    
 		Clock::get()->tick();
         _viewer->frame(Clock::get()->elapsed());
-        handler->snapToLimit();
+        //        handler->snapToLimit();
 	}
 
 	return 0;

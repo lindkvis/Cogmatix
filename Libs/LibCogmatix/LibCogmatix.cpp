@@ -22,6 +22,8 @@
 #include <osgShadow/SoftShadowMap>
 #include <osgDB/ReadFile>
 #include <osgDB/FileUtils>
+#include <osgFX/Cartoon>
+#include <osgFX/Outline>
 
 #include "Factory.h"
 #include "Clock.h"
@@ -35,14 +37,15 @@ namespace LibCogmatix
     {
         
         Machine::Ptr machine = Factory::get()->CreateMachine("TestMachine");
-        BoxMotor::Ptr motor = Factory::get()->CreateBoxMotor(20, Vec(0., 1., 0.), Vec(0., 5., 0.), Vec(5., 5., 5.), 1.0, 7.5);
+        BoxMotor::Ptr motor = Factory::get()->CreateBoxMotor(20, Vec(0., 1., 0.), Vec(0., 10., 0.), Vec(5., 5., 5.), 1.0, 7.5);
         machine->addChild(motor);
         
-        ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 2., 0.), 40, 1.5, 1.0, 0.3, 0.);
-        ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 10., 0.),10, 1.0, 0.5, 0.3, 0.);
-        ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 10., 0.), 10, 1.0, 0.5, 0.3, 0.);
-        ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 10., 5.1), 24, 1.0, 0.5, 0.3, 0.);
-        ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 10., 11.7), 20, 1.0, 0.5, 0.3, 0.);
+        
+        ParametricSpurGearPart::Ptr gear = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(0., 5., 0.), 40, 1.5, 1.0, 0.3, 0., PI/2., red);
+        ParametricSpurGearPart::Ptr gear2 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(7.5, 5., 0.),10, 1.0, 0.5, 0.3, 0., PI/2., blue);
+        ParametricSpurGearPart::Ptr gear3 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 5., 0.), 10, 1.0, 0.5, 0.3, 0., PI/2., green);
+        ParametricSpurGearPart::Ptr gear4 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 5., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/2., yellow);
+        ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, 5., 11.7), 20, 1.0, 0.5, 0.3, 0., PI/2., purple);
         
         //ParametricSpurGearPart::Ptr gear5 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 1., 0.), Vec(10.5, -2., 5.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
         //ParametricSpurGearPart::Ptr gear6 = Factory::get()->CreateParametricSpurGearPart("TestGear", machine.get(), Vec(0., 0., 1.), Vec(10.5, -6., 10.1), 24, 1.0, 0.5, 0.3, 0., PI/4);
@@ -66,16 +69,21 @@ namespace LibCogmatix
         
         osg::StateSet* gearState = machine->getOrCreateStateSet();
         motor->start();
-        
-        osg::ref_ptr<osg::Group> world = createShadowedScene(machine, plane_geode, Vec(30., -200., 30.));
-           
-       
+
+#ifndef TARGET_OS_IPHONEdd
+        osg::ref_ptr<osgFX::Cartoon> cartoon = new osgFX::Cartoon();
+        cartoon->addChild(machine);
+        osg::ref_ptr<osg::Group> world = createShadowedScene(machine, cartoon, plane_geode, Vec(30., -200., 30.));
+#else
+        osg::ref_ptr<osg::Group> nullEffect = new osg::Group();
+        nullEffect->addChild(machine);
+        osg::ref_ptr<osg::Group> world = createShadowedScene(machine, nullEffect, plane_geode, Vec(30., -200., 30.));        
+#endif
         root->addChild(world);
-            
         return machine;
     }
     
-    osg::ref_ptr<osg::Group> createShadowedScene(Machine::Ptr machine,osg::ref_ptr<osg::Node> shadowed, const Vec& lightPosition)
+    osg::ref_ptr<osg::Group> createShadowedScene(Machine::Ptr machine, osg::ref_ptr<osg::Node> shadowee, osg::ref_ptr<osg::Node> shadowed, const Vec& lightPosition)
     {   
 #ifdef TARGET_OS_IPHONE
         osg::ref_ptr<osg::Group> world = new osg::Group;  
@@ -93,9 +101,9 @@ namespace LibCogmatix
 #endif
         Light::Ptr lightBlue = Factory::get()->CreateLight(machine.get(), lightPosition, Vec4(0.95, 0.95, 1., 1.));
         world->addChild(lightBlue);
-        if (machine)
+        if (shadowee)
         {
-            world->addChild(machine);
+            world->addChild(shadowee);
             machine->setNodeMask(CastsShadowTraversalMask);
         }
         if (shadowed)

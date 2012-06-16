@@ -57,7 +57,7 @@ namespace LibCogmatix
     osg::ref_ptr<Machine> createTestMachine(osg::Group* root);
     osg::ref_ptr<osg::Geode> createBase(const osg::Vec3f& center,float radius);
     
-    osg::ref_ptr<osg::Group> createShadowedScene(osg::ref_ptr<Machine> machine,osg::ref_ptr<osg::Node> shadowed,const osg::Vec3& lightPosition);
+    osg::ref_ptr<osg::Group> createShadowedScene(osg::ref_ptr<Machine> machine, osg::ref_ptr<osg::Node> shadowee,osg::ref_ptr<osg::Node> shadowed,const osg::Vec3& lightPosition);
     bool loadShaderSource(osg::Shader* obj, const std::string& fileName );
 	osg::BoundingSphere transformBoundingSphere( const osg::Matrixf& m, const osg::BoundingSphere& sphere );
     
@@ -67,5 +67,12 @@ namespace LibCogmatix
     T between (const T& minT, const T& maxT, const T& x)
     {
         return std::min (maxT, std::max(minT, x));
-    }    
+    } 
+    
+    static Vec4 red (1.0, 0.0, 0.0, 0.4);
+    static Vec4 blue (0., 0., 1., 0.4);
+    static Vec4 green(0., 1., 0.2, 0.4);
+    static Vec4 yellow (1., 1., 0.0, 0.4);
+    static Vec4 purple (0.65, 0., 1., 0.4);
+    
 }

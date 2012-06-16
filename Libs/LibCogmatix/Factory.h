@@ -61,7 +61,7 @@ namespace LibCogmatix
 		osg::ref_ptr<CompositePart> CreateCompositePart(CoString name, CoString fileName);
 
 		osg::ref_ptr<ParametricSpurGearPart> CreateParametricSpurGearPart(CoString name, Machine* machine, const Vec& axis, const Vec& origin,
-				short numberOfTeeth, double depth, double axisDiameter, double module, double helix, double pitch_angle=PI/2.);
+				short numberOfTeeth, double depth, double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour);
 
 		osg::ref_ptr<Light> CreateLight(Machine* machine, const Vec& position, const Vec4& colour);
 

@@ -24,7 +24,7 @@
 		A733074C1555434600FB37D2 /* EventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = A73307471555434600FB37D2 /* EventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A742832215554E45002ABC10 /* libosgShadow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832115554E45002ABC10 /* libosgShadow.a */; };
 		A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A742832415554EB8002ABC10 /* libosgGA.a */; };
-		A78E09FE155686A600E1CB8E /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78E09FD155686A600E1CB8E /* libosgdb_ive.a */; };
+		A7604CF0158C93F900713971 /* libosgdb_ive.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78E09FD155686A600E1CB8E /* libosgdb_ive.a */; };
 		A78F85901556A6BF0066E149 /* freetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A78F858F1556A6BF0066E149 /* freetype.a */; };
 		A7C8B9191500D309006E679B /* Axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8F81500D00E006E679B /* Axis.cpp */; };
 		A7C8B91A1500D309006E679B /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7C8B8FA1500D00E006E679B /* Clock.cpp */; };
@@ -120,8 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7604CF0158C93F900713971 /* libosgdb_ive.a in Frameworks */,
 				A78F85901556A6BF0066E149 /* freetype.a in Frameworks */,
-				A78E09FE155686A600E1CB8E /* libosgdb_ive.a in Frameworks */,
 				A709AACE1555683A00533ACF /* libosgdb_freetype.a in Frameworks */,
 				A707807F15554FBE00A26183 /* libosgVolume.a in Frameworks */,
 				A742832515554EB8002ABC10 /* libosgGA.a in Frameworks */,

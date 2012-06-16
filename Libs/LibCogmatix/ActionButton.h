@@ -29,7 +29,7 @@ namespace LibCogmatix
         
         virtual bool mousePush(double, double, const osgWidget::WindowManager*)
         {
-            _handler->dispatchAction(_action);
+            _handler->queueAction(_action);
             return true;
         }
         CoString action() const { return _action; }

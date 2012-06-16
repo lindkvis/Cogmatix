@@ -40,7 +40,7 @@ using namespace osgViewer;
 	traits->height = h - traits->y;
 	traits->depth = 16; //keep memory down, default is currently 24
                         //traits->alpha = 8;
-    // traits->stencil = 8;
+                        //   traits->stencil = 1;
 	traits->windowDecoration = false;
 	traits->doubleBuffer = true;
 	traits->sharedContext = nullptr;
@@ -50,7 +50,7 @@ using namespace osgViewer;
     
 	// Create the Graphics Context
 	osg::ref_ptr<osg::GraphicsContext> graphicsContext = osg::GraphicsContext::createGraphicsContext(traits.get());
-	
+	osg::DisplaySettings::instance()->setMinimumNumStencilBits(1);
     const unsigned int MASK_2D = 0xF0000000;
     
     _viewer = new osgViewer::Viewer();

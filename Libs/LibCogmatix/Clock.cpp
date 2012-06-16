@@ -22,9 +22,11 @@ namespace LibCogmatix
 		static osg::Timer_t last = osg::Timer::instance()->tick();
 		osg::Timer_t current = osg::Timer::instance()->tick();
 		double elapsed = osg::Timer::instance()->delta_s(last, current);
-		foreach(Motor* motor, _motors)
+		foreach(osg::observer_ptr<Motor> motorLocked, _motors)
 		{
-			motor->tick(elapsed);
+            Motor::Ptr motor = motorLocked.get();
+            if (motor)
+                motor->tick(elapsed);
 		}
 		last = current;
 	}
@@ -33,7 +35,7 @@ namespace LibCogmatix
 	{
 		for (unsigned int i=0; i < machine->getNumChildren(); ++i)
 		{
-			Motor* motor = dynamic_cast<Motor*>(machine->getChild(i));
+            Motor* motor = dynamic_cast<Motor*>(machine->getChild(i));
 			if (motor)
 				add(motor);
 		}
@@ -41,9 +43,10 @@ namespace LibCogmatix
 
 	void Clock::erase(Machine* machine)
 	{
-		foreach(Motor* motor, _motors)
+		foreach(osg::observer_ptr<Motor> motorLocked, _motors)
 		{
-			if (machine->containsNode(motor))
+            Motor::Ptr motor = motorLocked.get();
+			if (motor && machine->containsNode(motor))
 				erase(motor);
 		}
 	}

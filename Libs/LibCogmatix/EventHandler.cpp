@@ -3,7 +3,9 @@
 
 #include <osg/io_utils>
 #include <osg/Transform>
-#include <osgFX/Scribe>
+#include <osgFX/Outline>
+#include <osg/Material>
+#include <osg/BlendFunc>
 
 #include <algorithm>
 #include "ActionButton.h"
@@ -50,15 +52,16 @@ bool EventHandler::handle(const osgGA::GUIEventAdapter& ea,osgGA::GUIActionAdapt
         case(osgGA::GUIEventAdapter::RELEASE):
         {
             
-            if (_dragging != Dragging && fabs(dx) < 5.0e-1 && fabs(dy) < 5.0e-1)
+            if (_dragging != Dragging && (fabs(dx) < 5.0e-1 && fabs(dy) < 5.0e-1))
             {
                 return pick(view,ea, true) != nullptr;
             }
-            else if (_dragging == Dragging && _selection.valid())
+            else if (_dragging == Dragging && _selection.valid() && pick(view, ea, false) == _selection.get())
             {
                 LibCogmatix::MachineNode* mnode = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
                 if (mnode)
                     mnode->snapTo();
+                _dragging = NotDragging;
                 return true;
             }
             _dragging = NotDragging;
@@ -85,7 +88,7 @@ osg::Node* EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapte
         LibCogmatix::ActionButton* button = dynamic_cast<LibCogmatix::ActionButton*>(widgets.front().get());
         if (button)
         {
-            dispatchAction(button->action());            
+            queueAction(button->action());            
             return nullptr;
         }
     }
@@ -120,33 +123,14 @@ osg::Node* EventHandler::pick(osgViewer::View* view, const osgGA::GUIEventAdapte
 
 void EventHandler::toggleSelection(osgViewer::View* view, osg::Node* node, osg::Group* parent)
 {
-    osgFX::Scribe* parentAsScribe = dynamic_cast<osgFX::Scribe*>(parent);
-    if (!parentAsScribe)
+    osgFX::Outline* parentAsOutline = dynamic_cast<osgFX::Outline*>(parent);
+    if (!parentAsOutline)
     {
-        // node not already picked, so highlight it with an osgFX::Scribe
-        osg::ref_ptr<osgFX::Scribe> scribe = new osgFX::Scribe();
-        scribe->addChild(node);
-        parent->replaceChild(node,scribe);
-        if (_selection.valid()) // remove existing selection
-        {
-            osg::Node* sel = _selection.get();
-            toggleSelection(view, sel, sel->getParent(0));
-        }
-        _selection = node;
-        addedToSelection(node);
+        addToSelection(node);
     }
     else
     {
-        // node already picked so we want to remove scribe to unpick it.
-        osg::Node::ParentList parentList = parentAsScribe->getParents();
-        for(osg::Node::ParentList::iterator itr=parentList.begin();
-            itr!=parentList.end();
-            ++itr)
-        {
-            (*itr)->replaceChild(parentAsScribe,node);
-        }
-        _selection = nullptr;
-        removedFromSelection(node);
+        removeFromSelection(node);
     }
 }
 
@@ -155,40 +139,78 @@ void removeLabels(osgWidget::Window* window)
     while (window->begin() != window->end()) {
         window->removeWidget(window->begin()->get());
     }
+    int size = window->getObjects().size();
+    int size2 = window->getNumObjects();
+    window->getObjects().clear();
 }
 
 void createLabels(EventHandler* handler, osgWidget::Window* window, const osg::observer_ptr<osg::Node> selection)
 {
-    if (!selection.valid())
-        return;
-    
-    std::set<Action> actions;
-    
     const LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(selection.get());
     if (!node)
         return;
         
     LibCogmatix::Actions nodeActions = node->validActions();
-    actions.insert(nodeActions.begin(), nodeActions.end());
-    
-    for (std::set<Action>::iterator itr = actions.begin();
-         itr != actions.end();
-         ++itr)
+    foreach(const Action& action, nodeActions)
     {
-        LibCogmatix::Action action = *itr;
-        ActionButton* button = new ActionButton(handler, action.name);
-        window->addWidget(button);
+        osg::ref_ptr<ActionButton> button = new ActionButton(handler, action.name);
+        window->addWidget(button);        
     }
 }
                   
-void EventHandler::addedToSelection(osg::Node* node)
+void EventHandler::addToSelection(osg::Node* node)
 {
+    removeFromSelection(_selection);
+    if (node && node->getNumParents() == 1)
+    {
+        osg::Group* parent = dynamic_cast<osg::Group*>(node->getParent(0));
+        if (parent)
+        {
+            // node not already picked, so highlight it with an osgFX::Outline
+            osg::ref_ptr<osgFX::Outline> Outline = new osgFX::Outline();
+            Outline->setWidth(6.);
+            Outline->setColor(Vec4(1.0, 1.0, 0.0, 0.5)); 
+            Outline->addChild(node);
+            parent->replaceChild(node,Outline);
+            _selection = node;
+            
+            // Create StateSet and Material
+            osg::StateSet* state = node->getOrCreateStateSet(); 
+            // Turn on blending 
+            osg::BlendFunc* bf = new osg::BlendFunc(osg::BlendFunc::SRC_ALPHA, 
+                                                    osg::BlendFunc::ONE_MINUS_SRC_ALPHA ); 
+            state->setAttributeAndModes(bf);
+            state->setRenderingHint(osg::StateSet::TRANSPARENT_BIN);
+        }
+    }
+
     removeLabels(_labelWindow);
     createLabels(this, _labelWindow, _selection);
 }
 
-void EventHandler::removedFromSelection(osg::Node* node)
+void EventHandler::removeFromSelection(osg::observer_ptr<osg::Node> selection)
 {
+    osg::Node* node = dynamic_cast<osg::Node*>(selection.get());
+    if (node && node->getNumParents() == 1)
+    {
+        osgFX::Outline* parentAsOutline = dynamic_cast<osgFX::Outline*>(node->getParent(0));
+        if (parentAsOutline)
+        {
+            // node already picked so we want to remove Outline to unpick it.
+            osg::Node::ParentList parentList = parentAsOutline->getParents();
+            for(osg::Node::ParentList::iterator itr=parentList.begin();
+                itr!=parentList.end();
+                ++itr)
+            {
+                (*itr)->replaceChild(parentAsOutline,node);
+            }
+        }
+        osg::StateSet* state = node->getOrCreateStateSet(); 
+        state->clear();
+
+        _selection = nullptr;
+    }
+    
     removeLabels(_labelWindow);
     createLabels(this, _labelWindow, _selection);
 }
@@ -220,21 +242,34 @@ void EventHandler::moveSelection(Vec screenPos)
     }
 }
 
-void EventHandler::dispatchAction(CoString action)
+void EventHandler::queueAction(CoString action)
 {
-    if (!_selection.valid())
-        return;
+    dispatchAction(ActionPair(action, _selection));
+    _bClean = true;
+}
 
-    LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(_selection.get());
+void EventHandler::performActions()
+{
+    //        toggleSelection(_selection);
+    // XXX don't do this, we're removing a label that is in the middle of dispatching an event
+    if (_bClean)
+    {
+        _labelWindow->hide();
+        removeLabels(_labelWindow);
+        createLabels(this, _labelWindow, _selection);
+        _labelWindow->show();
+        _bClean=false;
+    }
+}
+
+void EventHandler::dispatchAction(ActionPair action)
+{
+    LibCogmatix::MachineNode* node = dynamic_cast<LibCogmatix::MachineNode*>(action.second.get());
     if (!node)
         return;
     
     ActionArgs args;
-    node->perform(action, args);
-    
-    // XXX don't do this, we're removing a label that is in the middle of dispatching an event
-    removeLabels(_labelWindow);
-    createLabels(this, _labelWindow, _selection);
+    node->perform(action.first, args);
 }
 
 void EventHandler::snapToLimit()

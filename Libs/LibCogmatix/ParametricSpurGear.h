@@ -35,9 +35,10 @@ public:
 		double _axisDiameter;
 		double _helix; /// <Helix offset angle. 0 means normal spur gear>
 		double _pitch_angle; /// <Angle between pitch surface and axis. If not 90 degrees (PI/2), the gear will be conical.
-		GearParameters(short numberOfTeeth, double depth, double axisDiameter, double module, double helix, double pitch_angle) :
+        Vec4 _colour; /// <Colour>
+		GearParameters(short numberOfTeeth, double depth, double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour) :
 				_numberOfTeeth(numberOfTeeth), _depth(depth), _module(module),
-				_axisDiameter(axisDiameter), _helix(helix), _pitch_angle(pitch_angle)
+				_axisDiameter(axisDiameter), _helix(helix), _pitch_angle(pitch_angle), _colour(colour)
 		{
 		}
 		bool operator==(const GearParameters& rhs) const
@@ -46,13 +47,14 @@ public:
 					&& _module == rhs._module
 					&& _axisDiameter == rhs._axisDiameter
 					&& _helix == rhs._helix
-					&& _pitch_angle==rhs._pitch_angle;
+					&& _pitch_angle==rhs._pitch_angle
+                    && _colour==rhs._colour;
 		}
 		bool operator<(const GearParameters& rhs) const
 		{
 			return (_module < rhs._module || _helix < rhs._helix || _pitch_angle < rhs._pitch_angle
 					|| _numberOfTeeth < rhs._numberOfTeeth
-					|| _depth < rhs._depth || _axisDiameter < rhs._axisDiameter);
+					|| _depth < rhs._depth || _axisDiameter < rhs._axisDiameter || _colour.length() < rhs._colour.length());
 		}
 
 	};
@@ -83,7 +85,7 @@ public:
 	}
 	static GearMap s_Gears; // Set of gears that can be reused
 	static ParametricSpurGear::Ptr Create(short numberOfTeeth, double depth,
-			double axisDiameter, double module, double helix, double pitch_angle);
+			double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour);
     static ParametricSpurGear::Ptr Create(const GearParameters& params);
 	ParametricSpurGear(const GearParameters& params);
 	~ParametricSpurGear(void);

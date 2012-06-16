@@ -25,10 +25,10 @@ namespace LibCogmatix
      *****************************/
     ParametricSpurGearPart::ParametricSpurGearPart(NodeID ID, CoString name,
                                                    Machine* machine, const Vec& axis, const Vec& origin, short numberOfTeeth, double depth,
-                                                   double axisDiameter, double module, double helix, double pitch_angle) 
+                                                   double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour) 
     : RotaryAxis(ID, axis, origin, axisDiameter, depth*2, 0., 0., 0.), _machine(machine)
     {
-        ParametricSpurGear::GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle);
+        ParametricSpurGear::GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle, colour);
         init(params);
     }
  

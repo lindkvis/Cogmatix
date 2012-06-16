@@ -1,13 +1,14 @@
 #pragma once
 
 #include <osg/Timer>
+#include <osg/observer_ptr>
 
 #include "Machine.h"
 #include "Motor.h"
 
 namespace LibCogmatix
 {
-	typedef std::set<Motor*> Motors;
+	typedef std::set<osg::observer_ptr<Motor> > Motors;
 	class Clock
 	{
 	public:

@@ -9,9 +9,9 @@ namespace LibCogmatix
     ParametricSpurGear::GearMap ParametricSpurGear::s_Gears;
     
     ParametricSpurGear::Ptr ParametricSpurGear::Create (short numberOfTeeth, double depth,
-                                                        double axisDiameter, double module, double helix, double pitch_angle)
+                                                        double axisDiameter, double module, double helix, double pitch_angle, Vec4 colour)
     {
-        GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle);
+        GearParameters params (numberOfTeeth, depth, axisDiameter, module, helix, pitch_angle, colour);
         return Create(params);
     }
     
@@ -60,9 +60,13 @@ namespace LibCogmatix
         
         osg::ref_ptr<osg::Vec3Array> vertices = new osg::Vec3Array;
         osg::ref_ptr<osg::Vec3Array> normals = new osg::Vec3Array;
+        osg::ref_ptr<osg::Vec4Array> colours = new osg::Vec4Array;
         setVertexArray(vertices);
         setNormalArray(normals);
         setNormalBinding(BIND_PER_VERTEX);
+        setColorBinding(BIND_OVERALL);
+        colours->push_back(params._colour);
+        setColorArray(colours);
         
         // Create twice as many flat edges as we need teeth (i.e. both the tooth and the space between)
         int numberOfEdges = 2 * params._numberOfTeeth;
@@ -78,7 +82,6 @@ namespace LibCogmatix
                         new osg::DrawArrays(osg::PrimitiveSet::QUADS, vertices->size(),
                                             12 * (numberOfEdges)));
         for (short i = 0; i < numberOfEdges; ++i) {
-            nStart = vertices->size();
             
             Vec p[12]; // 12 points in total.
             double x0 = rootRadius * cos(2*PI * double(i) / numberOfEdges);
@@ -146,10 +149,10 @@ namespace LibCogmatix
                 Vec pm = Vec(xm1, ym1, 0);
                 Vec pp = Vec(xp2, yp2, 0);
                 
-                vertices->push_back(p[0]);
                 vertices->push_back(p[1]);
                 vertices->push_back(p[11]);
                 vertices->push_back(p[10]);
+                vertices->push_back(p[0]);
                 
                 Vec nm1 = (p[1] - p[0]) ^ (p[0] - pm);
                 Vec np1 = (p[1] - p[0]) ^ (pp - p[10]);
@@ -228,24 +231,25 @@ namespace LibCogmatix
                     p0 = Vec(x0, y0, z0);
                     p1 = Vec(x1, y1, z0);
                 } else {
-                    p0 = Vec(x0z, y0z, z1);
-                    p1 = Vec(x1z, y1z, z1);
+                    p0 = Vec(x1z, y1z, z1);
+                    p1 = Vec(x0z, y0z, z1);
                 }
                 vertices->push_back(p0);
                 vertices->push_back(p1);
                 normals->push_back(j == 0 ? NO : NOz);
                 normals->push_back(j == 0 ? NO : NOz);
             }
-            
-            addPrimitiveSet(
-                            new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart,
-                                                vertices->size() - nStart));
-        }
         
-        // End caps for the teeth
+            addPrimitiveSet(
+                        new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart,
+                                                                                vertices->size() - nStart));
+        }
+
+       // End caps for the teeth
         for (short j = 0; j < 2; ++j) {
             for (short i = 0; i < numberOfEdges; i += 2) {
-                nStart = vertices->size();
+                nStart = vertices->size();        
+            
                 double x0 = rootRadius * cos(2. * PI * double(i) / numberOfEdges);
                 double y0 = rootRadius * sin(2. * PI * double(i) / numberOfEdges);
                 double x1 = rootRadius * cos(2. * PI * double(i + 1) / numberOfEdges);
@@ -263,8 +267,8 @@ namespace LibCogmatix
                     n = (Vec(x1, y1, z0) - Vec(x0, y0, z0))
                     ^ (Vec(x0, y0, z0) - Vec(x0, y0, z1));
                 } else {
-                    p0 = Vec(x0z, y0z, z1);
-                    p5 = Vec(x1z, y1z, z1);
+                    p0 = Vec(x1z, y1z, z1);
+                    p5 = Vec(x0z, y0z, z1);
                     n = (Vec(x1z, y1z, z0) - Vec(x0z, y0z, z0))
                     ^ (Vec(x0z, y0z, z0) - Vec(x0z, y0z, z1));
                 }
@@ -280,33 +284,35 @@ namespace LibCogmatix
                 
                 Vec t = p3 - p2;
                 p2 += t * 1. / 3.;
-                p3 -= t * 1. / 3.;
-                vertices->push_back(p0);
-                vertices->push_back(p1);
-                vertices->push_back(p2);
-                vertices->push_back(p3);
-                vertices->push_back(p4);
+                p3 -= t * 1. / 3.;	
                 vertices->push_back(p5);
-                addPrimitiveSet(
-                                new osg::DrawArrays(osg::PrimitiveSet::POLYGON, nStart,
-                                                    vertices->size() - nStart));
+                vertices->push_back(p0);
+                vertices->push_back(p4);
+                vertices->push_back(p1);
+                vertices->push_back(p3);
+                vertices->push_back(p2);
                 // Same normal six times
-                normals->push_back(j == 0 ? NO : NOz);
-                normals->push_back(j == 0 ? NO : NOz);
-                normals->push_back(j == 0 ? NO : NOz);
-                normals->push_back(j == 0 ? NO : NOz);
-                normals->push_back(j == 0 ? NO : NOz);
-                normals->push_back(j == 0 ? NO : NOz);
-            }
-            
+                normals->push_back(j == 0 ? NOz : NO);
+                normals->push_back(j == 0 ? NOz : NO);
+                normals->push_back(j == 0 ? NOz : NO);
+                normals->push_back(j == 0 ? NOz : NO);
+                normals->push_back(j == 0 ? NOz : NO);
+                normals->push_back(j == 0 ? NOz : NO);
+                addPrimitiveSet(
+                                new osg::DrawArrays(osg::PrimitiveSet::QUAD_STRIP, nStart,
+                                                    vertices->size() - nStart));
+
+
+            }            
         }
+
         
     }
     
     ParametricSpurGear::~ParametricSpurGear(void)
     {
     }
-        
+         
     double ParametricSpurGear::toothRatio (const Vec& v, double rRotatedAngle) const
     {
         Vec ownAngle = Vec(1., 0., 0.);
